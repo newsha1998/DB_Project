@@ -1,3 +1,5 @@
+package Logic;
+
 import com.sun.org.apache.xpath.internal.objects.XNull;
 
 import javax.lang.model.type.NullType;
@@ -135,4 +137,22 @@ public class Instructions {
         preparedStatement.executeUpdate();
     }
 
+    public void AddBook(String name) throws SQLException {
+        preparedStatement = connection.prepareStatement("INSERT INTO Book (Name) \n" +
+                "VALUES (?)");
+        preparedStatement.setString(1, name);
+        preparedStatement.executeUpdate();
+    }
+
+
+
+
+    public void AddAuthor(String FirstName, String Surname) throws SQLException {
+        preparedStatement = connection.prepareStatement("INSERT INTO Author(FirstName, Surname) \n" +
+                "VALUES (?, ?)");
+        preparedStatement.setString(1, FirstName);
+        preparedStatement.setString(2, Surname);
+        preparedStatement.setString(2, Surname);
+        preparedStatement.executeUpdate();
+    }
 }

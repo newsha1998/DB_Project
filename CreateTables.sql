@@ -132,23 +132,23 @@ CREATE TABLE Comment (
     Score DOUBLE default (5) not null ,
     Subject varchar(50),
     Text varchar(500),
-    Date DATE,
-    Time TIME,
+    Date DATE default (current_date),
+    Time TIME default (current_time),
     check ( Score >= 0 AND Score <= 10)
 );
 CREATE TABLE UserCommentForUser (
-    CommentId int not null ,
+    CommentId int primary key not null ,
     ReceiverUserId int not null ,
     ReceiverType varchar(20) not null ,
     check ( ReceiverType = "Borrower" OR ReceiverType = "Lender" OR
             ReceiverType = "Seller" OR ReceiverType = "Purchaser")
 );
 CREATE TABLE UserCommentForBook (
-    CommentId int not null ,
+    CommentId int primary key not null ,
     BookId int not null
 );
 CREATE TABLE UserCommentForBookstore (
-    CommentId int not null ,
+    CommentId int primary key not null ,
     BookstoreId int not null
 );
 CREATE TABLE Complaint (

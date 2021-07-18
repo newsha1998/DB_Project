@@ -1,16 +1,12 @@
-import java.awt.*;
+package Logic;
+import View.Login;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Date;
-import java.util.HashMap;
-import javax.swing.*;
 
 
-public class Start {
+public class LoginAsAMember {
     public static void main(String[] args) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -18,10 +14,11 @@ public class Start {
                     .getConnection("jdbc:mysql://localhost/BookTrading?"
                             + "user=root&password=");
             Instructions instructions = new Instructions(connect);
-            instructions.addUserAccount("fa", "gh", "mypassword");
+            MemberPortal memberPortal = new MemberPortal(instructions);
+            Login login = new Login(memberPortal);
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
-
 }
