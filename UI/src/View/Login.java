@@ -1,22 +1,13 @@
 package View;
 
-import Logic.MemberPortal;
-import Logic.Portal;
+import Logic.Portals.MemberPortal;
+import Logic.Portals.Portal;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Date;
-import java.util.HashMap;
-import javax.swing.*;
 
 public class Login extends JFrame{
     private static final int x = 400, y = 270;
@@ -60,6 +51,10 @@ public class Login extends JFrame{
                                 "You are Login.",
                                 "Welcome",
                                 JOptionPane.PLAIN_MESSAGE);
+                        setVisible(false);
+                        if(portal instanceof MemberPortal) {
+                            MemberPage memberPage = new MemberPage(portal);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(getParent(),
                                 "Wrong ID or Password.",

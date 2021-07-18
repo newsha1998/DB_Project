@@ -1,4 +1,6 @@
-package Logic;
+package Logic.Portals;
+
+import Logic.Instructions;
 
 import java.sql.SQLException;
 
@@ -10,7 +12,11 @@ public class ManagerPortal extends Portal {
     @Override
     public boolean login(int id, String pass) throws SQLException {
         try {
-            return acc = instructions.loginAsManager(id, pass);
+            acc = instructions.loginAsUser(id, pass);
+            if (acc)
+                name = instructions.getManagerName(id);
+            ID = id;
+            return acc;
         } catch (SQLException e) {
             e.printStackTrace();
         }

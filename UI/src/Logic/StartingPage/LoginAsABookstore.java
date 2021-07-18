@@ -1,11 +1,13 @@
-package Logic;
+package Logic.StartingPage;
+import Logic.Portals.BookstorePortal;
+import Logic.Instructions;
 import View.Login;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class LoginAsAnEmployee {
+public class LoginAsABookstore {
     public static void main(String[] args) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -13,8 +15,8 @@ public class LoginAsAnEmployee {
                     .getConnection("jdbc:mysql://localhost/BookTrading?"
                             + "user=root&password=");
             Instructions instructions = new Instructions(connect);
-            EmployeePortal employeePortal = new EmployeePortal(instructions);
-            Login login = new Login(employeePortal);
+            BookstorePortal bookstorePortal = new BookstorePortal(instructions);
+            Login login = new Login(bookstorePortal);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

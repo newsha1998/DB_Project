@@ -1,4 +1,6 @@
-package Logic;
+package Logic.Portals;
+
+import Logic.Instructions;
 
 import java.sql.SQLException;
 
@@ -8,9 +10,18 @@ public class BookstorePortal extends Portal {
     }
 
     @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
     public boolean login(int id, String pass) throws SQLException {
         try {
-            return acc = instructions.loginAsBookstore(id, pass);
+            acc = instructions.loginAsUser(id, pass);
+            if (acc)
+                name = instructions.getBookstoreName(id);
+            ID = id;
+            return acc;
         } catch (SQLException e) {
             e.printStackTrace();
         }

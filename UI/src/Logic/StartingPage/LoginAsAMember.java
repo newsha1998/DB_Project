@@ -1,4 +1,6 @@
-package Logic;
+package Logic.StartingPage;
+import Logic.Instructions;
+import Logic.Portals.MemberPortal;
 import View.Login;
 import java.sql.Connection;
 import java.sql.DriverManager;

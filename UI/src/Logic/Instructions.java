@@ -26,6 +26,46 @@ public class Instructions {
         return res;
     }
 
+    public String getUserName(int id) throws SQLException {
+        preparedStatement =  connection.prepareStatement("SELECT * FROM User WHERE Id = ?");
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getString("FirstName") + " " + resultSet.getString("Surname");
+        }
+        return null;
+    }
+
+    public String getEmployeeName(int id) throws SQLException {
+        preparedStatement =  connection.prepareStatement("SELECT * FROM Employee WHERE Id = ?");
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getString("FirstName") + " " + resultSet.getString("Surname");
+        }
+        return null;
+    }
+
+    public String getManagerName(int id) throws SQLException {
+        preparedStatement =  connection.prepareStatement("SELECT * FROM Manager WHERE Id = ?");
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getString("FirstName") + " " + resultSet.getString("Surname");
+        }
+        return null;
+    }
+
+    public String getBookstoreName(int id) throws SQLException {
+        preparedStatement =  connection.prepareStatement("SELECT * FROM Bookstore WHERE Id = ?");
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getString("Name");
+        }
+        return null;
+    }
+
     public boolean loginAsManager(int id, String pass) throws SQLException {
         boolean res = false;
         preparedStatement =  connection.prepareStatement("SELECT Password FROM Manager WHERE Id = ?");
