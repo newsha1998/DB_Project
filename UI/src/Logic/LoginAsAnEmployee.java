@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-public class LoginAsAMember {
+public class LoginAsAnEmployee {
     public static void main(String[] args) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -13,8 +13,8 @@ public class LoginAsAMember {
                     .getConnection("jdbc:mysql://localhost/BookTrading?"
                             + "user=root&password=");
             Instructions instructions = new Instructions(connect);
-            MemberPortal memberPortal = new MemberPortal(instructions);
-            Login login = new Login(memberPortal);
+            EmployeePortal employeePortal = new EmployeePortal(instructions);
+            Login login = new Login(employeePortal);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
