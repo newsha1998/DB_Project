@@ -3,7 +3,7 @@ USE BookTrading;
 CREATE TABLE Book (
     ID int primary key auto_increment,
     PublisherID int,
-    Name varchar(50),
+    Name varchar(50) not null ,
     Score DOUBLE,
     Price DOUBLE,
     Genre varchar(20),
@@ -35,8 +35,8 @@ CREATE TABLE Author (
     Description varchar(500)
 );
 CREATE TABLE AuthorBook (
-    AuthorId int,
-    BookId int,
+    AuthorId int not null ,
+    BookId int not null ,
     PRIMARY KEY (AuthorId, BookId)
 );
 CREATE TABLE Interpreter (
@@ -56,8 +56,8 @@ CREATE TABLE Interpreter (
     Description varchar(500)
 );
 CREATE TABLE InterpreterBook (
-    InterpreterId int,
-    BookId int,
+    InterpreterId int not null ,
+    BookId int not null ,
     Language varchar(20),
     PRIMARY KEY (InterpreterId, BookId)
 );
@@ -71,14 +71,14 @@ CREATE TABLE Publisher (
     HouseNumber varchar(20)
 );
 CREATE TABLE PublisherTelephone (
-    RegistrationNumber int,
-    Telephone varchar(20)
+    RegistrationNumber int not null ,
+    Telephone varchar(20) not null
 );
 Create Table Bookstore (
     Id int primary key auto_increment,
     BookstoreContractId int,
-    Password varchar(50),
-    Name varchar(50),
+    Password varchar(50) not null ,
+    Name varchar(50) not null ,
     Email varchar(50),
     RegistrationNumber int unique ,
     City varchar(20),
@@ -92,23 +92,23 @@ Create Table Bookstore (
     check ( Score >= 0 AND Score <= 10)
 );
 Create Table BookstoreTelephone (
-    BookstoreId int,
-    Telephone varchar(20)
+    BookstoreId int not null ,
+    Telephone varchar(20) not null
 );
 Create Table BookstoreHasBook (
-    BookstoreId int,
-    BookId int,
-    Number int,
+    BookstoreId int not null ,
+    BookId int not null ,
+    Number int default (1),
     Price double,
     PRIMARY KEY (BookstoreId, BookId)
 );
 CREATE TABLE BookstoreContract (
     Id int primary key auto_increment,
-    ContractorId int,
+    ContractorId int not null ,
     CancellerId int,
     BookStoreId int,
     Date date,
-    SystemProfitpercentage double,
+    SystemProfitpercentage double default (20) not null ,
     Description varchar(500)
 );
 create table BookstoreBankAccount (
@@ -120,16 +120,16 @@ create table BookstoreBankAccount (
     LastPaymentDate Date
 );
 create table EditBookstoreContract (
-    ContractId int,
-    SupporterId int,
-    Date Date,
+    ContractId int not null ,
+    SupporterId int not null ,
+    Date Date not null ,
     Description varchar(500),
     primary key (ContractId, SupporterId, Date)
 );
 CREATE TABLE Comment (
     Id int primary key auto_increment,
-    SenderUserId int,
-    Score DOUBLE,
+    SenderUserId int not null ,
+    Score DOUBLE default (5) not null ,
     Subject varchar(50),
     Text varchar(500),
     Date DATE,
@@ -137,19 +137,19 @@ CREATE TABLE Comment (
     check ( Score >= 0 AND Score <= 10)
 );
 CREATE TABLE UserCommentForUser (
-    CommentId int,
-    ReceiverUserId int,
-    ReceiverType varchar(20),
+    CommentId int not null ,
+    ReceiverUserId int not null ,
+    ReceiverType varchar(20) not null ,
     check ( ReceiverType = "Borrower" OR ReceiverType = "Lender" OR
             ReceiverType = "Seller" OR ReceiverType = "Purchaser")
 );
 CREATE TABLE UserCommentForBook (
-    CommentId int,
-    BookId int
+    CommentId int not null ,
+    BookId int not null
 );
 CREATE TABLE UserCommentForBookstore (
-    CommentId int,
-    BookstoreId int
+    CommentId int not null ,
+    BookstoreId int not null
 );
 CREATE TABLE Complaint (
     Id int primary key auto_increment,
@@ -164,18 +164,18 @@ CREATE TABLE Complaint (
 );
 CREATE TABLE ComplaintUser(
     ComplaintId int primary key ,
-    PlaintiffId int,
-    UserId int
+    PlaintiffId int not null ,
+    UserId int not null
 );
 CREATE TABLE ComplaintBookstore (
     ComplaintId int primary key ,
-    PlaintiffId int,
-    BookstoreId int
+    PlaintiffId int not null ,
+    BookstoreId int not null
 );
 CREATE TABLE Message (
     Id int primary key auto_increment,
-    ReceiverUserId int,
-    SenderUserId int,
+    ReceiverUserId int not null ,
+    SenderUserId int not null ,
     Subject varchar(50),
     Text varchar(500),
     Date date default (current_date),
@@ -183,8 +183,8 @@ CREATE TABLE Message (
 );
 CREATE TABLE Advertisement (
     Id int primary key auto_increment,
-    BookId int,
-    UserId int,
+    BookId int not null ,
+    UserId int not null ,
     Title varchar(50),
     ProposedPrice double,
     Description varchar(500)
@@ -198,23 +198,23 @@ create table Buy (
 );
 create table UserBuy (
     Id int primary key,
-    BuyerId int,
-    SellerId int,
-    BookId int,
+    BuyerId int not null ,
+    SellerId int not null ,
+    BookId int not null ,
     DeliveryAddress varchar(500)
 );
 create table UserBuyBookstore (
     Id int primary key,
-    UserId int,
-    BookStoreId int,
-    BookId int,
+    UserId int not null ,
+    BookStoreId int not null ,
+    BookId int not null ,
     SendingAddress varchar(500)
 );
 create table Borrow (
     Id int primary key auto_increment,
-    BorrowerId int,
-    LenderId int,
-    BookId int,
+    BorrowerId int not null ,
+    LenderId int not null ,
+    BookId int not null ,
     Status varchar(20),
     Price double,
     StartDate Date,
@@ -230,10 +230,10 @@ create table Borrow (
 CREATE TABLE Manager (
     Id int primary key auto_increment,
     NationalId int unique ,
-    FirstName varchar(50),
-    Surname varchar(50),
+    FirstName varchar(50) not null ,
+    Surname varchar(50) not null ,
     Email varchar(50),
-    Password varchar(50),
+    Password varchar(50) not null ,
     City varchar(20),
     Region varchar(20),
     Street varchar(20),
@@ -242,23 +242,23 @@ CREATE TABLE Manager (
     Telephone varchar(20)
 );
 CREATE TABLE BookstoreMonitoring (
-    ManagerId int,
-    BookstoreId int,
-    Date date,
+    ManagerId int not null ,
+    BookstoreId int not null ,
+    Date date not null ,
     Description varchar(500),
     primary key (ManagerId, BookstoreId, Date)
 );
 CREATE TABLE UserMonitoring (
-    ManagerId int,
-    UserId int,
-    Date date,
+    ManagerId int not null ,
+    UserId int not null ,
+    Date date not null ,
     Description varchar(500),
     primary key (ManagerId, UserId, Date)
 );
 CREATE TABLE EmployeeMonitoring (
-    ManagerId int,
-    EmployeeId int,
-    Date date,
+    ManagerId int not null ,
+    EmployeeId int not null ,
+    Date date not null ,
     Description varchar(500),
     primary key (ManagerId, EmployeeId, Date)
 );
@@ -266,10 +266,10 @@ CREATE TABLE Employee (
     Id int primary key auto_increment,
     EmployeeContractId int,
     NationalId int unique ,
-    FirstName varchar(50),
-    Surname varchar(50),
+    FirstName varchar(50) not null ,
+    Surname varchar(50) not null ,
     Email varchar(50),
-    Password varchar(50),
+    Password varchar(50) not null ,
     City varchar(20),
     Region varchar(20),
     Street varchar(20),
@@ -281,7 +281,7 @@ CREATE TABLE Employee (
 CREATE TABLE EmployeeContract (
     Id int primary key auto_increment,
     EmployeeId int,
-    ContractorId int,
+    ContractorId int not null ,
     CancellerId int,
     Date date,
     DailySalary double,
@@ -294,39 +294,40 @@ CREATE TABLE SupportAgent (
     EmployeeId int primary key
 );
 CREATE TABLE ExtensionEmployeeContract (
-    ContractId int,
-    ManagerId int,
-    Date date,
+    ContractId int not null ,
+    ManagerId int not null ,
+    Date date not null ,
     Description varchar(500),
     primary key (ContractId, ManagerId, Date)
 );
 create table Transaction (
     Id int primary key auto_increment,
     Type varchar(20),
-    Amount double,
+    Amount double not null ,
     CreditCardNumber varchar(20),
-    Date Date,
-    Time Time,
+    Date Date default (CURRENT_DATE),
+    Time Time default (current_time),
     Status boolean,
     Description varchar(500),
     check (Type = "IncreaseAmanat" OR Type = "WithdrawAmanat"
-		OR Type = "IncreaseIncome" OR Type = "IncreaseExpenditures")
+		OR Type = "IncreaseIncome" OR Type = "IncreaseExpenditures"),
+	check ( Amount <= 5000 )
 );
 create table CreditChange (
     Id int primary key auto_increment,
-    WalletUserId int,
-    TransactionId int
+    WalletUserId int not null ,
+    TransactionId int not null
 );
 create table PaidSalary (
     Id int primary key auto_increment,
-    TransactionId int,
-    AccountantId int,
-    EmployeeId int
+    TransactionId int not null ,
+    AccountantId int not null ,
+    EmployeeId int not null
 );
 create table BookstorePony (
     Id int primary key auto_increment,
-    BookstoreBankAccountId int,
-    TransactionId int
+    BookstoreBankAccountId int not null ,
+    TransactionId int not null
 );
 Create Table User (
     Id int primary key auto_increment,
@@ -334,7 +335,7 @@ Create Table User (
     FirstName varchar(50) NOT NULL,
     Surname varchar(50) NOT NULL,
     Email varchar(50),
-    Password varchar(50),
+    Password varchar(50) not null ,
     CreditCardNumber varchar(20),
     City varchar(20),
     Region varchar(20),
