@@ -41,6 +41,18 @@ public class Login extends JFrame{
         pass.setBounds(220, 95, 150, 30);
         add(pass);
         setVisible(true);
+        if(portal instanceof MemberPortal) {
+            JButton c = new JButton("Register");
+            b.setBounds(100,170,95,30);
+            add(c);
+            c.setBounds(220, 170, 95, 30);
+            c.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    RegistrationForm registrationForm = new RegistrationForm(((MemberPortal)portal));
+                }
+            });
+        }
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

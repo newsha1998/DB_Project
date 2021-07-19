@@ -125,13 +125,22 @@ public class Instructions {
         preparedStatement.executeUpdate();
     }
 
-    public void addUserAccount(String name, String surname, String pass) throws SQLException {
+    public int addUserAccount(String name, String surname, String pass) throws SQLException {
         preparedStatement = connection.prepareStatement("INSERT INTO User (FirstName, Surname, Password) \n" +
                 "VALUES (?, ?, ?)");
         preparedStatement.setString(1, name);
         preparedStatement.setString(2, surname);
         preparedStatement.setString(3, pass);
         preparedStatement.executeUpdate();
+        preparedStatement = connection.prepareStatement("SELECT Id from User WHERE FirstName = ? AND Surname = ? AND Password = ?;");
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, surname);
+        preparedStatement.setString(3, pass);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt("Id");
+        }
+        return -1;
     }
 
     public void AddManagerAccount(int NationalId, String FirstName, String Surname, String Email,
@@ -240,7 +249,6 @@ public class Instructions {
         preparedStatement.setString(14, Description);
         preparedStatement.executeUpdate();
     }
-
 
     public void AddInterpreter(String FirstName, String Surname, String Nationality, Date BirthDate,
                                Date DeathDate, String Style, String City,
@@ -444,5 +452,4 @@ public class Instructions {
 
         }
     }
-
 }

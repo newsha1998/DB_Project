@@ -90,4 +90,13 @@ public class MemberPortal extends Portal{
             e.printStackTrace();
         }
     }
+
+    public int registerUser(String first, String sur, String pass) {
+        try {
+            return instructions.addUserAccount(first, sur, pass);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }
