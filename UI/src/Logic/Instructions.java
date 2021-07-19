@@ -337,27 +337,38 @@ public class Instructions {
     }
 
     public int AddBorrowReq(int BorrowerId, int LenderId, int BookId, double Price,
-                            Date StartDate, Date DeadlineDate, double DailyDelayPenalty,
+                            String StartDate, String DeadlineDate, double DailyDelayPenalty,
                             double GuaranteePrice, String DeliveryAddress, String Description) throws SQLException {
-        preparedStatement = connection.prepareStatement("INSERT INTO Borrow(BorrowerId, LenderId, BookId, Price, StartDate, DeadlineDate, DailyDelayPenalty, GuaranteePrice, DeliveryAddress, Description) \n" +
-                "V‏ALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        preparedStatement = connection.prepareStatement("INSERT into Borrow (BorrowerId, LenderId, BookId , Price, StartDate, DeadlineDate, DailyDelayPenalty, GuaranteePrice,  DeliveryAddress, Description, Confirmation)\n" +
+                "VALUES (?, ?, ?, ?, CONVERT(?, DATE), CONVERT(?, DATE), ?, ?, ?, ?, false);");
         preparedStatement.setInt(1, BorrowerId);
         preparedStatement.setInt(2, LenderId);
         preparedStatement.setInt(3, BookId);
         preparedStatement.setDouble(4, Price);
-        preparedStatement.setDate(5, StartDate);
-        preparedStatement.setDate(6, DeadlineDate);
+        preparedStatement.setString(5, StartDate);
+        preparedStatement.setString(6, DeadlineDate);
         preparedStatement.setDouble(7, DailyDelayPenalty);
         preparedStatement.setDouble(8, GuaranteePrice);
         preparedStatement.setString(9, DeliveryAddress);
         preparedStatement.setString(10, Description);
         preparedStatement.executeUpdate();
-        preparedStatement = connection.prepareStatement("SELECT Id FROM Borrow WHERE BorrowerId = ? and LenderId = ? and BookId = ? and  Price = ? and StartDate = ? and DeadlineDate = ? and DailyDelayPenalty = ? and GuaranteePrice = ? and DeliveryAddress = ? and Description = ? and Confirmation = 0");
+        preparedStatement = connection.prepareStatement("SELECT Id FROM Borrow WHERE BorrowerId = ? and LenderId = ? and BookId = ? and  Price = ? and StartDate = ? and DeadlineDate = ? and DailyDelayPenalty = ? and GuaranteePrice = ? and DeliveryAddress = ? and Description = ? and Confirmation = false");
+        preparedStatement.setInt(1, BorrowerId);
+        preparedStatement.setInt(2, LenderId);
+        preparedStatement.setInt(3, BookId);
+        preparedStatement.setDouble(4, Price);
+        preparedStatement.setString(5, StartDate);
+        preparedStatement.setString(6, DeadlineDate);
+        preparedStatement.setDouble(7, DailyDelayPenalty);
+        preparedStatement.setDouble(8, GuaranteePrice);
+        preparedStatement.setString(9, DeliveryAddress);
+        preparedStatement.setString(10, Description);
         ResultSet resultSet = preparedStatement.executeQuery();
-
-        return  resultSet.getInt("Id");
-
+        if (resultSet.next())
+            return  resultSet.getInt("Id");
+        return -1;
     }
+
 
     public List<Integer> getMessagesId(int Id) throws SQLException {
         List<Integer> MessagesId = new ArrayList<Integer>();
@@ -405,5 +416,20 @@ public class Instructions {
         }
         return subject;
     }
+
+    public void AddBorrowConfirmation(int Id, int borrowId) throws SQLException {
+        preparedStatement =  connection.prepareStatement("SELECT * FROM Borrow WHERE Id = ?");
+        preparedStatement.setInt(1, borrowId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            if (Id == resultSet.getInt("LenderId")) {
+                preparedStatement =  connection.prepareStatement("UPDATE Borrow SET Confirmation = true where Id = ?");
+                preparedStatement.setInt(1, Id);
+                preparedStatement.executeUpdate();
+
+            }
+        }
+    }
+
 
 }

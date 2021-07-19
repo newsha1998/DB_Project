@@ -3,6 +3,7 @@ package Logic.Portals;
 
 import Logic.Instructions;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
@@ -69,5 +70,16 @@ public class MemberPortal extends Portal{
             e.printStackTrace();
         }
         return null;
+    }
+    public int borrowreq(int LenderId, int BookId, double Price,
+                          String StartDate, String  DeadlineDate, double DailyDelayPenalty,
+                          double GuaranteePrice, String DeliveryAddress, String Description) {
+        try {
+            return instructions.AddBorrowReq(ID, LenderId, BookId, Price, StartDate, DeadlineDate, DailyDelayPenalty,
+                    GuaranteePrice, DeliveryAddress, Description);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

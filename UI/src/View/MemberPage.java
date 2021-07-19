@@ -12,6 +12,7 @@ public class MemberPage extends Page{
         super(port);
         comboBox.addItem("Send A Message to A User");
         comboBox.addItem("Read Messages");
+        comboBox.addItem("Borrow Request");
         select.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -20,6 +21,9 @@ public class MemberPage extends Page{
                 }
                 if (comboBox.getSelectedItem() == "Read Messages") {
                     ReadMessages readMessages = new ReadMessages(port);
+                }
+                if (comboBox.getSelectedItem() == "Borrow Request") {
+                    BorrowReq borrowReq = new BorrowReq(port);
                 }
             }
         });
