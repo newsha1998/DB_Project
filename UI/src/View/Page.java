@@ -9,6 +9,7 @@ public abstract class Page extends JFrame {
     Portal portal;
     JComboBox comboBox;
     static int x = 400, y = 400;
+    JButton select;
 
     public Page(Portal portal) {
         this.portal = portal;
@@ -22,13 +23,11 @@ public abstract class Page extends JFrame {
         add(title);
         title.setBounds(10, 10, 350, 75);
         comboBox = new JComboBox();
-        comboBox.addItem("hello");
-        comboBox.addItem("goodbye");
         add(comboBox);
         comboBox.setBounds(50, 140, 300, 50);
-        JButton b = new JButton("Select");
-        b.setBounds(250, 250, 100 , 50);
-        add(b);
+        select = new JButton("Select");
+        select.setBounds(250, 250, 100 , 50);
+        add(select);
         setVisible(true);
     }
 }

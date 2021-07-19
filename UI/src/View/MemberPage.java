@@ -1,11 +1,23 @@
 package View;
 
+import Logic.Portals.MemberPortal;
 import Logic.Portals.Portal;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MemberPage extends Page{
-    public MemberPage(Portal portal) {
-        super(portal);
+    public MemberPage(MemberPortal port) {
+        super(port);
+        comboBox.addItem("Send A Message to A User");
+        select.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (comboBox.getSelectedItem() == "Send A Message to A User") {
+                    MessageBox messageBox = new MessageBox(port);
+                }
+            }
+        });
     }
 }

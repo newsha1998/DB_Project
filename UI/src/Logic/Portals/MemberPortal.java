@@ -24,4 +24,12 @@ public class MemberPortal extends Portal{
         }
         return acc;
     }
+
+    public void sendMessage(int reid, String sub, String txt) {
+        try {
+            instructions.AddMessage(ID, reid, sub, txt);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -53,7 +53,7 @@ public class Login extends JFrame{
                                 JOptionPane.PLAIN_MESSAGE);
                         setVisible(false);
                         if(portal instanceof MemberPortal) {
-                            MemberPage memberPage = new MemberPage(portal);
+                            MemberPage memberPage = new MemberPage((MemberPortal)portal);
                         }
                     } else {
                         JOptionPane.showMessageDialog(getParent(),

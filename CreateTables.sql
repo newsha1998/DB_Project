@@ -154,8 +154,8 @@ CREATE TABLE UserCommentForBookstore (
 CREATE TABLE Complaint (
     Id int primary key auto_increment,
     SupportAgentId int,
-    Date date,
-    Time time,
+    Date date default (current_date),
+    Time time default (current_time),
     Subject varchar(50),
     Text varchar(500),
     Documentation varchar(500),
@@ -221,7 +221,7 @@ create table Borrow (
     DeadlineDate Date,
     DailyDelayPenalty double,
     GuaranteePrice double,
-    Confirmation BOOLEAN,
+    Confirmation BOOLEAN default (false),
     DeliveryAddress varchar(500),
     Description varchar(500),
     check ( Status = "Borrowed" OR Status = "Cancelled" OR  Status = "Returned"
