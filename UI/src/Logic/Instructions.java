@@ -4,6 +4,8 @@ import com.sun.org.apache.xpath.internal.objects.XNull;
 
 import javax.lang.model.type.NullType;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Instructions {
     Connection connection;
@@ -297,7 +299,7 @@ public class Instructions {
     }
 
 
-    public void AddMessage(int ReceiverUserid, int SenderUserId, String Subject, String Text) throws SQLException {
+    public void AddMessage(int SenderUserId, int ReceiverUserid, String Subject, String Text) throws SQLException {
         preparedStatement =  connection.prepareStatement("INSERT INTO Message(ReceiverUserid, SenderUserId, Subject, Text) \n" +
                 "VALUES (?, ?, ?, ?)");
         preparedStatement.setInt(1, ReceiverUserid);
@@ -357,5 +359,51 @@ public class Instructions {
 
     }
 
+    public List<Integer> getMessagesId(int Id) throws SQLException {
+        List<Integer> MessagesId = new ArrayList<Integer>();
+        preparedStatement =  connection.prepareStatement("SELECT * FROM Message WHERE ReceiverUserId = ?");
+        preparedStatement.setInt(1, Id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()) {
+            MessagesId.add(resultSet.getInt("Id"));
+        }
+        return MessagesId;
+    }
+
+    public String getTextMessageDetails(int Id) throws SQLException {
+        String text = "";
+        preparedStatement =  connection.prepareStatement("SELECT * FROM Message WHERE Id = ?");
+        preparedStatement.setInt(1, Id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            text = resultSet.getString("Text");
+
+        }
+        return text;
+    }
+
+    public int getsenderIdMessageDetails(int Id) throws SQLException {
+        int id = 0;
+        preparedStatement =  connection.prepareStatement("SELECT * FROM Message WHERE Id = ?");
+        preparedStatement.setInt(1, Id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            id = resultSet.getInt("SenderUserId");
+
+        }
+
+        return id;
+    }
+    public String getSubjectMessageDetails(int Id) throws SQLException {
+        String subject= "";
+        preparedStatement =  connection.prepareStatement("SELECT * FROM Message WHERE Id = ?");
+        preparedStatement.setInt(1, Id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            subject = resultSet.getString("Subject");
+
+        }
+        return subject;
+    }
 
 }

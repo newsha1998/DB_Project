@@ -14,7 +14,6 @@ public class MessageBox extends JFrame {
 
     public MessageBox(MemberPortal port){
         portal = port;
-        this.portal = portal;
         setSize(x, y);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLayout(null);
