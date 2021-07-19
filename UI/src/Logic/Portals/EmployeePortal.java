@@ -12,7 +12,7 @@ public class EmployeePortal extends Portal {
     @Override
     public boolean login(int id, String pass) throws SQLException {
         try {
-            acc = instructions.loginAsUser(id, pass);
+            acc = instructions.loginAsEmployee(id, pass);
             if (acc)
                 name = instructions.getEmployeeName(id);
             ID = id;

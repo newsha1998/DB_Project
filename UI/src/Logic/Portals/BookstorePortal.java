@@ -17,7 +17,7 @@ public class BookstorePortal extends Portal {
     @Override
     public boolean login(int id, String pass) throws SQLException {
         try {
-            acc = instructions.loginAsUser(id, pass);
+            acc = instructions.loginAsBookstore(id, pass);
             if (acc)
                 name = instructions.getBookstoreName(id);
             ID = id;

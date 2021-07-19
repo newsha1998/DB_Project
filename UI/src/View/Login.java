@@ -1,5 +1,6 @@
 package View;
 
+import Logic.Portals.ManagerPortal;
 import Logic.Portals.MemberPortal;
 import Logic.Portals.Portal;
 
@@ -66,6 +67,9 @@ public class Login extends JFrame{
                         setVisible(false);
                         if(portal instanceof MemberPortal) {
                             MemberPage memberPage = new MemberPage((MemberPortal)portal);
+                        }
+                        if(portal instanceof ManagerPortal) {
+                            ManagerPage memberPage = new ManagerPage((ManagerPortal)portal);
                         }
                     } else {
                         JOptionPane.showMessageDialog(getParent(),

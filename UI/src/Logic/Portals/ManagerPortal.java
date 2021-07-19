@@ -12,7 +12,7 @@ public class ManagerPortal extends Portal {
     @Override
     public boolean login(int id, String pass) throws SQLException {
         try {
-            acc = instructions.loginAsUser(id, pass);
+            acc = instructions.loginAsManager(id, pass);
             if (acc)
                 name = instructions.getManagerName(id);
             ID = id;
@@ -21,5 +21,14 @@ public class ManagerPortal extends Portal {
             e.printStackTrace();
         }
         return acc;
+    }
+
+    public int registerEmployee(String first, String sur, String pass) {
+        try {
+            return instructions.AddEmployeeAccount(first, sur, pass);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

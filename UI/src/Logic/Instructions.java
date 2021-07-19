@@ -1,8 +1,5 @@
 package Logic;
 
-import com.sun.org.apache.xpath.internal.objects.XNull;
-
-import javax.lang.model.type.NullType;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -171,13 +168,22 @@ public class Instructions {
         preparedStatement.executeUpdate();
     }
 
-    public void AddEmployeeAccount(String FirstName, String Surname, String Password) throws SQLException {
+    public int AddEmployeeAccount(String FirstName, String Surname, String Password) throws SQLException {
         preparedStatement = connection.prepareStatement("INSERT INTO Employee (FirstName, Surname, Password) \n" +
                 "VALUES (?, ?, ?)");
         preparedStatement.setString(1, FirstName);
         preparedStatement.setString(2, Surname);
         preparedStatement.setString(3, Password);
         preparedStatement.executeUpdate();
+        preparedStatement = connection.prepareStatement("SELECT Id from Employee WHERE FirstName = ? AND Surname = ? AND Password = ?;");
+        preparedStatement.setString(1, FirstName);
+        preparedStatement.setString(2, Surname);
+        preparedStatement.setString(3, Password);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt("Id");
+        }
+        return -1;
     }
 
 
