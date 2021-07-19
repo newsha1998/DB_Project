@@ -418,18 +418,9 @@ public class Instructions {
     }
 
     public void AddBorrowConfirmation(int Id, int borrowId) throws SQLException {
-        preparedStatement =  connection.prepareStatement("SELECT * FROM Borrow WHERE Id = ?");
+        preparedStatement =  connection.prepareStatement("UPDATE Borrow SET Confirmation = true where Id = ? And LenderId = ?");
         preparedStatement.setInt(1, borrowId);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        if (resultSet.next()) {
-            if (Id == resultSet.getInt("LenderId")) {
-                preparedStatement =  connection.prepareStatement("UPDATE Borrow SET Confirmation = true where Id = ?");
-                preparedStatement.setInt(1, Id);
-                preparedStatement.executeUpdate();
-
-            }
-        }
+        preparedStatement.setInt(2, Id);
+        preparedStatement.executeUpdate();
     }
-
-
 }

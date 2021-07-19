@@ -99,8 +99,8 @@ public class BorrowReq extends JFrame {
                         Double.parseDouble(gar.getText()),
                         adr.getText(), des.getText());
                 JOptionPane.showMessageDialog(getParent(),
-                        "You Borrow Request ID is" + r,
-                        "Welcome",
+                        "You Borrow Request ID is " + r,
+                        "Submit Request",
                         JOptionPane.PLAIN_MESSAGE);
                 setVisible(false);
             }

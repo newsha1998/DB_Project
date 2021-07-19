@@ -82,4 +82,12 @@ public class MemberPortal extends Portal{
         }
         return -1;
     }
+
+    public void acceptBorrow(int bid) {
+        try {
+            instructions.AddBorrowConfirmation(ID, bid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
