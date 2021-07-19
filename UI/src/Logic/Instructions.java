@@ -11,6 +11,7 @@ public class Instructions {
     Connection connection;
     Statement statement;
     PreparedStatement preparedStatement;
+
     public Instructions(Connection con) throws SQLException {
         connection = con;
         statement = connection.createStatement();
@@ -18,7 +19,7 @@ public class Instructions {
 
     public boolean loginAsUser(int id, String pass) throws SQLException {
         boolean res = false;
-        preparedStatement =  connection.prepareStatement("SELECT Password FROM User WHERE Id = ?");
+        preparedStatement = connection.prepareStatement("SELECT Password FROM User WHERE Id = ?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -29,7 +30,7 @@ public class Instructions {
     }
 
     public String getUserName(int id) throws SQLException {
-        preparedStatement =  connection.prepareStatement("SELECT * FROM User WHERE Id = ?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM User WHERE Id = ?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -39,7 +40,7 @@ public class Instructions {
     }
 
     public String getEmployeeName(int id) throws SQLException {
-        preparedStatement =  connection.prepareStatement("SELECT * FROM Employee WHERE Id = ?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM Employee WHERE Id = ?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -49,7 +50,7 @@ public class Instructions {
     }
 
     public String getManagerName(int id) throws SQLException {
-        preparedStatement =  connection.prepareStatement("SELECT * FROM Manager WHERE Id = ?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM Manager WHERE Id = ?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -59,7 +60,7 @@ public class Instructions {
     }
 
     public String getBookstoreName(int id) throws SQLException {
-        preparedStatement =  connection.prepareStatement("SELECT * FROM Bookstore WHERE Id = ?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM Bookstore WHERE Id = ?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -70,7 +71,7 @@ public class Instructions {
 
     public boolean loginAsManager(int id, String pass) throws SQLException {
         boolean res = false;
-        preparedStatement =  connection.prepareStatement("SELECT Password FROM Manager WHERE Id = ?");
+        preparedStatement = connection.prepareStatement("SELECT Password FROM Manager WHERE Id = ?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -82,7 +83,7 @@ public class Instructions {
 
     public boolean loginAsEmployee(int id, String pass) throws SQLException {
         boolean res = false;
-        preparedStatement =  connection.prepareStatement("SELECT Password FROM Employee WHERE Id = ?");
+        preparedStatement = connection.prepareStatement("SELECT Password FROM Employee WHERE Id = ?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -94,7 +95,7 @@ public class Instructions {
 
     public boolean loginAsBookstore(int id, String pass) throws SQLException {
         boolean res = false;
-        preparedStatement =  connection.prepareStatement("SELECT Password FROM Bookstore WHERE Id = ?");
+        preparedStatement = connection.prepareStatement("SELECT Password FROM Bookstore WHERE Id = ?");
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -217,9 +218,6 @@ public class Instructions {
     }
 
 
-
-
-
     public void AddAuthor(String FirstName, String Surname, String Nationality, Date BirthDate,
                           Date DeathDate, String WritingStyle, String Doctrine,
                           String City, String Region, String Street, String Alley,
@@ -244,9 +242,8 @@ public class Instructions {
     }
 
 
-
     public void AddInterpreter(String FirstName, String Surname, String Nationality, Date BirthDate,
-                               Date DeathDate, String Style,String City,
+                               Date DeathDate, String Style, String City,
                                String Region, String Street, String Alley,
                                String HouseNumber, String Telephone, String Description) throws SQLException {
         preparedStatement = connection.prepareStatement("INSERT INTO Interpreter(FirstName, Surname, Nationality, BirthDate, DeathDate, Style, City, Region, Street, Alley, HouseNumber, Telephone, Description) \n" +
@@ -300,7 +297,7 @@ public class Instructions {
 
 
     public void AddMessage(int SenderUserId, int ReceiverUserid, String Subject, String Text) throws SQLException {
-        preparedStatement =  connection.prepareStatement("INSERT INTO Message(ReceiverUserid, SenderUserId, Subject, Text) \n" +
+        preparedStatement = connection.prepareStatement("INSERT INTO Message(ReceiverUserid, SenderUserId, Subject, Text) \n" +
                 "VALUES (?, ?, ?, ?)");
         preparedStatement.setInt(1, ReceiverUserid);
         preparedStatement.setInt(2, SenderUserId);
@@ -310,7 +307,7 @@ public class Instructions {
     }
 
     public void AddComplaint(String Subject, String Text, String Documentation) throws SQLException {
-        preparedStatement =  connection.prepareStatement("INSERT INTO Complaint(Subject, Text, Documentation) \n" +
+        preparedStatement = connection.prepareStatement("INSERT INTO Complaint(Subject, Text, Documentation) \n" +
                 "VALUES (?, ?, ?)");
         preparedStatement.setString(1, Subject);
         preparedStatement.setString(2, Text);
@@ -321,7 +318,7 @@ public class Instructions {
 
 
     public void AddComplaintUser(int PlaintiffId, int UserId) throws SQLException {
-        preparedStatement =  connection.prepareStatement("INSERT INTO ComplaintUser(PlaintiffId, UserId) \n" +
+        preparedStatement = connection.prepareStatement("INSERT INTO ComplaintUser(PlaintiffId, UserId) \n" +
                 "VALUES (?, ?)");
         preparedStatement.setInt(1, PlaintiffId);
         preparedStatement.setInt(2, UserId);
@@ -329,7 +326,7 @@ public class Instructions {
     }
 
     public void AddComplaintBookstore(int PlaintiffId, int BookstoreId) throws SQLException {
-        preparedStatement =  connection.prepareStatement("INSERT INTO ComplaintBookstore(PlaintiffId, BookstoreId) \n" +
+        preparedStatement = connection.prepareStatement("INSERT INTO ComplaintBookstore(PlaintiffId, BookstoreId) \n" +
                 "VALUES (?, ?)");
         preparedStatement.setInt(1, PlaintiffId);
         preparedStatement.setInt(2, BookstoreId);
@@ -365,14 +362,14 @@ public class Instructions {
         preparedStatement.setString(10, Description);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next())
-            return  resultSet.getInt("Id");
+            return resultSet.getInt("Id");
         return -1;
     }
 
 
     public List<Integer> getMessagesId(int Id) throws SQLException {
         List<Integer> MessagesId = new ArrayList<Integer>();
-        preparedStatement =  connection.prepareStatement("SELECT * FROM Message WHERE ReceiverUserId = ?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM Message WHERE ReceiverUserId = ?");
         preparedStatement.setInt(1, Id);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
@@ -383,7 +380,7 @@ public class Instructions {
 
     public String getTextMessageDetails(int Id) throws SQLException {
         String text = "";
-        preparedStatement =  connection.prepareStatement("SELECT * FROM Message WHERE Id = ?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM Message WHERE Id = ?");
         preparedStatement.setInt(1, Id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -395,7 +392,7 @@ public class Instructions {
 
     public int getsenderIdMessageDetails(int Id) throws SQLException {
         int id = 0;
-        preparedStatement =  connection.prepareStatement("SELECT * FROM Message WHERE Id = ?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM Message WHERE Id = ?");
         preparedStatement.setInt(1, Id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -405,9 +402,10 @@ public class Instructions {
 
         return id;
     }
+
     public String getSubjectMessageDetails(int Id) throws SQLException {
-        String subject= "";
-        preparedStatement =  connection.prepareStatement("SELECT * FROM Message WHERE Id = ?");
+        String subject = "";
+        preparedStatement = connection.prepareStatement("SELECT * FROM Message WHERE Id = ?");
         preparedStatement.setInt(1, Id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
@@ -418,9 +416,33 @@ public class Instructions {
     }
 
     public void AddBorrowConfirmation(int Id, int borrowId) throws SQLException {
-        preparedStatement =  connection.prepareStatement("UPDATE Borrow SET Confirmation = true where Id = ? And LenderId = ?");
+        preparedStatement = connection.prepareStatement("UPDATE Borrow SET Confirmation = true where Id = ? And LenderId = ?");
         preparedStatement.setInt(1, borrowId);
         preparedStatement.setInt(2, Id);
         preparedStatement.executeUpdate();
     }
+
+    public void AddUserBuyBookstore(int BookstoreId, int UserId, int BookId,
+                                   String SendingAddress) throws SQLException {
+
+        preparedStatement = connection.prepareStatement("SELECT * FROM BookstoreHasBook where BookstoreId = ? and BookId = ? and Number > 0");
+        preparedStatement.setInt(1, BookstoreId);
+        preparedStatement.setInt(2, BookId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            preparedStatement = connection.prepareStatement("UPDATE BookstoreHasBook SET Number = (Number - 1) where BookstoreId = ? and BookId = ?");
+            preparedStatement.setInt(1, BookstoreId);
+            preparedStatement.setInt(2, BookId);
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("INSERT INTO UserBuyBookstore(BookstoreId, UserId, BookId, SendingAddress) \n" +
+                    "V‏ALUES (?, ?, ?, ?)");
+            preparedStatement.setInt(1, BookstoreId);
+            preparedStatement.setInt(2, UserId);
+            preparedStatement.setInt(3, BookId);
+            preparedStatement.setString(4, SendingAddress);
+            preparedStatement.executeUpdate();
+
+        }
+    }
+
 }

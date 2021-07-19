@@ -108,3 +108,23 @@ CREATE TRIGGER updatescore3 AFTER INSERT ON UserCommentForBookstore FOR EACH ROW
         UPDATE Bookstore join v6 on c = Bookstore.Id
             set Bookstore.Score = a;
     end;
+CREATE TRIGGER borrowconfirm AFTER UPDATE ON Borrow FOR EACH ROW
+    BEGIN
+        if NEW.Confirmation > OLD.Confirmation then
+            UPDATE Wallet
+                set BlockedCredit = BlockedCredit + NEW.GuaranteePrice
+                where Wallet.UserId = NEW.BorrowerId;
+            UPDATE Wallet
+                set AvailableCredit = AvailableCredit - NEW.GuaranteePrice
+                where Wallet.UserId = NEW.BorrowerId;
+        end if;
+    end;
+CREATE TRIGGER creatuser AFTER INSERT ON User for each row
+    BEGIN
+        INSERT INTO Wallet values (NEW.Id, 0, 0);
+    end;
+CREATE TRIGGER creatbookstore AFTER INSERT ON Bookstore for each row
+    begin
+        INSERT INTO BookstoreBankAccount (BookstoreId, TotalIncome, SystemTotalBenefit, BookstoreCreditCardNumber, RemainingBalance, LastPaymentDate)
+        values (NEW.Id, 0, 20, null, 0, current_date);
+    end;
