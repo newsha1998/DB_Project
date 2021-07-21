@@ -2,6 +2,7 @@ package view;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
+import view.home.UserHomePage;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -240,6 +241,9 @@ public class LoginPage extends Page {
                             "Welcome",
                             JOptionPane.PLAIN_MESSAGE);
                     setVisible(false);
+                    if (portal instanceof UserPortal) {
+                        UserHomePage userHomePage = new UserHomePage((UserPortal) portal);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(getParent(),
                             "Wrong ID or Password.",

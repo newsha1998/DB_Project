@@ -3,8 +3,8 @@ package logic.object;
 import java.util.Vector;
 
 public class User {
-    int id, national;
-    String username, name, surname, email, credit, city, region, street, alley, houseNumber, telephone, address;
+    int id;
+    String username, name, surname, email, credit, city, region, street, alley, houseNumber, telephone, address, national;
     double seller, lender, borrower, purchaser;
     Vector <Book> books;
 
@@ -18,9 +18,6 @@ public class User {
         this.surname = surname;
     }
 
-    public void setNational(int national) {
-        this.national = national;
-    }
 
     public Vector<Book> getBooks() {
         return books;
@@ -28,6 +25,14 @@ public class User {
 
     public void setBooks(Vector<Book> books) {
         this.books = books;
+    }
+
+    public void setNational(String national) {
+        this.national = national;
+    }
+
+    public String getNational() {
+        return national;
     }
 
     public void setAddress(String address) {
@@ -96,10 +101,6 @@ public class User {
 
     public void setPurchaser(double purchaser) {
         this.purchaser = purchaser;
-    }
-
-    public int getNational() {
-        return national;
     }
 
     public String getAddress() {

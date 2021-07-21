@@ -49,6 +49,12 @@ public class Extractor extends Instruction {
                 user.setLender(resultSet.getDouble("ScoreAsLender"));
                 user.setBorrower(resultSet.getDouble("ScoreAsBorrower"));
                 user.setPurchaser(resultSet.getDouble("ScoreAsPurchaser"));
+                user.setCity(resultSet.getString("City"));
+                user.setRegion(resultSet.getString("Region"));
+                user.setStreet(resultSet.getString("Street"));
+                user.setAlley(resultSet.getString("Alley"));
+                user.setHouseNumber(resultSet.getString("HouseNumber"));
+                user.setNational(resultSet.getString("NationalId"));
                 PreparedStatement pa = connection.prepareStatement("SELECT * FROM UserCommentForUser " +
                         "Where ReceiverUserId = ? AND ReceiverType = ?;");
                 pa.setInt(1, user.getId());

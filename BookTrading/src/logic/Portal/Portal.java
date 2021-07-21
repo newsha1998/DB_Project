@@ -14,4 +14,8 @@ public abstract class Portal {
     }
 
     public abstract boolean login(String username, String password);
+
+    public int getId() {
+        return id;
+    }
 }
