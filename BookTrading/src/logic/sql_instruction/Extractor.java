@@ -1,7 +1,9 @@
 package logic.sql_instruction;
 
 import logic.object.Book;
+import logic.object.Employee;
 import logic.object.User;
+import logic.object.Wallet;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -16,7 +18,7 @@ public class Extractor extends Instruction {
     public Vector <User> extractUserTable() {
         Vector <User> ret = new Vector<User>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT id FROM User;");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Id FROM User;");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("Id");
@@ -31,7 +33,7 @@ public class Extractor extends Instruction {
     public User extractUserProfileValues(int id) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * From User " +
-                    "WHERE id = ?");
+                    "WHERE Id = ?");
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
@@ -130,7 +132,77 @@ public class Extractor extends Instruction {
     }
 
     public Vector <Book> extractBookTable() {
-        //todo
+        Vector <Book> ret = new Vector<Book>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Id FROM Book;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("Id");
+                ret.add(extractBookById(id));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    public Wallet extractWalletById(int UserId){
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * From Wallet " +
+                    "WHERE UserId = ?");
+
+            preparedStatement.setInt(1, UserId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Wallet wallet = new Wallet();
+                wallet.setUserId(resultSet.getInt("UserId"));
+                wallet.setBlockedCredit(resultSet.getDouble("BlockedCredit"));
+                wallet.setAvailableCredit(resultSet.getDouble("AvailableCredit"));
+                return wallet;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Vector <Employee> extractEmployeeTable() {
+        Vector <Employee> ret = new Vector<Employee>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Id FROM Employee;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("Id");
+                ret.add(extractEmployeeById(id));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    public Employee extractEmployeeById(int id) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * From Employee " +
+                    "WHERE Id = ?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Employee employee = new Employee();
+                employee.setId(resultSet.getInt("Id"));
+                employee.setUsername(resultSet.getString("Username"));
+                employee.setFirstName(resultSet.getString("FirstName"));
+                employee.setSurname(resultSet.getString("Surname"));
+                employee.setAddress(resultSet.getString("City") + ", " + resultSet.getString("Region"));
+                employee.setEmail(resultSet.getString("Email"));
+                employee.setTelephone(resultSet.getString("Telephone"));
+                return employee;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
