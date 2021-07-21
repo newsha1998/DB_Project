@@ -2,14 +2,27 @@ package logic.sql_instruction;
 
 import logic.object.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Vector;
 
 public class Extractor extends Instruction {
     public Extractor(Connection connection) {
         super(connection);
+    }
+
+    public Vector <User> extractUserTable() {
+        Vector <User> ret = new Vector<User>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT id FROM User;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("Id");
+                ret.add(extractUserProfileValues(id));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
     }
 
     public User extractUserProfileValues(int id) {

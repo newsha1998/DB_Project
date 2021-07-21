@@ -147,3 +147,5 @@ DROP TABLE ComplaintBookstore;
 DROP TABLE Buy;
 DROP TABLE UserBuy;
 DROP TABLE UserBuyBookstore;
+
+DROP VIEW v1,v2,v3,v4,v5,v6;

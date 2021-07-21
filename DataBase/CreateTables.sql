@@ -76,7 +76,8 @@ CREATE TABLE PublisherTelephone (
 );
 Create Table Bookstore (
     Id int primary key auto_increment,
-    BookstoreContractId int,
+    Username varchar(50) unique not null ,
+    BookstoreContractId int unique ,
     Password varchar(50) not null ,
     Name varchar(50) not null ,
     Email varchar(50),
@@ -229,7 +230,8 @@ create table Borrow (
 );
 CREATE TABLE Manager (
     Id int primary key auto_increment,
-    NationalId int unique ,
+    Username varchar(50) unique not null ,
+    NationalId varchar(20) unique ,
     FirstName varchar(50) not null ,
     Surname varchar(50) not null ,
     Email varchar(50),
@@ -264,8 +266,9 @@ CREATE TABLE EmployeeMonitoring (
 );
 CREATE TABLE Employee (
     Id int primary key auto_increment,
-    EmployeeContractId int,
-    NationalId int unique ,
+    Username varchar(50) unique not null ,
+    EmployeeContractId int unique ,
+    NationalId varchar(20) unique ,
     FirstName varchar(50) not null ,
     Surname varchar(50) not null ,
     Email varchar(50),
@@ -331,7 +334,8 @@ create table BookstorePony (
 );
 Create Table User (
     Id int primary key auto_increment,
-    NationalId int,
+    Username varchar(50) unique not null ,
+    NationalId varchar(20) unique ,
     FirstName varchar(50) NOT NULL,
     Surname varchar(50) NOT NULL,
     Email varchar(50),
