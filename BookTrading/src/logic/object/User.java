@@ -1,9 +1,12 @@
 package logic.object;
 
+import java.util.Vector;
+
 public class User {
     int id, national;
     String username, name, surname, email, credit, city, region, street, alley, houseNumber, telephone, address;
     double seller, lender, borrower, purchaser;
+    Vector <Book> books;
 
     public User() {
     }
@@ -17,6 +20,14 @@ public class User {
 
     public void setNational(int national) {
         this.national = national;
+    }
+
+    public Vector<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Vector<Book> books) {
+        this.books = books;
     }
 
     public void setAddress(String address) {

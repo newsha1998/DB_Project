@@ -1,8 +1,8 @@
 USE BookTrading;
 
 CREATE TABLE Book (
-    ID int primary key auto_increment,
-    PublisherID int,
+    Id int primary key auto_increment,
+    PublisherId int,
     Name varchar(50) not null ,
     Score DOUBLE,
     Price DOUBLE,
@@ -18,7 +18,7 @@ CREATE TABLE Book (
     check (0 <= Score AND Score <= 10)
 );
 CREATE TABLE Author (
-    ID int primary key AUTO_INCREMENT,
+    Id int primary key AUTO_INCREMENT,
     FirstName varchar(50),
     Surname varchar(50),
     Nationality varchar(20),
@@ -40,7 +40,7 @@ CREATE TABLE AuthorBook (
     PRIMARY KEY (AuthorId, BookId)
 );
 CREATE TABLE Interpreter (
-    ID int primary key auto_increment,
+    Id int primary key auto_increment,
     FirstName varchar(50),
     Surname varchar(50),
     Nationality varchar(20),

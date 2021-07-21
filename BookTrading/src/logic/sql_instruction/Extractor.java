@@ -1,8 +1,11 @@
 package logic.sql_instruction;
 
+import logic.object.Book;
 import logic.object.User;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class Extractor extends Instruction {
@@ -68,6 +71,66 @@ public class Extractor extends Instruction {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public Book extractBookById(int bookId) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * From Book " +
+                    "WHERE id = ?");
+            preparedStatement.setInt(1, bookId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                Book book = new Book();
+                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+                book.setId(resultSet.getInt("Id"));
+                book.setPubid(resultSet.getInt("PublisherId"));
+                book.setName(resultSet.getString("Name"));
+                book.setSeries(resultSet.getInt("SeriesNumber"));
+                book.setGenre(resultSet.getString(resultSet.getString("Genre")));
+                book.setLang(resultSet.getString("Language"));
+                book.setReleaseDate(dateFormat.format(resultSet.getDate("ReleaseDate")));
+                book.setMaterial(resultSet.getString("Material"));
+                book.setDes(resultSet.getString("Description"));
+                book.setSum(resultSet.getString("Summary"));
+                book.setCat(resultSet.getString("Category"));
+                book.setSize(resultSet.getString("Size"));
+                book.setScore(resultSet.getDouble("Score"));
+                book.setPrice(resultSet.getDouble("Price"));
+                PreparedStatement pa = connection.prepareStatement("SELECT * FROM UserCommentForBook " +
+                        "Where BookId = ?;");
+                pa.setInt(1, book.getId());
+                ResultSet rs = pa.executeQuery();
+                if (!rs.next())
+                    book.setScore(-1);
+
+                return book;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
+
+    public Vector <Book> extractUserBooks(int userId) {
+        Vector <Book> ret = new Vector<Book>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT BookId FROM UserHasBook " +
+                    "WHERE UserId = ?");
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ret.add(extractBookById(resultSet.getInt("Id")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Vector <Book> extractBookTable() {
+        //todo
         return null;
     }
 }

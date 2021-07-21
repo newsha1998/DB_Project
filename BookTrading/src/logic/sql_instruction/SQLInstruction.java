@@ -9,6 +9,8 @@ import java.sql.SQLException;
 public class SQLInstruction {
     Connection connection;
     Extractor extractor;
+    Login login;
+    Register register;
 
     public SQLInstruction() {
         try {
@@ -20,9 +22,19 @@ public class SQLInstruction {
             e.printStackTrace();
         }
         extractor = new Extractor(connection);
+        login = new Login(connection);
+        register = new Register(connection);
     }
 
-    public User extractUserProfileValues(int id) {
-        return extractor.extractUserProfileValues(id);
+    public Extractor getExtractor() {
+        return extractor;
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public Register getRegister() {
+        return register;
     }
 }
