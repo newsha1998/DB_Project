@@ -77,7 +77,7 @@ public class Extractor extends Instruction {
     public Book extractBookById(int bookId) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * From Book " +
-                    "WHERE id = ?");
+                    "WHERE Id = ?");
             preparedStatement.setInt(1, bookId);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

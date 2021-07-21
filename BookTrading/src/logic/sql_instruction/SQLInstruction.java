@@ -1,7 +1,5 @@
 package logic.sql_instruction;
 
-import logic.object.User;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,6 +9,7 @@ public class SQLInstruction {
     Extractor extractor;
     Login login;
     Register register;
+    Exists exists;
 
     public SQLInstruction() {
         try {
@@ -24,6 +23,7 @@ public class SQLInstruction {
         extractor = new Extractor(connection);
         login = new Login(connection);
         register = new Register(connection);
+        exists = new Exists(connection);
     }
 
     public Extractor getExtractor() {
@@ -36,5 +36,9 @@ public class SQLInstruction {
 
     public Register getRegister() {
         return register;
+    }
+
+    public Exists getExists() {
+        return exists;
     }
 }

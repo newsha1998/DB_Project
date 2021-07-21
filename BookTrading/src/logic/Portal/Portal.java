@@ -12,4 +12,6 @@ public abstract class Portal {
         this.sqlInstruction = sqlInstruction;
         access = false;
     }
+
+    public abstract boolean login(String username, String password);
 }
