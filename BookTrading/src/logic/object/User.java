@@ -1,5 +1,7 @@
 package logic.object;
 
+import java.util.Vector;
+
 public class User {
     int id;
     String username, name, surname, email, credit, city, region, street, alley, houseNumber, telephone, address, national;
@@ -13,6 +15,57 @@ public class User {
         this.username = username;
         this.name = name;
         this.surname = surname;
+    }
+
+    public static Vector<Vector<String>> getRows(Vector<User> vec) {
+        Vector <Vector<String>> ret = new Vector<Vector<String>>();
+        for (User u : vec){
+            Vector<String> a = new Vector<String>();
+            a.add(String.valueOf(u.getId()));
+            a.add(u.getUsername());
+            a.add(u.getName());
+            a.add(u.getSurname());
+            if(u.getCity() != null)
+                a.add(u.getCity());
+            else
+                a.add("NA");
+            if (u.getBorrower() >= 0){
+                a.add(String.valueOf(u.getBorrower()));
+            } else {
+                a.add("NA");
+            }
+            if (u.getLender() >= 0) {
+                a.add(String.valueOf(u.getLender()));
+            } else {
+                a.add("NA");
+            }
+            if (u.getSeller() >= 0) {
+                a.add(String.valueOf(u.getSeller()));
+            } else {
+                a.add("NA");
+            }
+            if (u.getPurchaser() >= 0) {
+                a.add(String.valueOf(u.getPurchaser()));
+            } else {
+                a.add("NA");
+            }
+            ret.add(a);
+        }
+        return ret;
+    }
+
+    public static Vector<String> getColumns() {
+        Vector <String> ret = new Vector<String>();
+        ret.add("ID");
+        ret.add("Username");
+        ret.add("FirstName");
+        ret.add("Surname");
+        ret.add("City");
+        ret.add("Score As a Borrower");
+        ret.add("Score As a Lender");
+        ret.add("Score As a Seller");
+        ret.add("Score As a Purchaser");
+        return ret;
     }
 
     public void setNational(String national) {

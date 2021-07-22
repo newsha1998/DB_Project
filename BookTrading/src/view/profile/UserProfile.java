@@ -1,5 +1,6 @@
 package view.profile;
 
+import logic.Portal.Portal;
 import logic.Portal.UserPortal;
 import logic.object.Book;
 import logic.object.User;
@@ -10,84 +11,84 @@ import java.awt.*;
 import java.util.Vector;
 
 public class UserProfile extends Profile {
-    public UserProfile(UserPortal portal, int id) throws HeadlessException {
+    public UserProfile(Portal portal, int id) throws HeadlessException {
         super(portal, id);
 
         User user = portal.getUserProfileValues(id);
         Label usernameLabel = new Label("Username");
         usernameLabel.setFont(font);
-        usernameLabel.setBounds(10, 10, 130, 50);
+        usernameLabel.setBounds(10, 30, 130, 50);
         add(usernameLabel);
 
         TextField username = new TextField();
         username.setEditable(false);
-        username.setBounds(150, 20, 250, 30);
+        username.setBounds(150, 40, 250, 30);
         username.setText(user.getUsername());
         add(username);
 
         Label nameLabel = new Label("Name");
         nameLabel.setFont(font);
-        nameLabel.setBounds(10, 60, 130, 50);
+        nameLabel.setBounds(10, 80, 130, 50);
         add(nameLabel);
 
         TextField name = new TextField();
         name.setEditable(false);
-        name.setBounds(150, 70, 250, 30);
+        name.setBounds(150, 90, 250, 30);
         name.setText(user.getName());
         add(name);
 
         Label surnameLabel = new Label("Surname");
         surnameLabel.setFont(font);
-        surnameLabel.setBounds(10, 110, 130, 50);
+        surnameLabel.setBounds(10, 130, 130, 50);
         add(surnameLabel);
 
         TextField surname = new TextField();
         surname.setEditable(false);
-        surname.setBounds(150, 120, 250, 30);
+        surname.setBounds(150, 140, 250, 30);
         surname.setText(user.getSurname());
         add(surname);
 
         Label emailLabel = new Label("Email");
         emailLabel.setFont(font);
-        emailLabel.setBounds(10, 160, 130, 50);
+        emailLabel.setBounds(10, 180, 130, 50);
         add(emailLabel);
 
         TextField email = new TextField();
         email.setEditable(false);
-        email.setBounds(150, 170, 250, 30);
+        email.setBounds(150, 190, 250, 30);
         email.setText(user.getEmail());
         add(email);
 
         Label addressLabel = new Label("Address");
         addressLabel.setFont(font);
-        addressLabel.setBounds(10, 210, 130, 50);
+        addressLabel.setBounds(10, 220, 130, 50);
         add(addressLabel);
 
         TextField address = new TextField();
         address.setEditable(false);
-        address.setBounds(150, 220, 250, 30);
+        address.setBounds(150, 240, 250, 30);
         address.setText(user.getAddress());
         add(address);
 
         Label phoneLabel = new Label("Telephone");
         phoneLabel.setFont(font);
-        phoneLabel.setBounds(10, 260, 130, 50);
+        phoneLabel.setBounds(10, 280, 130, 50);
         add(phoneLabel);
 
         TextField phone = new TextField();
         phone.setEditable(false);
-        phone.setBounds(150, 270, 250, 30);
+        phone.setBounds(150, 290, 250, 30);
         phone.setText(user.getTelephone());
         add(phone);
 
         Label score_as_a_seller = new Label("Score As a Seller");
         score_as_a_seller.setFont(font);
-        score_as_a_seller.setBounds(550, 10, 250, 50);
+        score_as_a_seller.setBounds(550, 30, 250, 50);
         add(score_as_a_seller);
 
         TextField seller = new TextField();
         seller.setEditable(false);
-        seller.setBounds(800, 20, 60, 30);
+        seller.setBounds(800, 40, 60, 30);
         seller.setText(String.valueOf(user.getSeller()));
         if (user.getSeller() >= 7)
             seller.setBackground(Color.GREEN);
@@ -101,12 +102,12 @@ public class UserProfile extends Profile {
 
         Label score_as_a_purchaser = new Label("Score As a Purchaser");
         score_as_a_purchaser.setFont(font);
-        score_as_a_purchaser.setBounds(550, 60, 250, 50);
+        score_as_a_purchaser.setBounds(550, 80, 250, 50);
         add(score_as_a_purchaser);
 
         TextField purchaser = new TextField();
         purchaser.setEditable(false);
-        purchaser.setBounds(800, 70, 60, 30);
+        purchaser.setBounds(800, 90, 60, 30);
         purchaser.setText(String.valueOf(user.getPurchaser()));
 
         if (user.getPurchaser() >= 7)
@@ -121,12 +122,12 @@ public class UserProfile extends Profile {
 
         Label score_as_a_lender = new Label("Score As a Lender");
         score_as_a_lender.setFont(font);
-        score_as_a_lender.setBounds(550, 110, 250, 50);
+        score_as_a_lender.setBounds(550, 130, 250, 50);
         add(score_as_a_lender);
 
         TextField lender = new TextField();
         lender.setEditable(false);
-        lender.setBounds(800, 120, 60, 30);
+        lender.setBounds(800, 140, 60, 30);
         lender.setText(String.valueOf(user.getLender()));
 
         if (user.getLender() >= 7)
@@ -141,12 +142,12 @@ public class UserProfile extends Profile {
 
         Label score_as_a_borrower = new Label("Score As a Borrower");
         score_as_a_borrower.setFont(font);
-        score_as_a_borrower.setBounds(550, 160, 250, 50);
+        score_as_a_borrower.setBounds(550, 180, 250, 50);
         add(score_as_a_borrower);
 
         TextField borrower = new TextField();
         borrower.setEditable(false);
-        borrower.setBounds(800, 170, 60, 30);
+        borrower.setBounds(800, 190, 60, 30);
         borrower.setText(String.valueOf(user.getBorrower()));
 
         if (user.getBorrower() >= 7)
@@ -162,15 +163,15 @@ public class UserProfile extends Profile {
         JButton send_message_button = new JButton("Send Message");
         send_message_button.setFont(font);
         add(send_message_button);
-        send_message_button.setBounds(600, 400, 200, 50);
+        send_message_button.setBounds(600, 420, 200, 50);
 
         JButton report = new JButton("Report");
         report.setFont(font);
         add(report);
-        report.setBounds(600, 480, 200, 50);
+        report.setBounds(600, 500, 200, 50);
 
         Label booksLabel = new Label("Books");
-        booksLabel.setBounds(265, 340, 60, 30);
+        booksLabel.setBounds(265, 360, 60, 30);
         booksLabel.setFont(font);
         add(booksLabel);
         Vector <UserHasBook> books = portal.getUserBooks(id);
@@ -180,7 +181,7 @@ public class UserProfile extends Profile {
         table.setFillsViewportHeight(true);
         scrollPane.setFont(font);
         add(scrollPane);
-        scrollPane.setBounds(100, 370, 400, 200);
+        scrollPane.setBounds(100, 390, 400, 200);
 
         setVisible(true);
     }

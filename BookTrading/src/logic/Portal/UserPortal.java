@@ -22,20 +22,12 @@ public class UserPortal extends Portal {
         return access = true;
     }
 
-    public User getUserProfileValues(int id) {
-        return sqlInstruction.getExtractor().extractUserProfileValues(id);
-    }
-
     public int registerUser(String username, String password, String name, String surname) {
         return sqlInstruction.getRegister().registerUser(username, password, name, surname);
     }
 
     public boolean existUser(String username) {
         return sqlInstruction.getExists().existUser(username);
-    }
-
-    public Vector <UserHasBook> getUserBooks (int userId) {
-        return sqlInstruction.getExtractor().extractUserBooks(userId);
     }
 
     public void addBook(int bookId, int num) {

@@ -2,9 +2,13 @@ package view.basic;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
+import view.UserList;
+import view.profile.UserProfile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public abstract class Page extends JFrame {
     static int x = 900, y = 700;
@@ -69,5 +73,22 @@ public abstract class Page extends JFrame {
         JMenuItem confirmation = new JMenuItem("Confirm Borrow Request");
         confirmation.setFont(font);
         borrow.add(confirmation);
+
+        JMenuItem userList = new JMenuItem("View User's List");
+        userList.setFont(font);
+        view.add(userList);
+        userList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserList userList = new UserList(portal);
+                setContentPane(userList);
+                userList.getProfile().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        setContentPane(new UserProfile(portal, userList.getSelected()));
+                    }
+                });
+            }
+        });
     }
 }
