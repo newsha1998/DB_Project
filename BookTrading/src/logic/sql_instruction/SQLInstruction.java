@@ -27,6 +27,7 @@ public class SQLInstruction {
         register = new Register(connection);
         exists = new Exists(connection);
         update = new Update(connection);
+        messageOperation = new MessageOperation(connection);
     }
 
     public Extractor getExtractor() {
