@@ -1,18 +1,14 @@
-package view;
+package view.list;
 
 import logic.Portal.Portal;
 import logic.object.User;
-import logic.object.UserHasBook;
 import view.basic.MyTableModel;
 import view.basic.Panel;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class UserList extends Panel {

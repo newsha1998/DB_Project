@@ -5,7 +5,6 @@ import logic.object.User;
 import logic.object.UserHasBook;
 import view.UpdateBookPanel;
 import view.basic.ModifyedActionListener;
-import view.profile.UserProfile;
 
 import javax.swing.*;
 import java.awt.*;

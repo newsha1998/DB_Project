@@ -3,7 +3,7 @@ package view.basic;
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
 import view.SendMessage;
-import view.UserList;
+import view.list.UserList;
 import view.profile.UserProfile;
 
 import javax.swing.*;

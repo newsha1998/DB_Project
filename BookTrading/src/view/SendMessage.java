@@ -56,10 +56,18 @@ public class SendMessage extends MiniPage{
                         "Confirmation", JOptionPane.YES_NO_OPTION);
                 if(result == JOptionPane.YES_OPTION){
                     portal.SendMessage(portal.getId(), username.getText(), subject.getText(), text.getText());
+                    JOptionPane.showMessageDialog(getParent(),
+                            "Message has sent successfully",
+                            "",
+                            JOptionPane.PLAIN_MESSAGE);
+                    username.setText("");
+                    subject.setText("");
+                    text.setText("");
                 }
             }
         });
         add(send);
         send.setBounds(150, 300, 100, 50);
     }
+
 }
