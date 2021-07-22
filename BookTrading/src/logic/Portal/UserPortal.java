@@ -1,11 +1,6 @@
 package logic.Portal;
 
-import logic.object.Book;
-import logic.object.User;
-import logic.object.UserHasBook;
 import logic.sql_instruction.SQLInstruction;
-
-import java.util.Vector;
 
 public class UserPortal extends Portal {
     public UserPortal(SQLInstruction sqlInstruction) {
@@ -71,4 +66,7 @@ public class UserPortal extends Portal {
             sqlInstruction.getUpdate().UpdateUserPhone(username, input);
     }
 
+    public void SendMessage(int senderId, String receiver, String subject, String text){
+        sqlInstruction.getMessageOperation().SendMessage(senderId, receiver, subject, text);
+    }
 }

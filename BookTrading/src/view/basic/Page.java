@@ -2,6 +2,7 @@ package view.basic;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
+import view.SendMessage;
 import view.UserList;
 import view.profile.UserProfile;
 
@@ -62,6 +63,13 @@ public abstract class Page extends JFrame {
         JMenuItem inbox = new JMenuItem("View Inbox");
         inbox.setFont(font);
         messages.add(inbox);
+
+        sendMessage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SendMessage send = new SendMessage((UserPortal)portal);
+            }
+        });
 
         JMenu borrow = new JMenu("Borrow");
         borrow.setFont(font);

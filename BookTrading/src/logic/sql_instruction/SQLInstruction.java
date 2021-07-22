@@ -11,6 +11,7 @@ public class SQLInstruction {
     Register register;
     Exists exists;
     Update update;
+    MessageOperation messageOperation;
 
     public SQLInstruction() {
         try {
@@ -46,5 +47,9 @@ public class SQLInstruction {
 
     public Update getUpdate() {
         return update;
+    }
+
+    public MessageOperation getMessageOperation() {
+        return messageOperation;
     }
 }
