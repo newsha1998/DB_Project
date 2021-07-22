@@ -96,5 +96,47 @@ public class AddBook extends Panel {
         add(cat);
         cat.setBounds(580, 50, 150, 50);
 
+        Label sizeLabel = new Label("Size:");
+        sizeLabel.setFont(font);
+        add(sizeLabel);
+        sizeLabel.setBounds(400, 110, 155, 50);
+
+        JTextField size = new JTextField();
+        size.setFont(font);
+        add(size);
+        size.setBounds(580, 110, 150, 50);
+
+        Label sumLabel = new Label("Summary:");
+        sumLabel.setFont(font);
+        add(sumLabel);
+        sumLabel.setBounds(400, 170, 150, 50);
+
+        JTextArea sum = new JTextArea();
+        sum.setFont(font);
+        sum.setLineWrap(true);
+        sum.setWrapStyleWord(true);
+        JScrollPane sp2 = new JScrollPane(sum);
+        add(sp2);
+        sp2.setBounds(400, 230, 330, 150);
+
+        JButton setPublisher = new JButton("Set Publisher");
+        setPublisher.setFont(font);
+        setPublisher.setBounds(400, 400, 330, 50);
+        add(setPublisher);
+
+        JButton addAuthor = new JButton("Add Author");
+        addAuthor.setFont(font);
+        addAuthor.setBounds(400, 460, 330, 50);
+        add(addAuthor);
+
+        JButton addInterpreter = new JButton("Add Interpreter");
+        addInterpreter.setFont(font);
+        addInterpreter.setBounds(400, 520, 330, 50);
+        add(addInterpreter);
+
+        JButton submit = new JButton("Submit");
+        submit.setFont(font);
+        submit.setBounds(700, 600, 150, 50);
+        add(submit);
     }
 }
