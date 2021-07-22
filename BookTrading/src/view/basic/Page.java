@@ -2,6 +2,7 @@ package view.basic;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
+import view.actions.AddBook;
 import view.actions.SendMessage;
 import view.home.UserHomePage;
 import view.list.UserList;
@@ -94,15 +95,37 @@ public abstract class Page extends JFrame {
                 userList.getProfile().addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        setContentPane(new UserProfile(portal, userList.getSelected()));
+                        UserProfile userProfile = new UserProfile(portal, userList.getSelected());
+                        setContentPane(userProfile);
+                        userProfile.getSend_message_button().addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                SendMessage send = new SendMessage((UserPortal)portal);
+                                send.SetUsername(userList.getSelectedUsername());
+                            }
+                        });
                     }
                 });
+                userList.getMessage().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        SendMessage send = new SendMessage((UserPortal)portal);
+                        send.SetUsername(userList.getSelectedUsername());
+                    }
+                });
+
             }
         });
 
         JMenuItem addBook = new JMenuItem("Add Book");
         addBook.setFont(font);
         action.add(addBook);
+        addBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setContentPane(new AddBook(portal));
+            }
+        });
 
         JMenuItem editProfile = new JMenuItem("Edit Profile");
         editProfile.setFont(font);

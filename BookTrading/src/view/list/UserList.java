@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class UserList extends Panel {
@@ -88,7 +89,7 @@ public class UserList extends Panel {
         return Integer.parseInt(data.elementAt(sm.getMinSelectionIndex()).elementAt(0));
     }
 
-    public int getSelectedUsername() {
-        return Integer.parseInt(data.elementAt(sm.getMinSelectionIndex()).elementAt(1));
+    public String getSelectedUsername() {
+        return data.elementAt(sm.getMinSelectionIndex()).elementAt(1);
     }
 }

@@ -11,6 +11,8 @@ import java.awt.*;
 import java.util.Vector;
 
 public class UserProfile extends Profile {
+    JButton send_message_button;
+
     public UserProfile(Portal portal, int id) throws HeadlessException {
         super(portal, id);
 
@@ -160,7 +162,7 @@ public class UserProfile extends Profile {
             borrower.setText("NA");
         add(borrower);
 
-        JButton send_message_button = new JButton("Send Message");
+        send_message_button = new JButton("Send Message");
         send_message_button.setFont(font);
         add(send_message_button);
         send_message_button.setBounds(600, 420, 200, 50);
@@ -184,5 +186,9 @@ public class UserProfile extends Profile {
         scrollPane.setBounds(100, 390, 400, 200);
 
         setVisible(true);
+    }
+
+    public JButton getSend_message_button() {
+        return send_message_button;
     }
 }

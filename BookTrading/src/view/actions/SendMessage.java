@@ -10,6 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SendMessage extends MiniPage{
+    JTextField username;
+
+    public void SetUsername(String username){
+        this.username.setText(username);
+        this.username.setEditable(false);
+    }
+
     public SendMessage(UserPortal portal) throws HeadlessException {
         super(portal);
         font = new Font("SansSerif", Font.PLAIN, 20);
@@ -19,7 +26,7 @@ public class SendMessage extends MiniPage{
         UsernameLabel.setFont(font);
         UsernameLabel.setBounds(20, 20, 120, 30);
 
-        JTextField username = new JTextField();
+        username = new JTextField();
         add(username);
         username.setFont(font);
         username.setBounds(150, 20, 150, 30);
@@ -60,9 +67,7 @@ public class SendMessage extends MiniPage{
                             "Message has sent successfully",
                             "",
                             JOptionPane.PLAIN_MESSAGE);
-                    username.setText("");
-                    subject.setText("");
-                    text.setText("");
+                    SendMessage.this.setVisible(false);
                 }
             }
         });
