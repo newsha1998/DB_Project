@@ -10,6 +10,7 @@ public class SQLInstruction {
     Login login;
     Register register;
     Exists exists;
+    Update update;
 
     public SQLInstruction() {
         try {
@@ -24,6 +25,7 @@ public class SQLInstruction {
         login = new Login(connection);
         register = new Register(connection);
         exists = new Exists(connection);
+        update = new Update(connection);
     }
 
     public Extractor getExtractor() {
@@ -40,5 +42,9 @@ public class SQLInstruction {
 
     public Exists getExists() {
         return exists;
+    }
+
+    public Update getUpdate() {
+        return update;
     }
 }

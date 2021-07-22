@@ -2,14 +2,22 @@ package view.home;
 
 import logic.Portal.UserPortal;
 import logic.object.User;
+import logic.object.UserHasBook;
+import view.UpdateBookPanel;
+import view.basic.ModifyedActionListener;
 import view.profile.UserProfile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.Vector;
 
 public class UserHomePage extends HomePage {
+    JScrollPane scrollPane;
+    JTable table;
 
     public UserHomePage(UserPortal portal) throws HeadlessException {
         super(portal);
@@ -212,23 +220,44 @@ public class UserHomePage extends HomePage {
         add(update);
         update.setBounds(600, 400, 200, 50);
 
-        JButton report = new JButton("Add Book");
-        report.setFont(font);
-        add(report);
-        report.setBounds(600, 480, 200, 50);
+        JButton edit_book_list = new JButton("Edit Book List");
+        edit_book_list.setFont(font);
+        add(edit_book_list);
+        edit_book_list.setBounds(600, 480, 200, 50);
 
-        Label books = new Label("Books");
-        books.setBounds(265, 340, 60, 30);
-        books.setFont(font);
-        add(books);
-        JTable table = new JTable();
-        JScrollPane scrollPane = new JScrollPane(table);
+        Label booksLabel = new Label("Books");
+        booksLabel.setBounds(265, 340, 60, 30);
+        booksLabel.setFont(font);
+        add(booksLabel);
+        Vector<UserHasBook> books = portal.getUserBooks(portal.getId());
+        table = new JTable(UserHasBook.Convert(books), UserHasBook.getColumns());
+        table.setEnabled(false);
+        scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
-        table.setFont(font);
         scrollPane.setFont(font);
         add(scrollPane);
         scrollPane.setBounds(100, 370, 400, 200);
 
+        setVisible(true);
+
+        edit_book_list.addActionListener(new ModifyedActionListener(this) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateBookPanel updateBookPanel = new UpdateBookPanel(portal, homePage);
+            }
+        });
+    }
+
+    public void bookUpdateSignal() {
+        UserPortal port = (UserPortal) portal;
+        Vector<UserHasBook> books = port.getUserBooks(port.getId());
+        table = new JTable(UserHasBook.Convert(books), UserHasBook.getColumns());
+        table.setEnabled(false);
+        scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        scrollPane.setFont(font);
+        add(scrollPane);
+        scrollPane.setBounds(100, 370, 400, 200);
         setVisible(true);
     }
 }

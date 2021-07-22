@@ -38,4 +38,15 @@ public class UserPortal extends Portal {
         return sqlInstruction.getExtractor().extractUserBooks(userId);
     }
 
+    public void addBook(int bookId, int num) {
+        sqlInstruction.getUpdate().addBookForUser(id, bookId, num);
+    }
+
+    public void romoveBook(int bookId, int num) {
+        sqlInstruction.getUpdate().addBookFromUser(id, bookId, num);
+    }
+
+    public void changeBookStatus(int bookId, String status) {
+        sqlInstruction.getUpdate().changeBookStatus(id, bookId, status);
+    }
 }
