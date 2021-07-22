@@ -87,4 +87,8 @@ public class UserList extends Panel {
     public int getSelected() {
         return Integer.parseInt(data.elementAt(sm.getMinSelectionIndex()).elementAt(0));
     }
+
+    public int getSelectedUsername() {
+        return Integer.parseInt(data.elementAt(sm.getMinSelectionIndex()).elementAt(1));
+    }
 }

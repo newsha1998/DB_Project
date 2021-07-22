@@ -1,4 +1,4 @@
-package view;
+package view.actions;
 
 import logic.Portal.UserPortal;
 import view.basic.MiniPage;

@@ -2,7 +2,8 @@ package view.basic;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
-import view.SendMessage;
+import view.actions.SendMessage;
+import view.home.UserHomePage;
 import view.list.UserList;
 import view.profile.UserProfile;
 
@@ -96,6 +97,21 @@ public abstract class Page extends JFrame {
                         setContentPane(new UserProfile(portal, userList.getSelected()));
                     }
                 });
+            }
+        });
+
+        JMenuItem addBook = new JMenuItem("Add Book");
+        addBook.setFont(font);
+        action.add(addBook);
+
+        JMenuItem editProfile = new JMenuItem("Edit Profile");
+        editProfile.setFont(font);
+        edit.add(editProfile);
+        editProfile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setContentPane(new UserHomePage((UserPortal) portal));
+                setVisible(true);
             }
         });
     }
