@@ -1,13 +1,13 @@
 package view.profile;
 
 import logic.Portal.Portal;
-import view.Page;
+import view.basic.Page;
+import view.basic.Panel;
 
 import java.awt.*;
 
-public abstract class Profile extends Page {
-    int id;
-    Font font = new Font("SansSerif", Font.PLAIN, 20);
+public abstract class Profile extends Panel {
+    protected int id;
 
     public Profile(Portal portal, int id) throws HeadlessException {
         super(portal);

@@ -174,9 +174,7 @@ public class UserProfile extends Profile {
         booksLabel.setFont(font);
         add(booksLabel);
         Vector <UserHasBook> books = portal.getUserBooks(id);
-        System.out.println("Ok");
         JTable table = new JTable(UserHasBook.Convert(books), UserHasBook.getColumns());
-        System.out.println("Ok");
         table.setEnabled(false);
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);

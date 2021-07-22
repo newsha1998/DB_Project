@@ -1,10 +1,10 @@
-package view;
+package view.basic;
 
 import java.awt.*;
 
 public class ImageBox extends Canvas {
-    String path;
-    int a, b, c, d;
+    protected String path;
+    protected int a, b, c, d;
 
     public ImageBox(String path, int a, int b, int c, int d) {
         this.path = path;

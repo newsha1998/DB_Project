@@ -1,4 +1,4 @@
-package view;
+package view.basic;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
@@ -8,10 +8,10 @@ import java.awt.*;
 
 public abstract class Page extends JFrame {
     static int x = 900, y = 700;
-    Portal portal;
-    JMenuBar menuBar;
-    JMenu edit, action, view;
-    Font font;
+    protected Portal portal;
+    protected JMenuBar menuBar;
+    protected JMenu edit, action, view;
+    protected Font font;
 
     public Page(Portal portal) throws HeadlessException {
         this.portal = portal;

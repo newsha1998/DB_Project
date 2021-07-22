@@ -2,18 +2,16 @@ package view;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
+import view.basic.ImageBox;
+import view.basic.Page;
 import view.home.UserHomePage;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class LoginPage extends Page {
 
@@ -22,22 +20,22 @@ public class LoginPage extends Page {
         menuBar.setVisible(false);
         getContentPane().setBackground(Color.white);
         Label usernameLabel = new Label("Username:");
-        add(usernameLabel);
+        getContentPane().add(usernameLabel);
         usernameLabel.setFont(font);
         usernameLabel.setBounds(550, 150, 110, 50);
 
         TextField user = new TextField();
-        add(user);
+        getContentPane().add(user);
         user.setBounds(700, 150, 150, 50);
         user.setFont(font);
 
         Label passwordLabel = new Label("Password:");
-        add(passwordLabel);
+        getContentPane().add(passwordLabel);
         passwordLabel.setFont(font);
         passwordLabel.setBounds(550, 250, 110, 50);
 
         JPasswordField pass = new JPasswordField();
-        add(pass);
+        getContentPane().add(pass);
         pass.setBounds(700, 250, 150, 50);
         pass.setFont(font);
 
@@ -48,7 +46,7 @@ public class LoginPage extends Page {
 
         int a = 0, b = 0, c = 500, d = 700;
         ImageBox background = new ImageBox("resource/login.png", a, b, c, d);
-        add(background);
+        getContentPane().add(background);
         background.setBounds(a, b, c, d);
         repaint();
         setVisible(true);
@@ -56,7 +54,7 @@ public class LoginPage extends Page {
         if (portal instanceof UserPortal) {
             JButton signup = new JButton("Sign Up");
             signup.setFont(font);
-            add(signup);
+            getContentPane().add(signup);
             signup.setBounds(600, 550, 200, 50);
             signup.addActionListener(new ActionListener() {
                 @Override
@@ -68,11 +66,11 @@ public class LoginPage extends Page {
                     signin.setVisible(false);
 
                     Label ul = new Label("Username: ");
-                    add(ul);
+                    getContentPane().add(ul);
                     ul.setFont(font);
                     ul.setBounds(550, 70, 110, 50);
                     TextField u = new TextField();
-                    add(u);
+                    getContentPane().add(u);
                     u.setFont(font);
                     u.setBounds(700, 70, 150, 50);
                     u.addKeyListener(new KeyListener() {
@@ -98,11 +96,11 @@ public class LoginPage extends Page {
 
 
                     Label pl = new Label("Password: ");
-                    add(pl);
+                    getContentPane().add(pl);
                     pl.setFont(font);
                     pl.setBounds(550, 140, 110, 50);
                     JPasswordField p1 = new JPasswordField();
-                    add(p1);
+                    getContentPane().add(p1);
                     p1.setFont(font);
                     p1.setBounds(700, 140, 150, 50);
                     p1.addKeyListener(new KeyListener() {
@@ -128,11 +126,11 @@ public class LoginPage extends Page {
 
 
                     Label pl2 = new Label("Repeat Pass: ");
-                    add(pl2);
+                    getContentPane().add(pl2);
                     pl2.setFont(font);
                     pl2.setBounds(550, 210, 140, 50);
                     JPasswordField p2 = new JPasswordField();
-                    add(p2);
+                    getContentPane().add(p2);
                     p2.setFont(font);
                     p2.setBounds(700, 210, 150, 50);
                     p2.addKeyListener(new KeyListener() {
@@ -157,26 +155,26 @@ public class LoginPage extends Page {
                     });
 
                     Label nl = new Label("FirstName: ");
-                    add(nl);
+                    getContentPane().add(nl);
                     nl.setFont(font);
                     nl.setBounds(550, 280, 140, 50);
                     TextField nn = new TextField();
-                    add(nn);
+                    getContentPane().add(nn);
                     nn.setFont(font);
                     nn.setBounds(700, 280, 150, 50);
 
                     Label sl = new Label("Surname: ");
-                    add(sl);
+                    getContentPane().add(sl);
                     sl.setFont(font);
                     sl.setBounds(550, 350, 140, 50);
                     TextField sur = new TextField();
-                    add(sur);
+                    getContentPane().add(sur);
                     sur.setFont(font);
                     sur.setBounds(700, 350, 150, 50);
 
                     signup.setVisible(false);
                     JButton register = new JButton("Register");
-                    add(register);
+                    getContentPane().add(register);
                     register.setBounds(600, 550, 200, 50);
                     register.setFont(font);
 
@@ -242,7 +240,9 @@ public class LoginPage extends Page {
                             JOptionPane.PLAIN_MESSAGE);
                     setVisible(false);
                     if (portal instanceof UserPortal) {
-                        UserHomePage userHomePage = new UserHomePage((UserPortal) portal);
+                        setContentPane(new UserHomePage((UserPortal) portal));
+                        setVisible(true);
+                        menuBar.setVisible(true);
                     }
                 } else {
                     JOptionPane.showMessageDialog(getParent(),
