@@ -1,7 +1,11 @@
 package logic.Portal;
 
+import logic.object.Book;
 import logic.object.User;
+import logic.object.UserHasBook;
 import logic.sql_instruction.SQLInstruction;
+
+import java.util.Vector;
 
 public class UserPortal extends Portal {
     public UserPortal(SQLInstruction sqlInstruction) {
@@ -12,10 +16,10 @@ public class UserPortal extends Portal {
     public boolean login(String username, String password) {
         int ret = sqlInstruction.getLogin().loginAsUser(username, password);
         if (ret == -1) {
-            return false;
+            return access = false;
         }
-        id = ret;
-        return true;
+        this.id = ret;
+        return access = true;
     }
 
     public User getUserProfileValues(int id) {
@@ -28,6 +32,10 @@ public class UserPortal extends Portal {
 
     public boolean existUser(String username) {
         return sqlInstruction.getExists().existUser(username);
+    }
+
+    public Vector <UserHasBook> getUserBooks (int userId) {
+        return sqlInstruction.getExtractor().extractUserBooks(userId);
     }
 
 }

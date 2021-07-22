@@ -1,5 +1,7 @@
 package logic.object;
 
+import java.util.Vector;
+
 public class Book {
     int id, pubid, series;
     String name, genre, lang, releaseDate, material, des, sum, cat, size;

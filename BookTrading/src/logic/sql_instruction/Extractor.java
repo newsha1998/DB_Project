@@ -1,9 +1,6 @@
 package logic.sql_instruction;
 
-import logic.object.Book;
-import logic.object.Employee;
-import logic.object.User;
-import logic.object.Wallet;
+import logic.object.*;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -95,9 +92,9 @@ public class Extractor extends Instruction {
                 book.setPubid(resultSet.getInt("PublisherId"));
                 book.setName(resultSet.getString("Name"));
                 book.setSeries(resultSet.getInt("SeriesNumber"));
-                book.setGenre(resultSet.getString(resultSet.getString("Genre")));
+                book.setGenre(resultSet.getString("Genre"));
                 book.setLang(resultSet.getString("Language"));
-                book.setReleaseDate(dateFormat.format(resultSet.getDate("ReleaseDate")));
+                book.setReleaseDate(String.valueOf(resultSet.getDate("ReleaseDate")));
                 book.setMaterial(resultSet.getString("Material"));
                 book.setDes(resultSet.getString("Description"));
                 book.setSum(resultSet.getString("Summary"));
@@ -121,20 +118,22 @@ public class Extractor extends Instruction {
 
     }
 
-    public Vector <Book> extractUserBooks(int userId) {
-        Vector <Book> ret = new Vector<Book>();
+    public Vector <UserHasBook> extractUserBooks(int userId) {
+        Vector <UserHasBook> ret = new Vector<UserHasBook>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT BookId FROM UserHasBook " +
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM UserHasBook " +
                     "WHERE UserId = ?");
             preparedStatement.setInt(1, userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                ret.add(extractBookById(resultSet.getInt("Id")));
+                Book b = extractBookById(resultSet.getInt("BookId"));
+                ret.add(new UserHasBook(b.getId(), b.getName(), resultSet.getInt("Number"),
+                        resultSet.getString("Status")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return ret;
     }
 
     public Vector <Book> extractBookTable() {
