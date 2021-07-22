@@ -81,4 +81,131 @@ public class Update extends Instruction {
             e.printStackTrace();
         }
     }
+
+    public void UpdateUserFirstName(String username, String name){
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE User SET FirstName = ? " +
+                    "WHERE Username = ?");
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateUserSurname(String username, String surname) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE User SET Surname = ? " +
+                    "WHERE Username = ?");
+            preparedStatement.setString(1, surname);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateUserCity(String username, String city) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE User SET City = ? " +
+                    "WHERE Username = ?");
+            preparedStatement.setString(1, city);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateUserRegion(String username, String region) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE User SET Region = ? " +
+                    "WHERE Username = ?");
+            preparedStatement.setString(1, region);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateUserAlley(String username, String alley) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE User SET Alley = ? " +
+                    "WHERE Username = ?");
+            preparedStatement.setString(1, alley);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateUserHouseNo(String username, String no) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE User SET HouseNumber = ? " +
+                    "WHERE Username = ?");
+            preparedStatement.setString(1, no);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateUserStreet(String username, String street) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE User SET Street = ? " +
+                    "WHERE Username = ?");
+            preparedStatement.setString(1, street);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateUserEmail(String username, String email) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE User SET Email = ? " +
+                    "WHERE Username = ?");
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void UpdateUserPhone(String username, String phone) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE User SET Telephone = ? " +
+                    "WHERE Username = ?");
+            preparedStatement.setString(1, phone);
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

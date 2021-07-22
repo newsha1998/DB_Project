@@ -49,4 +49,34 @@ public class UserPortal extends Portal {
     public void changeBookStatus(int bookId, String status) {
         sqlInstruction.getUpdate().changeBookStatus(id, bookId, status);
     }
+
+    public void UpdateUser(String type, String username, String input){
+        if (type.equals("name"))
+            sqlInstruction.getUpdate().UpdateUserFirstName(username, input);
+
+        if (type.equals("surname"))
+            sqlInstruction.getUpdate().UpdateUserSurname(username, input);
+
+        if (type.equals("city"))
+            sqlInstruction.getUpdate().UpdateUserCity(username, input);
+
+        if (type.equals("region"))
+            sqlInstruction.getUpdate().UpdateUserRegion(username, input);
+
+        if (type.equals("alley"))
+            sqlInstruction.getUpdate().UpdateUserAlley(username, input);
+
+        if (type.equals("HouseNo"))
+            sqlInstruction.getUpdate().UpdateUserHouseNo(username, input);
+
+        if (type.equals("street"))
+            sqlInstruction.getUpdate().UpdateUserStreet(username, input);
+
+        if (type.equals("email"))
+            sqlInstruction.getUpdate().UpdateUserEmail(username, input);
+
+        if (type.equals("phone"))
+            sqlInstruction.getUpdate().UpdateUserPhone(username, input);
+    }
+
 }

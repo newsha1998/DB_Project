@@ -114,7 +114,7 @@ public class UserHomePage extends HomePage {
         alley.addFocusListener(fk);
         alley.setBounds(300, 220, 50, 30);
         if (user.getAlley()!=null)
-            alley.setText(user.getAddress());
+            alley.setText(user.getAlley());
         add(alley);
 
         JTextField no = new JTextField("No.");
@@ -239,6 +239,63 @@ public class UserHomePage extends HomePage {
         scrollPane.setBounds(100, 370, 400, 200);
 
         setVisible(true);
+        update.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION){
+                    if (!city.getText().equals("") && !city.getText().equals("City")) {
+                        ((UserPortal)portal).UpdateUser("city", username.getText(), city.getText());
+                        user.setCity(city.getText());
+                    }
+
+                    if (!region.getText().equals("") && !region.getText().equals("Region")) {
+                        ((UserPortal)portal).UpdateUser("region", username.getText(), region.getText());
+                        user.setRegion(region.getText());
+                    }
+
+                    if (!street.getText().equals("") && !street.getText().equals("Street")) {
+                        ((UserPortal)portal).UpdateUser("street", username.getText(), street.getText());
+                        user.setStreet(street.getText());
+                    }
+
+                    if (!alley.getText().equals("") && !alley.getText().equals("Alley")) {
+                        ((UserPortal)portal).UpdateUser("alley", username.getText(), alley.getText());
+                        user.setAlley(alley.getText());
+                    }
+
+                    if (!no.getText().equals("") && !no.getText().equals("No.")) {
+                        ((UserPortal)portal).UpdateUser("HouseNo", username.getText(), no.getText());
+                        user.setHouseNumber(no.getText());
+                    }
+
+                    if (!phone.getText().equals("")) {
+                        ((UserPortal)portal).UpdateUser("phone", username.getText(), phone.getText());
+                        user.setTelephone(phone.getText());
+                    }
+
+                    if (!name.getText().equals("")) {
+                        ((UserPortal)portal).UpdateUser("name", username.getText(), name.getText());
+                        user.setName(name.getText());
+                    }
+
+                    if (!surname.getText().equals("")) {
+                        ((UserPortal)portal).UpdateUser("surname", username.getText(), surname.getText());
+                        user.setSurname(surname.getText());
+                    }
+
+                    if (!email.getText().equals("")) {
+                        ((UserPortal)portal).UpdateUser("email", username.getText(), email.getText());
+                        user.setEmail(email.getText());
+                    }
+
+                    JOptionPane.showMessageDialog(getParent(),
+                            "Updated successfully.",
+                            "",
+                            JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+        });
 
         edit_book_list.addActionListener(new ModifyedActionListener(this) {
             @Override
