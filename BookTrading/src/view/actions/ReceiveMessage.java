@@ -66,7 +66,6 @@ public class ReceiveMessage extends Panel {
     }
 
     public String getText(){
-        System.out.println(vec.elementAt(lsm.getMinSelectionIndex()).getText());
         return vec.elementAt(lsm.getMinSelectionIndex()).getText();
     }
 

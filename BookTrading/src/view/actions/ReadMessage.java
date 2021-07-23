@@ -1,4 +1,4 @@
-package view;
+package view.actions;
 
 import logic.Portal.Portal;
 import view.basic.Panel;
@@ -94,5 +94,7 @@ public class ReadMessage extends Panel {
         return Subject;
     }
 
-
+    public void setReplyText(String reply) {
+        this.reply.setText(reply);
+    }
 }

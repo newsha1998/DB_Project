@@ -2,8 +2,8 @@ package view.basic;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
-import view.ReadMessage;
 import view.actions.*;
+import view.actions.comment.CommentForUser;
 import view.home.UserHomePage;
 import view.list.BookList;
 import view.list.UserList;
@@ -108,10 +108,10 @@ public abstract class Page extends JFrame {
                                 if(result == JOptionPane.YES_OPTION){
                                     ((UserPortal)portal).SendMessage(((UserPortal)portal).getId(), message.getUsername(), message.getSubject(), rm.getReplyText());
                                     JOptionPane.showMessageDialog(getParent(),
-                                            "Message has been sent successfully",
+                                            "Done successfully",
                                             "",
                                             JOptionPane.PLAIN_MESSAGE);
-
+                                    rm.setReplyText("");
                                 }
                             }
                         });
@@ -244,6 +244,19 @@ public abstract class Page extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 setContentPane(new UserHomePage((UserPortal) portal));
                 setVisible(true);
+            }
+        });
+
+        JMenu comment = new JMenu("Comment");
+        comment.setFont(font);
+        action.add(comment);
+        JMenuItem commentUser = new JMenuItem("Comment For User");
+        commentUser.setFont(font);
+        comment.add(commentUser);
+        commentUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CommentForUser commentForUser = new CommentForUser(portal);
             }
         });
     }

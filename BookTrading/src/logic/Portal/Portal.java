@@ -71,7 +71,6 @@ public abstract class Portal {
     }
 
     public Vector<Book> getAllSimilarBooks(String name) {
-        System.out.println(name);
         return sqlInstruction.getExtractor().extractSimilarBookTable(name);
     }
 
