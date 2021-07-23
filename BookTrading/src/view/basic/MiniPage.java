@@ -15,6 +15,7 @@ public abstract class MiniPage extends JFrame {
         setSize(x, y);
         setLayout(null);
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setResizable(false);
         setVisible(true);
     }
 }

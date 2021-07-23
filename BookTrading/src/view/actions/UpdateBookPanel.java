@@ -4,6 +4,7 @@ import logic.Portal.UserPortal;
 import view.basic.MiniPage;
 import view.basic.Page;
 import view.home.UserHomePage;
+import view.list.MiniBookList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,6 +41,22 @@ public class UpdateBookPanel extends MiniPage {
         bookId.setFont(font);
         bookId.setBounds(120, 130, 100, 50);
 
+        JButton choose = new JButton("Choose");
+        choose.setFont(font);
+        add(choose);
+        choose.setBounds(230, 130, 150, 50);
+        choose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MiniBookList miniBookList = new MiniBookList(portal);
+                miniBookList.getAdd().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        bookId.setText(String.valueOf(miniBookList.getSelected()));
+                    }
+                });
+            }
+        });
         Label numberLabel = new Label("Number:");
         add(numberLabel);
         numberLabel.setFont(font);

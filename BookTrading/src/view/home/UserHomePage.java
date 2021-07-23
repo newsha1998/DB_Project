@@ -307,6 +307,7 @@ public class UserHomePage extends HomePage {
     public void bookUpdateSignal() {
         UserPortal port = (UserPortal) portal;
         Vector<UserHasBook> books = port.getUserBooks(port.getId());
+        remove(scrollPane);
         table = new JTable(UserHasBook.getRows(books), UserHasBook.getColumns());
         table.setEnabled(false);
         scrollPane = new JScrollPane(table);

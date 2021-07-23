@@ -28,6 +28,7 @@ public abstract class Page extends JFrame {
         setSize(x, y);
         setLayout(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         setVisible(true);
 
         font = new Font("SansSerif", Font.PLAIN, 20);

@@ -79,6 +79,24 @@ public class Book {
         return ret;
     }
 
+    public static Vector<Vector<String>> getMiniRows(Portal portal, Vector<Book> books) {
+        Vector<Vector<String>> ret = new Vector<Vector<String>>();
+        for (Book b:books) {
+            Vector<String> a = new Vector<String>();
+            a.add(String.valueOf(b.getId()));
+            a.add(b.getName());
+            ret.add(a);
+        }
+        return ret;
+    }
+
+    public static Vector<String> getMiniColumns() {
+        Vector<String> ret = new Vector<String>();
+        ret.add("ID");
+        ret.add("Name");
+        return ret;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
