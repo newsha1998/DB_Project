@@ -161,4 +161,24 @@ public class Insert extends Instruction {
         }
         return false;
     }
+
+
+    public void AddAdvertisement(int userId, String title, Integer bookId, Double price, String description) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("INSERT INTO Advertisement" +
+                    "(BookId, UserId, Title, ProposedPrice, Description) VALUES (?, ?, ?, ?, ?)");
+            preparedStatement.setInt(1,bookId);
+            preparedStatement.setInt(2, userId);
+            preparedStatement.setString(3, title);
+            preparedStatement.setDouble(4, price);
+            preparedStatement.setString(5, description);
+            preparedStatement.executeUpdate();
+
+
+        }  catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

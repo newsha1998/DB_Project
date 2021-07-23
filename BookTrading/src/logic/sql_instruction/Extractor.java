@@ -355,4 +355,58 @@ public class Extractor extends Instruction {
         }
         return 0;
     }
+
+    public Vector<Advertisement> extractAdvertisements() {
+        Vector <Advertisement> ret = new Vector<Advertisement>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Advertisement");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Advertisement ads = new Advertisement();
+                ads.setId(resultSet.getInt("Id"));
+                ads.setBookId(resultSet.getInt("BookId"));
+                ads.setDescription(resultSet.getString("Description"));
+                ads.setUserId(resultSet.getInt("UserId"));
+                ads.setProposedPrice(resultSet.getDouble("ProposedPrice"));
+                ads.setTitle(resultSet.getString("Title"));
+
+                preparedStatement = connection.prepareStatement("SELECT Username FROM User " +
+                        "WHERE Id = ?");
+                preparedStatement.setInt(1, resultSet.getInt("UserId"));
+                ResultSet res = preparedStatement.executeQuery();
+                if (res.next())
+                    ads.setUsername(res.getString("Username"));
+
+                ret.add(ads);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    public Vector<Advertisement> extractUserAdvertisements(int id) {
+        Vector <Advertisement> ret = new Vector<Advertisement>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Advertisement " +
+                    "WHERE UserId = ?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Advertisement ads = new Advertisement();
+                ads.setId(resultSet.getInt("Id"));
+                ads.setBookId(resultSet.getInt("BookId"));
+                ads.setDescription(resultSet.getString("Description"));
+                ads.setUserId(resultSet.getInt("UserId"));
+                ads.setProposedPrice(resultSet.getDouble("ProposedPrice"));
+                ads.setTitle(resultSet.getString("Title"));
+
+                ret.add(ads);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
 }

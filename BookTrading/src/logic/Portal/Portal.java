@@ -102,4 +102,20 @@ public abstract class Portal {
         if(comment.getSenderId() != comment.getrId())
             sqlInstruction.getCommentOperation().InsertCommentForUser(comment);
     }
+
+    public void AddAdvertisement(int userId, String title, Integer bookId, Double price, String description) {
+        sqlInstruction.getInsert().AddAdvertisement(userId, title, bookId, price, description);
+    }
+
+    public Vector<Advertisement> getAdvertisements() {
+        return sqlInstruction.getExtractor().extractAdvertisements();
+    }
+
+    public Vector<Advertisement> getUserAdvertisements(int id) {
+        return sqlInstruction.getExtractor().extractUserAdvertisements(id);
+    }
+
+    public void RemoveAd(int Id) {
+        sqlInstruction.getUpdate().RemoveAdvertisement(Id);
+    }
 }

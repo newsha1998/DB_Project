@@ -208,4 +208,18 @@ public class Update extends Instruction {
         }
     }
 
+    public void RemoveAdvertisement(int id) {
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("delete from  Advertisement " +
+                    "WHERE Id = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

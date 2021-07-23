@@ -216,13 +216,7 @@ public abstract class Page extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         UserProfile userProfile = new UserProfile(portal, userList.getSelected());
                         setContentPane(userProfile);
-                        userProfile.getSend_message_button().addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                SendMessage send = new SendMessage((UserPortal)portal);
-                                send.SetUsername(userList.getSelectedUsername());
-                            }
-                        });
+
                     }
                 });
                 userList.getMessage().addActionListener(new ActionListener() {
@@ -257,6 +251,64 @@ public abstract class Page extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CommentForUser commentForUser = new CommentForUser(portal);
+            }
+        });
+
+        JMenu advertisement = new JMenu("Advertisement");
+        advertisement.setFont(font);
+        action.add(advertisement);
+        JMenuItem AddAdvertisement = new JMenuItem("Add Advertisement");
+        AddAdvertisement.setFont(font);
+        advertisement.add(AddAdvertisement);
+        AddAdvertisement.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddAdvertisement adver = new AddAdvertisement((UserPortal)portal);
+
+            }
+        });
+
+        JMenuItem removeAd = new JMenuItem("Remove Advertisement");
+        removeAd.setFont(font);
+        advertisement.add(removeAd);
+        removeAd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RemoveAdvertisement ra = new RemoveAdvertisement(portal);
+                setContentPane(ra);
+                ra.getRemove().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int result = JOptionPane.showConfirmDialog(null, "Are you sure?",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if(result == JOptionPane.YES_OPTION) {
+                            portal.RemoveAd(ra.getSelectedId());
+                            JOptionPane.showMessageDialog(getParent(),
+                                    "done successfully",
+                                    "",
+                                    JOptionPane.PLAIN_MESSAGE);
+                            ra.remake();
+                        }
+                    }
+                });
+            }
+        });
+
+        JMenuItem getAdvertisements = new JMenuItem("View Advertisements");
+        getAdvertisements.setFont(font);
+        view.add(getAdvertisements);
+        getAdvertisements.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Advertisements ads = new Advertisements(portal);
+                setContentPane(ads);
+                ads.getProfile().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        UserProfile userProfile = new UserProfile(portal, ads.getSelected());
+                        setContentPane(userProfile);
+                    }
+                });
             }
         });
     }

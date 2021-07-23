@@ -1,8 +1,10 @@
 package view.profile;
 
 import logic.Portal.Portal;
+import logic.Portal.UserPortal;
 import logic.object.User;
 import logic.object.UserHasBook;
+import view.actions.SendMessage;
 import view.actions.comment.CommentForUser;
 
 import javax.swing.*;
@@ -188,6 +190,14 @@ public class UserProfile extends Profile {
         scrollPane.setFont(font);
         add(scrollPane);
         scrollPane.setBounds(100, 390, 400, 200);
+
+        send_message_button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SendMessage send = new SendMessage((UserPortal)portal);
+                send.SetUsername(portal.getUserProfileValues(id).getUsername());
+            }
+        });
 
         setVisible(true);
     }
