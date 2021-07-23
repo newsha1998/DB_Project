@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 
 public class AddBook extends Panel {
@@ -189,6 +191,10 @@ public class AddBook extends Panel {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Set<Integer> unique = new HashSet<Integer>(authors);
+                authors = new Vector<>(unique);
+                unique = new HashSet<Integer>(interpreters);
+                interpreters = new Vector<>(unique);
                 boolean ret = portal.insertBook(new Book(publisherId,
                         ser.getText(), name.getText(), genre.getText(), lang.getText(), reldate.getText(),
                         mat.getText(), des.getText(), sum.getText(), cat.getText(), size.getText(),

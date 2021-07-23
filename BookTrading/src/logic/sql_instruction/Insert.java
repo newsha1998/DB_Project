@@ -91,7 +91,7 @@ public class Insert extends Instruction {
                 preparedStatement.setString(11, book.getReleaseDate());
                 preparedStatement.executeUpdate();
                 preparedStatement = connection.prepareStatement("SELECT Id FROM Book WHERE " +
-                        "Name = ? AND Genre = ? AND Language = ? AND Material = ? AND SeriesNumber = ? AND Description = ? AND Summary = ? AND Category = ? AND Size = ? AND PublisherId = ? AND ReleaseDate = CONVERT (?, DATE));");
+                        "Name = ? AND Genre = ? AND Language = ? AND Material = ? AND SeriesNumber = ? AND Description = ? AND Summary = ? AND Category = ? AND Size = ? AND PublisherId = ? AND ReleaseDate = CONVERT (?, DATE);");
                 preparedStatement.setString(1, book.getName());
                 preparedStatement.setString(2, book.getGenre());
                 preparedStatement.setString(3, book.getLang());
@@ -150,7 +150,7 @@ public class Insert extends Instruction {
 
             for (int i : book.getInterpreters()) {
                 PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO InterpreterBook " +
-                        "(BookId, AuthorId) VALUES (?, ?);");
+                        "(BookId, InterpreterId) VALUES (?, ?);");
                 preparedStatement.setInt(1, book.getId());
                 preparedStatement.setInt(2, i);
                 preparedStatement.executeUpdate();
