@@ -3,13 +3,18 @@ package view.profile;
 import logic.Portal.Portal;
 import logic.object.User;
 import logic.object.UserHasBook;
+import view.actions.comment.CommentForUser;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class UserProfile extends Profile {
     JButton send_message_button;
+
+    TextField seller, lender, purchaser, borrower;
 
     public UserProfile(Portal portal, int id) throws HeadlessException {
         super(portal, id);
@@ -61,7 +66,7 @@ public class UserProfile extends Profile {
 
         Label addressLabel = new Label("Address");
         addressLabel.setFont(font);
-        addressLabel.setBounds(10, 220, 130, 50);
+        addressLabel.setBounds(10, 240, 130, 50);
         add(addressLabel);
 
         TextField address = new TextField();
@@ -86,10 +91,10 @@ public class UserProfile extends Profile {
         score_as_a_seller.setBounds(550, 30, 250, 50);
         add(score_as_a_seller);
 
-        TextField seller = new TextField();
+        seller = new TextField();
         seller.setEditable(false);
         seller.setBounds(800, 40, 60, 30);
-        seller.setText(String.valueOf(user.getSeller()));
+        seller.setText(String.format("%.2f",user.getSeller()));
         if (user.getSeller() >= 7)
             seller.setBackground(Color.GREEN);
         else if (user.getSeller() >= 4)
@@ -105,10 +110,10 @@ public class UserProfile extends Profile {
         score_as_a_purchaser.setBounds(550, 80, 250, 50);
         add(score_as_a_purchaser);
 
-        TextField purchaser = new TextField();
+        purchaser = new TextField();
         purchaser.setEditable(false);
         purchaser.setBounds(800, 90, 60, 30);
-        purchaser.setText(String.valueOf(user.getPurchaser()));
+        purchaser.setText(String.format("%.2f", user.getPurchaser()));
 
         if (user.getPurchaser() >= 7)
             purchaser.setBackground(Color.GREEN);
@@ -125,10 +130,10 @@ public class UserProfile extends Profile {
         score_as_a_lender.setBounds(550, 130, 250, 50);
         add(score_as_a_lender);
 
-        TextField lender = new TextField();
+        lender = new TextField();
         lender.setEditable(false);
         lender.setBounds(800, 140, 60, 30);
-        lender.setText(String.valueOf(user.getLender()));
+        lender.setText(String.format("%.2f", user.getLender()));
 
         if (user.getLender() >= 7)
             lender.setBackground(Color.GREEN);
@@ -145,10 +150,10 @@ public class UserProfile extends Profile {
         score_as_a_borrower.setBounds(550, 180, 250, 50);
         add(score_as_a_borrower);
 
-        TextField borrower = new TextField();
+        borrower = new TextField();
         borrower.setEditable(false);
         borrower.setBounds(800, 190, 60, 30);
-        borrower.setText(String.valueOf(user.getBorrower()));
+        borrower.setText(String.format("%.2f", user.getBorrower()));
 
         if (user.getBorrower() >= 7)
             borrower.setBackground(Color.GREEN);
@@ -169,6 +174,7 @@ public class UserProfile extends Profile {
         comment.setFont(font);
         add(comment);
         comment.setBounds(600, 500, 200, 50);
+        comment.addActionListener(new MiniActionListener(portal, id, this));
 
         Label booksLabel = new Label("Books");
         booksLabel.setBounds(265, 360, 60, 30);
@@ -188,5 +194,86 @@ public class UserProfile extends Profile {
 
     public JButton getSend_message_button() {
         return send_message_button;
+    }
+
+    public void updateScore() {
+        User user = portal.getUserProfileValues(id);
+        remove(seller);
+        seller = new TextField();
+        seller.setEditable(false);
+        seller.setBounds(800, 40, 60, 30);
+        seller.setText(String.format("%.2f", user.getSeller()));
+        if (user.getSeller() >= 7)
+            seller.setBackground(Color.GREEN);
+        else if (user.getSeller() >= 4)
+            seller.setBackground(Color.orange);
+        else if (user.getSeller() >= 0)
+            seller.setBackground(Color.RED);
+        else
+            seller.setText("NA");
+        add(seller);
+        remove(purchaser);
+        purchaser = new TextField();
+        purchaser.setEditable(false);
+        purchaser.setBounds(800, 90, 60, 30);
+        purchaser.setText(String.format("%.2f", user.getPurchaser()));
+
+        if (user.getPurchaser() >= 7)
+            purchaser.setBackground(Color.GREEN);
+        else if (user.getPurchaser() >= 4)
+            purchaser.setBackground(Color.orange);
+        else if (user.getPurchaser() >= 0)
+            purchaser.setBackground(Color.RED);
+        else
+            purchaser.setText("NA");
+        add(purchaser);
+        remove(lender);
+        lender = new TextField();
+        lender.setEditable(false);
+        lender.setBounds(800, 140, 60, 30);
+        lender.setText(String.format("%.2f", user.getLender()));
+
+        if (user.getLender() >= 7)
+            lender.setBackground(Color.GREEN);
+        else if (user.getLender() >= 4)
+            lender.setBackground(Color.orange);
+        else if (user.getLender() >= 0)
+            lender.setBackground(Color.RED);
+        else
+            lender.setText("NA");
+        add(lender);
+        remove(borrower);
+        borrower = new TextField();
+        borrower.setEditable(false);
+        borrower.setBounds(800, 190, 60, 30);
+        borrower.setText(String.format("%.2f", user.getBorrower()));
+
+        if (user.getBorrower() >= 7)
+            borrower.setBackground(Color.GREEN);
+        else if (user.getBorrower() >= 4)
+            borrower.setBackground(Color.orange);
+        else if (user.getBorrower() >= 0)
+            borrower.setBackground(Color.RED);
+        else
+            borrower.setText("NA");
+        add(borrower);
+
+        setVisible(true);
+    }
+}
+
+class MiniActionListener implements ActionListener {
+    UserProfile profile;
+    int id;
+    Portal portal;
+    public MiniActionListener(Portal portal, int id, UserProfile p) {
+        profile = p;
+        this.portal = portal;
+        this.id = id;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        CommentForUser commentForUser = new CommentForUser(portal, id, profile);
     }
 }

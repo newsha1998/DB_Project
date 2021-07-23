@@ -342,4 +342,17 @@ public class Extractor extends Instruction {
         }
         return ret;
     }
+
+    public int extractUserIdByUsername(String username) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Id FROM User Where Username = ?;");
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                return resultSet.getInt("Id");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

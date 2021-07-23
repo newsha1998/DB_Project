@@ -95,4 +95,11 @@ public abstract class Portal {
     }
 
 
+    public int getUsetIdByUsername(String username) {
+        return sqlInstruction.getExtractor().extractUserIdByUsername(username);
+    }
+
+    public void insertCommentForUser(Comment comment) {
+        sqlInstruction.getCommentOperation().InsertCommentForUser(comment);
+    }
 }
