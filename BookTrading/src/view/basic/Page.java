@@ -3,9 +3,7 @@ package view.basic;
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
 import view.ReadMessage;
-import view.actions.AddBook;
-import view.actions.ReceiveMessage;
-import view.actions.SendMessage;
+import view.actions.*;
 import view.home.UserHomePage;
 import view.list.BookList;
 import view.list.UserList;
@@ -139,7 +137,71 @@ public abstract class Page extends JFrame {
         borrow.add(borrowReq);
         JMenuItem confirmation = new JMenuItem("Confirm Borrow Request");
         confirmation.setFont(font);
-        borrow.add(confirmation);
+        borrow.add(confirmation);confirmation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BorrowConfirmation bc = new BorrowConfirmation(portal);
+                setContentPane(bc);
+                bc.getConfirm().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int result = JOptionPane.showConfirmDialog(null, "Are you sure?",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if(result == JOptionPane.YES_OPTION) {
+                            portal.ConfirmBorrow(bc.getSelected().getId());
+                            JOptionPane.showMessageDialog(getParent(),
+                                    "done successfully",
+                                    "",
+                                    JOptionPane.PLAIN_MESSAGE);
+                            bc.remake();
+                        }
+                    }
+                });
+            }
+        });
+
+        borrowReq.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BorrowRequest br = new BorrowRequest(portal);
+                setContentPane(br);
+                br.getAddReq().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int result = JOptionPane.showConfirmDialog(null, "Are you sure?",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if(result == JOptionPane.YES_OPTION){
+                            int ret = portal.AddBorrowReq(((UserPortal)portal).getId(), br.getUsername().getText(), Integer.valueOf(br.getBookId().getText()),
+                                    Double.valueOf(br.getPrice().getText()), br.getStartDate().getText(), br.getDeadlineDate().getText(), Double.valueOf(br.getDelay().getText()),
+                                    Double.valueOf(br.getGuarantee().getText()), br.getAddress().getText(), br.getDescription().getText());
+                            if(ret == -1) {
+                                JOptionPane.showMessageDialog(getParent(),
+                                        "This Username doesn't exist",
+                                        "",
+                                        JOptionPane.PLAIN_MESSAGE);
+                            }
+                            else if(ret == -2){
+                                JOptionPane.showMessageDialog(getParent(),
+                                        "This Book Id doesn't exist!",
+                                        "ERROR",
+                                        JOptionPane.PLAIN_MESSAGE);
+                            }else{
+                                JOptionPane.showMessageDialog(getParent(),
+                                        "done successfully",
+                                        "",
+                                        JOptionPane.PLAIN_MESSAGE);
+                                br.getAddress().setText(null); br.getBookId().setText(null); br.getDeadlineDate().setText(null);
+                                br.getDelay().setText(null); br.getDescription().setText(null); br.getGuarantee().setText(null);
+                                br.getPrice().setText(null); br.getStartDate().setText(null); br.getUsername().setText(null);
+                            }
+
+
+                        }
+                    }
+                });
+            }
+        });
+
 
         JMenuItem userList = new JMenuItem("View User's List");
         userList.setFont(font);

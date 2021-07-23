@@ -14,6 +14,7 @@ public class SQLInstruction {
     MessageOperation messageOperation;
     Insert insert;
     CommentOperation commentOperation;
+    BorrowOperation borrowOperation;
 
     public SQLInstruction() {
         try {
@@ -32,6 +33,7 @@ public class SQLInstruction {
         messageOperation = new MessageOperation(connection);
         insert = new Insert(connection);
         commentOperation = new CommentOperation(connection);
+        borrowOperation = new BorrowOperation(connection);
     }
 
     public Extractor getExtractor() {
@@ -64,5 +66,9 @@ public class SQLInstruction {
 
     public CommentOperation getCommentOperation() {
         return commentOperation;
+    }
+
+    public BorrowOperation getBorrowOperation() {
+        return borrowOperation;
     }
 }

@@ -74,4 +74,25 @@ public abstract class Portal {
         System.out.println(name);
         return sqlInstruction.getExtractor().extractSimilarBookTable(name);
     }
+
+    public int AddBorrowReq(int BorrowerId, String LenderUsername, int BookId, double Price, String StartDate,
+                            String DeadlineDate, double DailyDelayPenalty,
+                            double GuaranteePrice, String DeliveryAddress, String Description){
+        return sqlInstruction.getBorrowOperation().AddBorrowReq(BorrowerId, LenderUsername, BookId, Price, StartDate,
+                DeadlineDate, DailyDelayPenalty, GuaranteePrice, DeliveryAddress, Description);
+    }
+
+    public Book getBookById(int id){
+        return sqlInstruction.getExtractor().extractBookById(id);
+    }
+
+    public Vector<Borrow> getBorrowRequests(int userId) {
+        return sqlInstruction.getBorrowOperation().getBorrowRequests(userId);
+    }
+
+    public void ConfirmBorrow(int id){
+        sqlInstruction.getBorrowOperation().BorrowConfirmation(id);
+    }
+
+
 }
