@@ -100,6 +100,7 @@ public abstract class Portal {
     }
 
     public void insertCommentForUser(Comment comment) {
-        sqlInstruction.getCommentOperation().InsertCommentForUser(comment);
+        if(comment.getSenderId() != comment.getrId())
+            sqlInstruction.getCommentOperation().InsertCommentForUser(comment);
     }
 }

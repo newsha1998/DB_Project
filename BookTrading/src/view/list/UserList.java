@@ -2,6 +2,7 @@ package view.list;
 
 import logic.Portal.Portal;
 import logic.object.User;
+import view.actions.comment.CommentForUser;
 import view.basic.MyTableModel;
 import view.basic.Panel;
 
@@ -9,6 +10,8 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class UserList extends Panel {
@@ -48,6 +51,13 @@ public class UserList extends Panel {
         add(comment);
         comment.setFont(font);
         comment.setBounds(600, 550, 200, 50);
+
+        comment.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CommentForUser commentForUser = new CommentForUser(portal, getSelected());
+            }
+        });
 
         profile.setEnabled(false);
         comment.setEnabled(false);
