@@ -1,5 +1,7 @@
 package logic.object;
 
+import logic.Portal.Portal;
+
 import java.util.Vector;
 
 public class Book {
@@ -29,6 +31,52 @@ public class Book {
 
     public Book(String name) {
         this.name = name;
+    }
+
+    public static Vector<Vector<String>> getRows(Portal portal, Vector<Book> vec) {
+        Vector<Vector<String>> ret = new Vector<Vector<String>>();
+        for (Book b:vec) {
+            Vector<String> a = new Vector<String>();
+            a.add(String.valueOf(b.getId()));
+            a.add(b.getName());
+            if (b.getPubid() != 0)
+                a.add(portal.getPublisherName(b.getPubid()));
+            else
+                a.add("NA");
+            String authors = "";
+            for (int i:b.getAuthors()) {
+                authors = authors + portal.getAuthorName(i) + ", ";
+            }
+            if (authors.equals(""))
+                authors = "NA";
+            a.add(authors);
+            String inter = "";
+            for (int i:b.getInterpreters()) {
+                inter = inter + portal.getInterpreterName(i) + ", ";
+            }
+            if (inter.equals(""))
+                inter = "NA";
+            a.add(inter);
+            a.add(b.getGenre());
+            if (b.getScore() >= 0)
+                a.add(String.valueOf(b.getScore()));
+            else
+                a.add("NA");
+            ret.add(a);
+        }
+        return ret;
+    }
+
+    public static Vector<String> getColumns() {
+        Vector<String> ret = new Vector<String>();
+        ret.add("ID");
+        ret.add("Name");
+        ret.add("Publisher");
+        ret.add("Authors");
+        ret.add("Interpreters");
+        ret.add("Genre");
+        ret.add("Score");
+        return ret;
     }
 
     public void setId(int id) {

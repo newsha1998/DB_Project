@@ -325,4 +325,21 @@ public class Extractor extends Instruction {
         }
         return null;
     }
+
+    public Vector<Book> extractSimilarBookTable(String name) {
+        Vector <Book> ret = new Vector<Book>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Id FROM Book WHERE  " +
+                    "Name LIKE ?;");
+            preparedStatement.setString(1, "%" + name + "%");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("Id");
+                ret.add(extractBookById(id));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
 }

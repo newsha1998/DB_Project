@@ -66,4 +66,12 @@ public abstract class Portal {
         return sqlInstruction.getMessageOperation().GetInboxMessages(receiverId);
     }
 
+    public Vector<Book> getAllBooks() {
+        return sqlInstruction.getExtractor().extractBookTable();
+    }
+
+    public Vector<Book> getAllSimilarBooks(String name) {
+        System.out.println(name);
+        return sqlInstruction.getExtractor().extractSimilarBookTable(name);
+    }
 }

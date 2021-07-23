@@ -165,10 +165,10 @@ public class UserProfile extends Profile {
         add(send_message_button);
         send_message_button.setBounds(600, 420, 200, 50);
 
-        JButton report = new JButton("Report");
-        report.setFont(font);
-        add(report);
-        report.setBounds(600, 500, 200, 50);
+        JButton comment = new JButton("Comment");
+        comment.setFont(font);
+        add(comment);
+        comment.setBounds(600, 500, 200, 50);
 
         Label booksLabel = new Label("Books");
         booksLabel.setBounds(265, 360, 60, 30);

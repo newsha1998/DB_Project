@@ -1,7 +1,7 @@
 package view.list;
 
 import logic.Portal.Portal;
-import logic.object.User;
+import logic.object.Book;
 import view.basic.MyTableModel;
 import view.basic.Panel;
 
@@ -9,49 +9,63 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class UserList extends Panel {
-    JButton profile, comment, message;
+public class BookList extends Panel {
+    JButton comment, search;
     ListSelectionModel sm;
     Vector<Vector<String >> data;
+    JScrollPane scrollPane;
+    JTable table;
 
-    public UserList(Portal portal) {
+    public BookList(Portal portal) {
         super(portal);
 
         Label userListLabel = new Label("User's List");
         userListLabel.setBounds(20, 40, 150, 50);
         userListLabel.setFont(font);
         add(userListLabel);
-        Vector <User> vec = portal.getAllUsers();
-        data = User.getRows(vec);
-        JTable table = new JTable(new MyTableModel(data , User.getColumns()));
+        Vector <Book> vec = portal.getAllBooks();
+        data = Book.getRows(portal, vec);
+        table = new JTable(new MyTableModel(data , Book.getColumns()));
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane scrollPane = new JScrollPane(table);
-        table.setFillsViewportHeight(true);
-        scrollPane.setFont(font);
+        scrollPane = new JScrollPane(table);
         add(scrollPane);
         scrollPane.setBounds(50, 100, 800, 400);
         sm = table.getSelectionModel();
 
-        profile = new JButton("View Profile");
-        add(profile);
-        profile.setFont(font);
-        profile.setBounds(100, 550, 200, 50);
+        TextField sea = new TextField();
+        sea.setFont(font);
+        add(sea);
+        sea.setBounds(75, 550, 150, 50);
 
-        message = new JButton("Send Message");
-        add(message);
-        message.setFont(font);
-        message.setBounds(350, 550, 200, 50);
+        search = new JButton("Search");
+        add(search);
+        search.setFont(font);
+        search.setBounds(250, 550, 110, 50);
+        search.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Vector <Book> vec = portal.getAllSimilarBooks(sea.getText());
+                remove(scrollPane);
+                data = Book.getRows(portal, vec);
+                table = new JTable(new MyTableModel(data , Book.getColumns()));
+                table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                scrollPane = new JScrollPane(table);
+                add(scrollPane);
+                scrollPane.setBounds(50, 100, 800, 400);
+                sm = table.getSelectionModel();
+            }
+        });
 
         comment = new JButton("Comment");
         add(comment);
         comment.setFont(font);
         comment.setBounds(600, 550, 200, 50);
 
-        profile.setEnabled(false);
         comment.setEnabled(false);
-        message.setEnabled(false);
         sm.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -60,35 +74,19 @@ public class UserList extends Panel {
 
                 ListSelectionModel lsm = (ListSelectionModel) e.getSource();
                 if (lsm.isSelectionEmpty()) {
-                    profile.setEnabled(false);
                     comment.setEnabled(false);
-                    message.setEnabled(false);
                 } else {
-                    profile.setEnabled(true);
                     comment.setEnabled(true);
-                    message.setEnabled(true);
                 }
             }
         });
-    }
-
-    public JButton getProfile() {
-        return profile;
     }
 
     public JButton getComment() {
         return comment;
     }
 
-    public JButton getMessage() {
-        return message;
-    }
-
     public int getSelected() {
         return Integer.parseInt(data.elementAt(sm.getMinSelectionIndex()).elementAt(0));
-    }
-
-    public String getSelectedUsername() {
-        return data.elementAt(sm.getMinSelectionIndex()).elementAt(1);
     }
 }

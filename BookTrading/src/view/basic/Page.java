@@ -7,6 +7,7 @@ import view.actions.AddBook;
 import view.actions.ReceiveMessage;
 import view.actions.SendMessage;
 import view.home.UserHomePage;
+import view.list.BookList;
 import view.list.UserList;
 import view.profile.UserProfile;
 
@@ -51,6 +52,26 @@ public abstract class Page extends JFrame {
     }
 
     private void addItems() {
+        JMenuItem addBook = new JMenuItem("Add Book");
+        addBook.setFont(font);
+        action.add(addBook);
+        addBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setContentPane(new AddBook(portal));
+            }
+        });
+
+        JMenuItem viewBook = new JMenuItem("View Book's List");
+        view.add(viewBook);
+        viewBook.setFont(font);
+        viewBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setContentPane(new BookList(portal));
+            }
+        });
+
         if (portal instanceof UserPortal) {
             createUserMenuBar();
         }
@@ -149,16 +170,6 @@ public abstract class Page extends JFrame {
                     }
                 });
 
-            }
-        });
-
-        JMenuItem addBook = new JMenuItem("Add Book");
-        addBook.setFont(font);
-        action.add(addBook);
-        addBook.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setContentPane(new AddBook(portal));
             }
         });
 
