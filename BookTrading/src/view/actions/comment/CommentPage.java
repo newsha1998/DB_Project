@@ -6,22 +6,22 @@ import view.basic.MiniPage;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class Comment extends MiniPage {
+public abstract class CommentPage extends MiniPage {
     protected JButton submit;
     protected JScrollPane sp;
     protected JTextArea text;
     protected Label textLabel, subjectLabel, ScoreLabel, usernameLabel;
-    protected JTextField subject;
+    protected JTextField subject, username;
     protected JSpinner score;
 
-    public Comment(Portal portal) throws HeadlessException {
+    public CommentPage(Portal portal) throws HeadlessException {
         super(portal);
 
         usernameLabel = new Label();
         usernameLabel.setFont(font);
         add(usernameLabel);
         usernameLabel.setBounds(20, 20, 120, 50);
-        JTextField username = new JTextField();
+        username = new JTextField();
         username.setFont(font);
         add(username);
         username.setBounds(140, 20, 150, 50);

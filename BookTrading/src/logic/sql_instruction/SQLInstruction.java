@@ -13,6 +13,7 @@ public class SQLInstruction {
     Update update;
     MessageOperation messageOperation;
     Insert insert;
+    CommentOperation commentOperation;
 
     public SQLInstruction() {
         try {
@@ -30,6 +31,7 @@ public class SQLInstruction {
         update = new Update(connection);
         messageOperation = new MessageOperation(connection);
         insert = new Insert(connection);
+        commentOperation = new CommentOperation(connection);
     }
 
     public Extractor getExtractor() {
@@ -58,5 +60,9 @@ public class SQLInstruction {
 
     public Insert getInsert() {
         return insert;
+    }
+
+    public CommentOperation getCommentOperation() {
+        return commentOperation;
     }
 }
