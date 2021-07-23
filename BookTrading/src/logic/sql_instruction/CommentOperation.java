@@ -91,4 +91,34 @@ public class CommentOperation extends Instruction {
             e.printStackTrace();
         }
     }
+
+    public void insertCommentForBookstore(Comment comment) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("Insert into Comment " +
+                    "(SenderUserId, Score, Subject, Text) values (?, ?, ?, ?);");
+            preparedStatement.setInt(1, comment.getSenderId());
+            preparedStatement.setDouble(2, comment.getScore());
+            preparedStatement.setString(3, comment.getSub());
+            preparedStatement.setString(4, comment.getText());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("SELECT Id From Comment" +
+                    " WHERE SenderUserId = ? And Score = ? AND Subject = ? AND Text = ?");
+            preparedStatement.setInt(1, comment.getSenderId());
+            preparedStatement.setDouble(2, comment.getScore());
+            preparedStatement.setString(3, comment.getSub());
+            preparedStatement.setString(4, comment.getText());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                comment.setId(resultSet.getInt("Id"));
+            }
+            preparedStatement = connection.prepareStatement("INSERT INTO UserCommentForBookstore " +
+                    "(CommentId, BookstoreId) values (?, ?);");
+            preparedStatement.setInt(1, comment.getId());
+            preparedStatement.setInt(2, comment.getrId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

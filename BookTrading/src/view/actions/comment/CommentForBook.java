@@ -39,5 +39,6 @@ public class CommentForBook extends CommentPage {
                 setVisible(false);
             }
         });
+        setVisible(true);
     }
 }

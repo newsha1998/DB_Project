@@ -30,22 +30,22 @@ public class User {
             else
                 a.add("NA");
             if (u.getBorrower() >= 0){
-                a.add(String.valueOf(u.getBorrower()));
+                a.add(String.format("%.2f",u.getBorrower()));
             } else {
                 a.add("NA");
             }
             if (u.getLender() >= 0) {
-                a.add(String.valueOf(u.getLender()));
+                a.add(String.format("%.2f",u.getLender()));
             } else {
                 a.add("NA");
             }
             if (u.getSeller() >= 0) {
-                a.add(String.valueOf(u.getSeller()));
+                a.add(String.format("%.2f",u.getSeller()));
             } else {
                 a.add("NA");
             }
             if (u.getPurchaser() >= 0) {
-                a.add(String.valueOf(u.getPurchaser()));
+                a.add(String.format("%.2f",u.getPurchaser()));
             } else {
                 a.add("NA");
             }

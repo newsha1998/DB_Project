@@ -2,7 +2,9 @@ package view.list;
 
 import logic.Portal.Portal;
 import logic.object.Book;
+import logic.object.Bookstore;
 import view.actions.comment.CommentForBook;
+import view.actions.comment.CommentForBookstore;
 import view.basic.MyTableModel;
 import view.basic.Panel;
 
@@ -14,52 +16,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public class BookList extends Panel {
+public class BookstoreList extends Panel {
     JButton comment, search;
     ListSelectionModel sm;
     Vector<Vector<String >> data;
     JScrollPane scrollPane;
     JTable table;
 
-    public BookList(Portal portal) {
+    public BookstoreList(Portal portal) {
         super(portal);
 
-        Label userListLabel = new Label("Book's List");
+        Label userListLabel = new Label("Bookstore's List");
         userListLabel.setBounds(20, 40, 150, 50);
         userListLabel.setFont(font);
         add(userListLabel);
-        Vector <Book> vec = portal.getAllBooks();
-        data = Book.getRows(portal, vec);
-        table = new JTable(new MyTableModel(data , Book.getColumns()));
+        Vector <Bookstore> vec = portal.getBookstoresTable();
+        data = Bookstore.getRows(vec);
+        table = new JTable(new MyTableModel(data , Bookstore.getColumns()));
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         scrollPane = new JScrollPane(table);
         add(scrollPane);
         scrollPane.setBounds(50, 100, 800, 400);
         sm = table.getSelectionModel();
-
-        TextField sea = new TextField();
-        sea.setFont(font);
-        add(sea);
-        sea.setBounds(75, 550, 150, 50);
-
-        search = new JButton("Search");
-        add(search);
-        search.setFont(font);
-        search.setBounds(250, 550, 110, 50);
-        search.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Vector <Book> vec = portal.getAllSimilarBooks(sea.getText());
-                remove(scrollPane);
-                data = Book.getRows(portal, vec);
-                table = new JTable(new MyTableModel(data , Book.getColumns()));
-                table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                scrollPane = new JScrollPane(table);
-                add(scrollPane);
-                scrollPane.setBounds(50, 100, 800, 400);
-                sm = table.getSelectionModel();
-            }
-        });
 
         comment = new JButton("Comment");
         add(comment);
@@ -68,7 +46,7 @@ public class BookList extends Panel {
         comment.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CommentForBook commentForBook = new CommentForBook(portal, getSelected());
+                CommentForBookstore commentForBook = new CommentForBookstore(portal, getSelected());
             }
         });
 

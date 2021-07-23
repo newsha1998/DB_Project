@@ -409,4 +409,51 @@ public class Extractor extends Instruction {
         return ret;
     }
 
+    public Bookstore extractBookstoreById (int id) {
+        Bookstore bookstore = new Bookstore();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Bookstore " +
+                    "WHERE Id = ?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                bookstore.setId(id);
+                bookstore.setUsername(resultSet.getString("Username"));
+                bookstore.setName(resultSet.getString("Name"));
+                bookstore.setWebsite(resultSet.getString("Website"));
+                bookstore.setScore(resultSet.getDouble("Score"));
+                bookstore.setCity(resultSet.getString("City"));
+                bookstore.setRegion(resultSet.getString("Region"));
+                bookstore.setStreet(resultSet.getString("Street"));
+                bookstore.setAlley(resultSet.getString("Alley"));
+                bookstore.setBuilding(resultSet.getString("BuildingNumber"));
+                bookstore.setEmail(resultSet.getString("Email"));
+                PreparedStatement pr = connection.prepareStatement("SELECT * FROM UserCommentForBookstore " +
+                        "WHERE BookstoreId = ?");
+                pr.setInt(1, bookstore.getId());
+                ResultSet rs = pr.executeQuery();
+                if (!rs.next()) {
+                    bookstore.setScore(-1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookstore;
+    }
+
+    public Vector <Bookstore> extractAllBookstores () {
+        Vector <Bookstore> bookstores = new Vector<Bookstore>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Id FROM Bookstore;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                bookstores.add(extractBookstoreById(resultSet.getInt("Id")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookstores;
+    }
+
 }

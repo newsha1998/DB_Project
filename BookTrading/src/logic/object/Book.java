@@ -59,7 +59,7 @@ public class Book {
             a.add(inter);
             a.add(b.getGenre());
             if (b.getScore() >= 0)
-                a.add(String.valueOf(b.getScore()));
+                a.add(String.format("%.2f",b.getScore()));
             else
                 a.add("NA");
             ret.add(a);

@@ -122,4 +122,12 @@ public abstract class Portal {
     public void insertCommentForBook(Comment comment) {
         sqlInstruction.getCommentOperation().insertCommentForBook(comment);
     }
+
+    public Vector <Bookstore> getBookstoresTable() {
+        return sqlInstruction.getExtractor().extractAllBookstores();
+    }
+
+    public void insertCommentForBookstore(Comment comment) {
+        sqlInstruction.getCommentOperation().insertCommentForBookstore(comment);
+    }
 }

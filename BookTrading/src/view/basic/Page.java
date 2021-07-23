@@ -4,9 +4,11 @@ import logic.Portal.Portal;
 import logic.Portal.UserPortal;
 import view.actions.*;
 import view.actions.comment.CommentForBook;
+import view.actions.comment.CommentForBookstore;
 import view.actions.comment.CommentForUser;
 import view.home.UserHomePage;
 import view.list.BookList;
+import view.list.BookstoreList;
 import view.list.UserList;
 import view.profile.UserProfile;
 
@@ -69,6 +71,16 @@ public abstract class Page extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setContentPane(new BookList(portal));
+            }
+        });
+
+        JMenuItem viewBookstore = new JMenuItem("View Bookstore's List");
+        view.add(viewBookstore);
+        viewBookstore.setFont(font);
+        viewBookstore.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setContentPane(new BookstoreList(portal));
             }
         });
 
@@ -263,6 +275,15 @@ public abstract class Page extends JFrame {
                 CommentForBook commentForBook = new CommentForBook(portal);
             }
         });
+        JMenuItem commentBookstore = new JMenuItem("Comment For Bookstore");
+        commentBookstore.setFont(font);
+        comment.add(commentBookstore);
+        commentBookstore.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CommentForBookstore commentForBook = new CommentForBookstore(portal);
+            }
+        });
 
         JMenu advertisement = new JMenu("Advertisement");
         advertisement.setFont(font);
@@ -321,5 +342,7 @@ public abstract class Page extends JFrame {
                 });
             }
         });
+
+
     }
 }
