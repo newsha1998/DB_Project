@@ -61,4 +61,9 @@ public abstract class Portal {
     public boolean insertBook(Book book) {
         return sqlInstruction.getInsert().insertBook(book);
     }
+
+    public Vector<Message> getUserMessages(int receiverId) {
+        return sqlInstruction.getMessageOperation().GetInboxMessages(receiverId);
+    }
+
 }

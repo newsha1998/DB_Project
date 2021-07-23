@@ -2,7 +2,9 @@ package view.basic;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
+import view.ReadMessage;
 import view.actions.AddBook;
+import view.actions.ReceiveMessage;
 import view.actions.SendMessage;
 import view.home.UserHomePage;
 import view.list.UserList;
@@ -65,6 +67,39 @@ public abstract class Page extends JFrame {
         JMenuItem inbox = new JMenuItem("View Inbox");
         inbox.setFont(font);
         messages.add(inbox);
+        inbox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ReceiveMessage message = new ReceiveMessage(portal);
+                setContentPane(message);
+                message.getOpen().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ReadMessage rm = new ReadMessage(portal);
+                        rm.getText().setText(message.getText());
+                        rm.getUsername().setText(message.getUsername());
+                        rm.getSubject().setText(message.getSubject());
+                        setContentPane(rm);
+                        rm.getMessage().addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                int result = JOptionPane.showConfirmDialog(null, "Are you sure?",
+                                        "Confirmation", JOptionPane.YES_NO_OPTION);
+                                if(result == JOptionPane.YES_OPTION){
+                                    ((UserPortal)portal).SendMessage(((UserPortal)portal).getId(), message.getUsername(), message.getSubject(), rm.getReplyText());
+                                    JOptionPane.showMessageDialog(getParent(),
+                                            "Message has been sent successfully",
+                                            "",
+                                            JOptionPane.PLAIN_MESSAGE);
+
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
 
         sendMessage.addActionListener(new ActionListener() {
             @Override
