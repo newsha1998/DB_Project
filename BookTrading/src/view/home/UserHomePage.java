@@ -229,7 +229,7 @@ public class UserHomePage extends HomePage {
         booksLabel.setFont(font);
         add(booksLabel);
         Vector<UserHasBook> books = portal.getUserBooks(portal.getId());
-        table = new JTable(UserHasBook.Convert(books), UserHasBook.getColumns());
+        table = new JTable(UserHasBook.getRows(books), UserHasBook.getColumns());
         table.setEnabled(false);
         scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);
@@ -307,7 +307,7 @@ public class UserHomePage extends HomePage {
     public void bookUpdateSignal() {
         UserPortal port = (UserPortal) portal;
         Vector<UserHasBook> books = port.getUserBooks(port.getId());
-        table = new JTable(UserHasBook.Convert(books), UserHasBook.getColumns());
+        table = new JTable(UserHasBook.getRows(books), UserHasBook.getColumns());
         table.setEnabled(false);
         scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);

@@ -3,11 +3,28 @@ package logic.object;
 import java.util.Vector;
 
 public class Book {
-    int id, pubid, series;
-    String name, genre, lang, releaseDate, material, des, sum, cat, size;
+    int id, pubid;
+    String name, genre, lang, releaseDate, material, des, sum, cat, size, series;
     double score, price;
+    Vector <Integer> authors, interpreters;
 
     public Book() {
+    }
+
+    public Book(int pubid, String series, String name, String genre, String lang, String releaseDate, String material, String des, String sum, String cat, String size,  Vector<Integer> authors, Vector<Integer> interpreters) {
+        this.pubid = pubid;
+        this.series = series;
+        this.name = name;
+        this.genre = genre;
+        this.lang = lang;
+        this.releaseDate = releaseDate;
+        this.material = material;
+        this.des = des;
+        this.sum = sum;
+        this.cat = cat;
+        this.size = size;
+        this.authors = authors;
+        this.interpreters = interpreters;
     }
 
     public Book(String name) {
@@ -22,7 +39,7 @@ public class Book {
         this.pubid = pubid;
     }
 
-    public void setSeries(int series) {
+    public void setSeries(String series) {
         this.series = series;
     }
 
@@ -78,7 +95,7 @@ public class Book {
         return pubid;
     }
 
-    public int getSeries() {
+    public String getSeries() {
         return series;
     }
 
@@ -124,5 +141,21 @@ public class Book {
 
     public double getPrice() {
         return price;
+    }
+
+    public Vector<Integer> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(Vector<Integer> authors) {
+        this.authors = authors;
+    }
+
+    public Vector<Integer> getInterpreters() {
+        return interpreters;
+    }
+
+    public void setInterpreters(Vector<Integer> interpreters) {
+        this.interpreters = interpreters;
     }
 }

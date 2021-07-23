@@ -12,6 +12,7 @@ public class SQLInstruction {
     Exists exists;
     Update update;
     MessageOperation messageOperation;
+    Insert insert;
 
     public SQLInstruction() {
         try {
@@ -28,6 +29,7 @@ public class SQLInstruction {
         exists = new Exists(connection);
         update = new Update(connection);
         messageOperation = new MessageOperation(connection);
+        insert = new Insert(connection);
     }
 
     public Extractor getExtractor() {
@@ -52,5 +54,9 @@ public class SQLInstruction {
 
     public MessageOperation getMessageOperation() {
         return messageOperation;
+    }
+
+    public Insert getInsert() {
+        return insert;
     }
 }

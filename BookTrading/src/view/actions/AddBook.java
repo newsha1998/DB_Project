@@ -3,11 +3,20 @@ package view.actions;
 import logic.Portal.Portal;
 import logic.object.Book;
 import view.basic.Panel;
+import view.list.AuthorList;
+import view.list.InterpreterList;
+import view.list.PublisherList;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class AddBook extends Panel {
+    Vector <Integer> authors= new Vector<Integer>() , interpreters = new Vector<Integer>();
+    int publisherId = 0;
+
     public AddBook(Portal portal) {
         super(portal);
         Book book = new Book();
@@ -123,20 +132,86 @@ public class AddBook extends Panel {
         setPublisher.setFont(font);
         setPublisher.setBounds(400, 400, 330, 50);
         add(setPublisher);
+        setPublisher.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PublisherList authorList = new PublisherList(portal);
+                authorList.getAdd().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        publisherId = authorList.getSelected();
+                    }
+                });
+            }
+        });
+
 
         JButton addAuthor = new JButton("Add Author");
         addAuthor.setFont(font);
         addAuthor.setBounds(400, 460, 330, 50);
         add(addAuthor);
+        addAuthor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AuthorList authorList = new AuthorList(portal);
+                authorList.getAdd().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int id = authorList.getSelected();
+                        authors.add(id);
+                    }
+                });
+            }
+        });
 
         JButton addInterpreter = new JButton("Add Interpreter");
         addInterpreter.setFont(font);
         addInterpreter.setBounds(400, 520, 330, 50);
         add(addInterpreter);
+        addInterpreter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                InterpreterList authorList = new InterpreterList(portal);
+                authorList.getAdd().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int id = authorList.getSelected();
+                        interpreters.add(id);
+                    }
+                });
+            }
+        });
 
         JButton submit = new JButton("Submit");
         submit.setFont(font);
         submit.setBounds(700, 600, 150, 50);
         add(submit);
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean ret = portal.insertBook(new Book(publisherId,
+                        ser.getText(), name.getText(), genre.getText(), lang.getText(), reldate.getText(),
+                        mat.getText(), des.getText(), sum.getText(), cat.getText(), size.getText(),
+                        authors, interpreters));
+                if (ret) {
+                    JOptionPane.showMessageDialog(getParent(),
+                            "Book has added successfully",
+                            "",
+                            JOptionPane.PLAIN_MESSAGE);
+                    ser.setText("");
+                    name.setText("");
+                    genre.setText("");
+                    lang.setText("");
+                    reldate.setText("");
+                    mat.setText("");
+                    des.setText("");
+                    sum.setText("");
+                    cat.setText("");
+                    size.setText("");
+                    authors = new Vector<Integer>();
+                    interpreters = new Vector<Integer>();
+                }
+            }
+        });
     }
 }

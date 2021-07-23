@@ -1,8 +1,6 @@
 package view.profile;
 
 import logic.Portal.Portal;
-import logic.Portal.UserPortal;
-import logic.object.Book;
 import logic.object.User;
 import logic.object.UserHasBook;
 
@@ -177,7 +175,7 @@ public class UserProfile extends Profile {
         booksLabel.setFont(font);
         add(booksLabel);
         Vector <UserHasBook> books = portal.getUserBooks(id);
-        JTable table = new JTable(UserHasBook.Convert(books), UserHasBook.getColumns());
+        JTable table = new JTable(UserHasBook.getRows(books), UserHasBook.getColumns());
         table.setEnabled(false);
         JScrollPane scrollPane = new JScrollPane(table);
         table.setFillsViewportHeight(true);

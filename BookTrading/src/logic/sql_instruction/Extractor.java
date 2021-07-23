@@ -91,7 +91,7 @@ public class Extractor extends Instruction {
                 book.setId(resultSet.getInt("Id"));
                 book.setPubid(resultSet.getInt("PublisherId"));
                 book.setName(resultSet.getString("Name"));
-                book.setSeries(resultSet.getInt("SeriesNumber"));
+                book.setSeries(resultSet.getString("SeriesNumber"));
                 book.setGenre(resultSet.getString("Genre"));
                 book.setLang(resultSet.getString("Language"));
                 book.setReleaseDate(String.valueOf(resultSet.getDate("ReleaseDate")));
@@ -109,6 +109,23 @@ public class Extractor extends Instruction {
                 if (!rs.next())
                     book.setScore(-1);
 
+                Vector <Integer> authors = new Vector<Integer>();
+                pa = connection.prepareStatement("SELECT AuthorId FROM AuthorBook WHERE BookId = ?;");
+                pa.setInt(1, book.getId());
+                rs = pa.executeQuery();
+                while (rs.next()) {
+                    authors.add(rs.getInt("AuthorId"));
+                }
+                book.setAuthors(authors);
+
+                Vector <Integer> interpreters = new Vector<Integer>();
+                pa = connection.prepareStatement("SELECT InterpreterId FROM InterpreterBook WHERE BookId = ?;");
+                pa.setInt(1, book.getId());
+                rs = pa.executeQuery();
+                while (rs.next()) {
+                    interpreters.add(rs.getInt("InterpreterId"));
+                }
+                book.setInterpreters(interpreters);
                 return book;
             }
         } catch (SQLException e) {
@@ -204,6 +221,104 @@ public class Extractor extends Instruction {
                 employee.setEmail(resultSet.getString("Email"));
                 employee.setTelephone(resultSet.getString("Telephone"));
                 return employee;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Vector<Author> extractAuthors() {
+        Vector <Author> ret = new Vector<Author>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Id, FirstName, Surname" +
+                    " FROM Author;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Author a = new Author(resultSet.getInt("Id"), resultSet.getString("FirstName"),
+                        resultSet.getString("Surname"));
+                ret.add(a);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    public Vector<Author> extractInterpreters() {
+        Vector <Author> ret = new Vector<Author>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT Id, FirstName, Surname" +
+                    " FROM Interpreter;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Author a = new Author(resultSet.getInt("Id"), resultSet.getString("FirstName"),
+                        resultSet.getString("Surname"));
+                ret.add(a);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    public Vector<Publisher> extractPublisher() {
+        Vector <Publisher> ret = new Vector<Publisher>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT RegistrationNumber, Name " +
+                    " FROM Publisher;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Publisher a = new Publisher(resultSet.getInt("RegistrationNumber"), resultSet.getString("Name"));
+                ret.add(a);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    public String getPublisherName(int id) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT Name FROM Publisher " +
+                    "WHERE RegistrationNumber = ?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("Name");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getAuthorName(int id) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM Author " +
+                    "WHERE Id = ?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("FirstName") + " " + resultSet.getString("Surname");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getInterpreterName(int id) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT * FROM Interpreter " +
+                    "WHERE Id = ?");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("FirstName") + " " + resultSet.getString("Surname");
             }
         } catch (SQLException e) {
             e.printStackTrace();

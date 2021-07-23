@@ -22,7 +22,7 @@ public class UserHasBook {
         return ret;
     }
 
-    public static Vector <Vector<String>> Convert(Vector<UserHasBook> userHasBooks) {
+    public static Vector <Vector<String>> getRows(Vector<UserHasBook> userHasBooks) {
         Vector <Vector<String>> ret = new Vector<Vector<String>>();
         for (UserHasBook b : userHasBooks) {
             Vector<String> a = new Vector<String>();
