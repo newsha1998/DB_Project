@@ -3,6 +3,7 @@ package view.basic;
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
 import view.actions.*;
+import view.actions.comment.CommentForBook;
 import view.actions.comment.CommentForUser;
 import view.home.UserHomePage;
 import view.list.BookList;
@@ -251,6 +252,15 @@ public abstract class Page extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 CommentForUser commentForUser = new CommentForUser(portal);
+            }
+        });
+        JMenuItem commentBook = new JMenuItem("Comment For Book");
+        commentBook.setFont(font);
+        comment.add(commentBook);
+        commentBook.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CommentForBook commentForBook = new CommentForBook(portal);
             }
         });
 

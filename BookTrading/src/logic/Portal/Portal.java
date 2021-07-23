@@ -100,7 +100,7 @@ public abstract class Portal {
 
     public void insertCommentForUser(Comment comment) {
         if(comment.getSenderId() != comment.getrId())
-            sqlInstruction.getCommentOperation().InsertCommentForUser(comment);
+            sqlInstruction.getCommentOperation().insertCommentForUser(comment);
     }
 
     public void AddAdvertisement(int userId, String title, Integer bookId, Double price, String description) {
@@ -117,5 +117,9 @@ public abstract class Portal {
 
     public void RemoveAd(int Id) {
         sqlInstruction.getUpdate().RemoveAdvertisement(Id);
+    }
+
+    public void insertCommentForBook(Comment comment) {
+        sqlInstruction.getCommentOperation().insertCommentForBook(comment);
     }
 }

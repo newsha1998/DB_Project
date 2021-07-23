@@ -2,6 +2,7 @@ package view.list;
 
 import logic.Portal.Portal;
 import logic.object.Book;
+import view.actions.comment.CommentForBook;
 import view.basic.MyTableModel;
 import view.basic.Panel;
 
@@ -64,6 +65,12 @@ public class BookList extends Panel {
         add(comment);
         comment.setFont(font);
         comment.setBounds(600, 550, 200, 50);
+        comment.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CommentForBook commentForBook = new CommentForBook(portal, getSelected());
+            }
+        });
 
         comment.setEnabled(false);
         sm.addListSelectionListener(new ListSelectionListener() {
