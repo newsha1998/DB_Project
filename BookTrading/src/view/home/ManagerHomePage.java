@@ -1,8 +1,7 @@
 package view.home;
 
-import logic.Manager;
+import logic.object.Manager;
 import logic.Portal.ManagerPortal;
-import logic.Portal.Portal;
 import view.actions.update.ChangePassword;
 
 import javax.swing.*;

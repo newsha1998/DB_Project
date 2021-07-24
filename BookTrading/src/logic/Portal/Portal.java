@@ -1,6 +1,5 @@
 package logic.Portal;
 
-import logic.Manager;
 import logic.object.*;
 import logic.sql_instruction.SQLInstruction;
 

@@ -1,6 +1,6 @@
 package logic.sql_instruction;
 
-import logic.Manager;
+import logic.object.Manager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -349,4 +349,48 @@ public class Update extends Instruction {
         }
         return false;
     }
+
+    public void IncreaseUserCredit(Wallet wallet, double amount){
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE Wallet SET AvailableCredit = ? " +
+                    "WHERE UserId = ?");
+            preparedStatement.setDouble(1, wallet.getAvailableCredit() + amount);
+            preparedStatement.setInt(2, wallet.getUserId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void DecreaseUserCredit(Wallet wallet, double amount){
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE Wallet SET AvailableCredit = ? " +
+                    "WHERE UserId = ?");
+            preparedStatement.setDouble(1, wallet.getAvailableCredit() - amount);
+            preparedStatement.setInt(2, wallet.getUserId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void BlockUserCredit(Wallet wallet, double amount){
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("UPDATE Wallet SET BlockedCredit = ? , AvailableCredit = ? " +
+                    "WHERE UserId = ?");
+            preparedStatement.setDouble(1, amount);
+            preparedStatement.setDouble(2, wallet.getAvailableCredit() - amount);
+            preparedStatement.setInt(3, wallet.getUserId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

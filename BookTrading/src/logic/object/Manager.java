@@ -1,4 +1,4 @@
-package logic;
+package logic.object;
 
 public class Manager {
     int id;

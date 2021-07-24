@@ -1,8 +1,6 @@
 package view.home;
 
-import logic.Manager;
 import logic.Portal.BookstorePortal;
-import logic.Portal.Portal;
 import logic.object.Bookstore;
 
 import javax.swing.*;

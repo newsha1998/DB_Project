@@ -1,6 +1,6 @@
 package logic.sql_instruction;
 
-import logic.Manager;
+import logic.object.Manager;
 import logic.object.*;
 
 import java.sql.*;
@@ -497,4 +497,25 @@ public class Extractor extends Instruction {
         }
         return manager;
     }
+
+    public Wallet getUserWallet(int id) {
+        Wallet wallet = new Wallet();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Wallet " +
+                    "where UserId = ?");
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                wallet.setUserId(id);
+                wallet.setBlockedCredit(resultSet.getDouble("BlockedCredit"));
+                wallet.setAvailableCredit(resultSet.getDouble("AvailableCredit"));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return wallet;
+
+    }
+
 }

@@ -15,6 +15,7 @@ public class SQLInstruction {
     Insert insert;
     CommentOperation commentOperation;
     BorrowOperation borrowOperation;
+    BuyOperation buyOperation;
 
     public SQLInstruction() {
         try {
@@ -34,6 +35,11 @@ public class SQLInstruction {
         insert = new Insert(connection);
         commentOperation = new CommentOperation(connection);
         borrowOperation = new BorrowOperation(connection);
+        buyOperation = new BuyOperation(connection);
+    }
+
+    public BuyOperation getBuyOperation() {
+        return buyOperation;
     }
 
     public Extractor getExtractor() {

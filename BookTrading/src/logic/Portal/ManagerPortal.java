@@ -1,6 +1,6 @@
 package logic.Portal;
 
-import logic.Manager;
+import logic.object.Manager;
 import logic.sql_instruction.SQLInstruction;
 
 public class ManagerPortal extends Portal {
