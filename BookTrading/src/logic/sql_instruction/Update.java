@@ -448,4 +448,42 @@ public class Update extends Instruction {
             e.printStackTrace();
         }
     }
+
+    public void updateBookstoreBookPrice(int id, int bookId, double price) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE BookstoreHasBook " +
+                    "SET Price = ? WHERE BookstoreId = ? And BookId = ?");
+            preparedStatement.setDouble(1, price);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setInt(3, bookId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateBookstoreBookNumber(int id, int bookId, int price) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE BookstoreHasBook " +
+                    "SET Number = ? WHERE BookstoreId = ? And BookId = ?");
+            preparedStatement.setDouble(1, price);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setInt(3, bookId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeBookForBookstore(int id, int bookId) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM BookstoreHasBook " +
+                    "WHERE BookstoreId = ? And BookId = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, bookId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

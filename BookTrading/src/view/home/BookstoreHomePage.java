@@ -2,14 +2,20 @@ package view.home;
 
 import logic.Portal.BookstorePortal;
 import logic.object.Bookstore;
+import logic.object.BookstoreHasBook;
 import view.actions.ManageBookstorePhoneNumber;
+import view.actions.update.UpdateBookstoreBookShelf;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class BookstoreHomePage extends HomePage {
+    JTextField score;
+    JScrollPane scrollPane;
+
     public BookstoreHomePage(BookstorePortal portal) throws HeadlessException {
         super(portal);
         Bookstore bookstore = portal.getBookstoreById(portal.getId());
@@ -40,7 +46,7 @@ public class BookstoreHomePage extends HomePage {
         scoreLabel.setBounds(10, 110, 130, 50);
         add(scoreLabel);
 
-        JTextField score = new JTextField();
+        score = new JTextField();
         score.setBounds(150, 120, 250, 30);
         score.setText(bookstore.getStringScore());
         score.setEditable(false);
@@ -127,6 +133,13 @@ public class BookstoreHomePage extends HomePage {
         add(managebooks);
         managebooks.setFont(font);
         managebooks.setBounds(570, 500, 300, 50);
+        BookstoreHomePage h = this;
+        managebooks.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateBookstoreBookShelf updateBookstoreBookShelf = new UpdateBookstoreBookShelf(portal, h);
+            }
+        });
 
         JButton update = new JButton("Update Profile");
         add(update);
@@ -150,6 +163,43 @@ public class BookstoreHomePage extends HomePage {
                 }
             }
         });
+        Label booksLabel = new Label("Books");
+        booksLabel.setBounds(450, 50, 60, 30);
+        booksLabel.setFont(font);
+        add(booksLabel);
+        Vector<BookstoreHasBook> books = bookstore.getBookstoreHasBooks();
+        JTable table = new JTable(BookstoreHasBook.getRows(portal, books), BookstoreHasBook.getColumns());
+        table.setEnabled(false);
+        scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        scrollPane.setFont(font);
+        add(scrollPane);
+        scrollPane.setBounds(450, 100, 400, 350);
+        setVisible(true);
+    }
 
+    public void bookUpdateSignal() {
+        Bookstore bookstore = portal.getBookstoreById(portal.getId());
+        score = new JTextField();
+        score.setBounds(150, 120, 250, 30);
+        score.setText(bookstore.getStringScore());
+        score.setEditable(false);
+        add(score);
+        if (bookstore.getScore() >= 7)
+            score.setBackground(Color.GREEN);
+        else if (bookstore.getScore() >= 4)
+            score.setBackground(Color.orange);
+        else if (bookstore.getScore() >= 0)
+            score.setBackground(Color.RED);
+        remove(scrollPane);
+        Vector<BookstoreHasBook> books = bookstore.getBookstoreHasBooks();
+        JTable table = new JTable(BookstoreHasBook.getRows(portal, books), BookstoreHasBook.getColumns());
+        table.setEnabled(false);
+        scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        scrollPane.setFont(font);
+        add(scrollPane);
+        scrollPane.setBounds(450, 100, 400, 350);
+        setVisible(true);
     }
 }

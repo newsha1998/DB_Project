@@ -4,6 +4,7 @@ import logic.object.Book;
 import logic.object.Complaint;
 import logic.object.Employee;
 
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -292,6 +293,24 @@ public class Insert extends Instruction {
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2, phone);
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertBookForBookstore(int id, int bookId) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM BookstoreHasBook " +
+                    "WHERE BookstoreId = ? And BookId = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.setInt(2, bookId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                PreparedStatement pr = connection.prepareStatement("Insert into BookstoreHasBook (bookstoreid, bookid)  values (?, ?)");
+                pr.setInt(1, id);
+                pr.setInt(2, bookId);
+                pr.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

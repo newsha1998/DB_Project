@@ -3,6 +3,7 @@ package logic.Portal;
 import logic.object.*;
 import logic.sql_instruction.SQLInstruction;
 
+import javax.swing.*;
 import java.util.Vector;
 
 public abstract class Portal {
@@ -182,5 +183,21 @@ public abstract class Portal {
 
     public void updateBookstore(Bookstore b) {
         sqlInstruction.getUpdate().updateBookstore(b);
+    }
+
+    public void updateBookstoreBookPrice(int bookId, double price) {
+        sqlInstruction.getUpdate().updateBookstoreBookPrice(getId(), bookId, price);
+    }
+
+    public void updateBookstoreBookNumber(int bookId, int price) {
+        sqlInstruction.getUpdate().updateBookstoreBookNumber(getId(), bookId, price);
+    }
+
+    public void addBookstoreBook(int bookId) {
+        sqlInstruction.getInsert().insertBookForBookstore(getId(), bookId);
+    }
+
+    public void removeBookstoreBook(int bookId) {
+        sqlInstruction.getUpdate().removeBookForBookstore(getId(), bookId);
     }
 }
