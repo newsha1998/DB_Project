@@ -134,4 +134,8 @@ public abstract class Portal {
     public Bookstore getBookstoreById(int id) {
         return sqlInstruction.getExtractor().extractBookstoreById(id);
     }
+
+    public void insertComplaint(Complaint complaint) {
+        sqlInstruction.getInsert().insertUserComplaint(complaint);
+    }
 }

@@ -10,6 +10,7 @@ import view.actions.borrow.BorrowRequest;
 import view.actions.comment.CommentForBook;
 import view.actions.comment.CommentForBookstore;
 import view.actions.comment.CommentForUser;
+import view.actions.complaint.UserComplaint;
 import view.actions.insert.AddBook;
 import view.actions.message.ReadMessage;
 import view.actions.message.ReceiveMessage;
@@ -360,6 +361,17 @@ public abstract class Page extends JFrame {
             }
         });
 
-
+        JMenu complaint = new JMenu("Complaint");
+        complaint.setFont(font);
+        action.add(complaint);
+        JMenuItem complaintUser = new JMenuItem("Complaint User");
+        complaintUser.setFont(font);
+        complaint.add(complaintUser);
+        complaintUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserComplaint userComplaint = new UserComplaint(portal);
+            }
+        });
     }
 }

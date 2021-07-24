@@ -17,6 +17,8 @@ public abstract class CommentPage extends MiniPage {
     public CommentPage(Portal portal) throws HeadlessException {
         super(portal);
 
+        setTitle("Comment");
+
         usernameLabel = new Label();
         usernameLabel.setFont(font);
         add(usernameLabel);
