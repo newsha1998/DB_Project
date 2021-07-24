@@ -200,4 +200,9 @@ public abstract class Portal {
     public void removeBookstoreBook(int bookId) {
         sqlInstruction.getUpdate().removeBookForBookstore(getId(), bookId);
     }
+
+    public void AddTransaction(double amount, String type, String Description){
+        sqlInstruction.getInsert().AddTransaction(amount, type, Description);
+    }
+
 }

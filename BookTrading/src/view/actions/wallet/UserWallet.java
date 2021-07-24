@@ -13,9 +13,11 @@ import java.awt.event.ActionListener;
 public class UserWallet extends MiniPage {
     JButton increase, withdraw;
     JTextField available, blocked;
+    Wallet wallet;
 
-    public UserWallet(Portal portal) {
+    public UserWallet(Portal portal, Wallet wallet) {
         super(portal);
+        this.wallet = wallet;
 
         Label availableLabel = new Label("Available Credit:");
         add(availableLabel);
@@ -27,6 +29,7 @@ public class UserWallet extends MiniPage {
         available.setFont(font);
         available.setEditable(false);
         available.setBounds(200, 40, 150, 30);
+        available.setText(String.valueOf(wallet.getAvailableCredit()));
 
 
         Label blockedLabel = new Label("Blocked Credit:");
@@ -39,6 +42,7 @@ public class UserWallet extends MiniPage {
         blocked.setFont(font);
         blocked.setEditable(false);
         blocked.setBounds(200, 90, 150, 30);
+        blocked.setText(String.valueOf(wallet.getBlockedCredit()));
 
         increase = new JButton("Increase Credit");
         increase.setFont(font);
@@ -54,8 +58,72 @@ public class UserWallet extends MiniPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Transaction transaction = new Transaction(portal);
+                transaction.getDone().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int result = JOptionPane.showConfirmDialog(null, "Are you sure?",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if(result == JOptionPane.YES_OPTION){
+                            portal.AddTransaction(Double.valueOf(transaction.getAmount().getText()),
+                                    "IncreaseAmanat", transaction.getDescription().getText());
+                            portal.IncreaseCredit(wallet, Double.valueOf(transaction.getAmount().getText()));
+                            available.setText(wallet.getAvailableCredit() + "");
+                            available.setVisible(true);
+
+                            JOptionPane.showMessageDialog(getParent(),
+                                    "done successfully",
+                                    "",
+                                    JOptionPane.PLAIN_MESSAGE);
+                            transaction.setVisible(false);
+                        }
+                    }
+                });
+
             }
+
+
         });
+
+        withdraw.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Transaction transaction = new Transaction(portal);
+                transaction.getDone().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int result = JOptionPane.showConfirmDialog(null, "Are you sure?",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if(result == JOptionPane.YES_OPTION){
+
+
+                            if(portal.getWallet(portal.getId()).getAvailableCredit() >= Double.valueOf(transaction.getAmount().getText())) {
+                                portal.AddTransaction(Double.valueOf(transaction.getAmount().getText()), "WithdrawAmanat",
+                                        transaction.getDescription().getText());
+                                portal.DecreaseCredit(wallet, Double.valueOf(transaction.getAmount().getText()));
+                                available.setText(wallet.getAvailableCredit() + "");
+                                available.setVisible(true);
+                                JOptionPane.showMessageDialog(getParent(),
+                                        "done successfully",
+                                        "",
+                                        JOptionPane.PLAIN_MESSAGE);
+                            }
+
+                            else {
+                                JOptionPane.showMessageDialog(getParent(),
+                                        "Not Enough Credit",
+                                        "Error",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                            transaction.setVisible(false);
+                        }
+                    }
+                });
+
+            }
+
+        });
+
+
 
     }
 

@@ -60,4 +60,21 @@ public class Login extends Instruction {
         }
         return -1;
     }
+
+    public int loginAsEmployee(String username, String password) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement("SELECT Id FROM Employee " +
+                    "WHERE Username = ? AND Password = ?;");
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("Id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

@@ -1,10 +1,8 @@
 package view.basic;
 
-import logic.Portal.BookstorePortal;
-import logic.Portal.ManagerPortal;
-import logic.Portal.Portal;
-import logic.Portal.UserPortal;
+import logic.Portal.*;
 import logic.object.Bookstore;
+import logic.object.Employee;
 import logic.object.Wallet;
 import view.actions.adv.AddAdvertisement;
 import view.actions.adv.Advertisements;
@@ -25,6 +23,7 @@ import view.actions.message.ReceiveMessage;
 import view.actions.message.SendMessage;
 import view.actions.wallet.UserWallet;
 import view.home.BookstoreHomePage;
+import view.home.EmployeeHomePage;
 import view.home.ManagerHomePage;
 import view.home.UserHomePage;
 import view.list.BookList;
@@ -133,6 +132,8 @@ public abstract class Page extends JFrame {
                     setContentPane(new ManagerHomePage((ManagerPortal) portal));
                 if (portal instanceof BookstorePortal)
                     setContentPane(new BookstoreHomePage((BookstorePortal) portal));
+                if (portal instanceof EmployeePortal)
+                    setContentPane(new EmployeeHomePage((EmployeePortal) portal));
                 setVisible(true);
             }
         });
@@ -216,6 +217,18 @@ public abstract class Page extends JFrame {
                 SendMessage send = new SendMessage((UserPortal)portal);
             }
         });
+
+        JMenuItem wallet = new JMenuItem("Wallet");
+        wallet.setFont(font);
+        view.add(wallet);
+        wallet.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserWallet userWallet = new UserWallet(portal, portal.getWallet(portal.getId()));
+
+            }
+        });
+
 
         JMenu borrow = new JMenu("Borrow");
         borrow.setFont(font);
@@ -499,17 +512,18 @@ public abstract class Page extends JFrame {
                 });
             }
         });
-        JMenuItem wallet = new JMenuItem("Wallet");
-        wallet.setFont(font);
-        view.add(wallet);
-        wallet.addActionListener(new ActionListener() {
+
+        JMenuItem menuItem = new JMenuItem("Wallet");
+        menuItem.setFont(font);
+        view.add(menuItem);
+        menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UserWallet userWallet = new UserWallet(portal);
-                Wallet wallet = portal.getWallet(portal.getId());
-                userWallet.SetWallet(wallet);
+                UserWallet userWallet = new UserWallet(portal, portal.getWallet(portal.getId()));
+
             }
         });
+
 
     }
 }

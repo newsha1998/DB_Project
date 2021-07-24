@@ -5,10 +5,9 @@ import logic.object.Complaint;
 import logic.object.Employee;
 
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Insert extends Instruction {
     public Insert(Connection connection) {
@@ -315,4 +314,24 @@ public class Insert extends Instruction {
             e.printStackTrace();
         }
     }
+
+    public void AddTransaction(double amount, String type, String Description){
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement("INSERT INTO Transaction " +
+                    "(Type, Amount, Date, Time, Status, Description) VALUES (?, ?, ?, ?, ?, ?)");
+            preparedStatement.setString(1, type);
+            preparedStatement.setDouble(2, amount);
+            preparedStatement.setDate(3, Date.valueOf(LocalDate.now()));
+            preparedStatement.setTime(4, Time.valueOf(LocalTime.now()));
+            preparedStatement.setBoolean(5, true);
+            preparedStatement.setString(6, Description);
+            preparedStatement.executeUpdate();
+
+
+        }  catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -1,6 +1,7 @@
 package logic.sql_instruction;
 
 import logic.object.Bookstore;
+import logic.object.Employee;
 import logic.object.Manager;
 import logic.object.Wallet;
 
@@ -481,6 +482,86 @@ public class Update extends Instruction {
                     "WHERE BookstoreId = ? And BookId = ?");
             preparedStatement.setInt(1, id);
             preparedStatement.setInt(2, bookId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean updateEmployeePassword(int id, String oldPass, String newPass) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * From Employee WHERE " +
+                    "Id = ? AND  Password = ?;");
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, oldPass);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                return false;
+            }
+            preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET Password = ? WHERE Id = ? AND Password = ?");
+            preparedStatement.setString(1, newPass);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setString(3, oldPass);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void updateEmployee(Employee manager) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET FirstName = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getFirstName());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET Surname = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getSurname());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET NationalId = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getNationalId());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET Email = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getEmail());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET City = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getCity());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET Region = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getRegion());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET Street = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getStreet());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET Alley = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getAlley());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET HouseNumber = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getHouseNumber());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Employee " +
+                    "SET Telephone = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getTelephone());
+            preparedStatement.setInt(2, manager.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
