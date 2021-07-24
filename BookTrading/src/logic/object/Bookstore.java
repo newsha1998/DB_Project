@@ -148,4 +148,24 @@ public class Bookstore {
     public void setScore(double score) {
         this.score = score;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getAlley() {
+        return alley;
+    }
+
+    public String getBuilding() {
+        return building;
+    }
 }

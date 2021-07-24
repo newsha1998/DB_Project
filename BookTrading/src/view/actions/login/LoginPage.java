@@ -1,10 +1,13 @@
 package view.actions.login;
 
+import logic.Portal.BookstorePortal;
 import logic.Portal.ManagerPortal;
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
+import logic.object.Bookstore;
 import view.basic.ImageBox;
 import view.basic.Page;
+import view.home.BookstoreHomePage;
 import view.home.ManagerHomePage;
 import view.home.UserHomePage;
 
@@ -248,6 +251,11 @@ public class LoginPage extends Page {
                     }
                     if (portal instanceof ManagerPortal) {
                         setContentPane(new ManagerHomePage((ManagerPortal) portal));
+                        setVisible(true);
+                        menuBar.setVisible(true);
+                    }
+                    if (portal instanceof BookstorePortal) {
+                        setContentPane(new BookstoreHomePage((BookstorePortal) portal));
                         setVisible(true);
                         menuBar.setVisible(true);
                     }
