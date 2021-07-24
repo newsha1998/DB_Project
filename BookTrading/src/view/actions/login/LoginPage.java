@@ -1,9 +1,11 @@
 package view.actions.login;
 
+import logic.Portal.ManagerPortal;
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
 import view.basic.ImageBox;
 import view.basic.Page;
+import view.home.ManagerHomePage;
 import view.home.UserHomePage;
 
 import javax.swing.*;
@@ -241,6 +243,11 @@ public class LoginPage extends Page {
                     setVisible(false);
                     if (portal instanceof UserPortal) {
                         setContentPane(new UserHomePage((UserPortal) portal));
+                        setVisible(true);
+                        menuBar.setVisible(true);
+                    }
+                    if (portal instanceof ManagerPortal) {
+                        setContentPane(new ManagerHomePage((ManagerPortal) portal));
                         setVisible(true);
                         menuBar.setVisible(true);
                     }

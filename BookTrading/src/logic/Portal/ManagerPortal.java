@@ -1,5 +1,6 @@
 package logic.Portal;
 
+import logic.Manager;
 import logic.sql_instruction.SQLInstruction;
 
 public class ManagerPortal extends Portal {
@@ -15,5 +16,13 @@ public class ManagerPortal extends Portal {
         }
         this.id = ret;
         return access = true;
+    }
+
+    public Manager getManager() {
+        return sqlInstruction.getExtractor().getManager(getId());
+    }
+
+    public void updateManager(Manager manager) {
+        sqlInstruction.getUpdate().updateManager(manager);
     }
 }

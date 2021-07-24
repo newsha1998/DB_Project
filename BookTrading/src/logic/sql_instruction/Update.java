@@ -1,5 +1,7 @@
 package logic.sql_instruction;
 
+import logic.Manager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -222,4 +224,60 @@ public class Update extends Instruction {
     }
 
 
+    public void updateManager(Manager manager) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET FirstName = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getFirstname());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET Surname = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getSurname());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET NationalId = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getNationalId());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET Email = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getEmail());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET City = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getCity());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET Region = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getRegion());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET Street = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getStreet());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET Alley = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getAlley());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET HouseNumber = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getHousenumber());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET Telephone = ? WHERE Id = ?;");
+            preparedStatement.setString(1, manager.getTelephone());
+            preparedStatement.setInt(2, manager.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package logic.sql_instruction;
 
+import logic.Manager;
 import logic.object.*;
 
 import java.sql.*;
@@ -471,4 +472,29 @@ public class Extractor extends Instruction {
         return bookstores;
     }
 
+    public Manager getManager(int id) {
+        Manager manager = new Manager();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Manager WHERE Id = ?;");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                manager.setId(id);
+                manager.setFirstname(resultSet.getString("FirstName"));
+                manager.setSurname(resultSet.getString("Surname"));
+                manager.setUsername(resultSet.getString("Username"));
+                manager.setEmail(resultSet.getString("Email"));
+                manager.setTelephone(resultSet.getString("Telephone"));
+                manager.setCity(resultSet.getString("City"));
+                manager.setRegion(resultSet.getString("Region"));
+                manager.setStreet(resultSet.getString("Street"));
+                manager.setAlley(resultSet.getString("Alley"));
+                manager.setHousenumber(resultSet.getString("HouseNumber"));
+                manager.setNationalId(resultSet.getString("NationalId"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return manager;
+    }
 }

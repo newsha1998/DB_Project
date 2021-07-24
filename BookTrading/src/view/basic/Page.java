@@ -1,5 +1,6 @@
 package view.basic;
 
+import logic.Portal.ManagerPortal;
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
 import view.actions.adv.AddAdvertisement;
@@ -16,6 +17,7 @@ import view.actions.insert.AddBook;
 import view.actions.message.ReadMessage;
 import view.actions.message.ReceiveMessage;
 import view.actions.message.SendMessage;
+import view.home.ManagerHomePage;
 import view.home.UserHomePage;
 import view.list.BookList;
 import view.list.BookstoreList;
@@ -107,6 +109,20 @@ public abstract class Page extends JFrame {
         if (portal instanceof UserPortal) {
             createUserMenuBar();
         }
+
+        JMenuItem editProfile = new JMenuItem("Edit Profile");
+        editProfile.setFont(font);
+        edit.add(editProfile);
+        editProfile.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (portal instanceof UserPortal)
+                    setContentPane(new UserHomePage((UserPortal) portal));
+                if (portal instanceof ManagerPortal)
+                    setContentPane(new ManagerHomePage((ManagerPortal) portal));
+                setVisible(true);
+            }
+        });
     }
 
     private void createUserMenuBar() {
@@ -259,17 +275,6 @@ public abstract class Page extends JFrame {
                     }
                 });
 
-            }
-        });
-
-        JMenuItem editProfile = new JMenuItem("Edit Profile");
-        editProfile.setFont(font);
-        edit.add(editProfile);
-        editProfile.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                setContentPane(new UserHomePage((UserPortal) portal));
-                setVisible(true);
             }
         });
 
