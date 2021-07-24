@@ -145,4 +145,12 @@ public abstract class Portal {
     }
 
     public abstract boolean changePassword(String oldPass, String newPass);
+
+    public void addSupporter(Employee employee) {
+        sqlInstruction.getInsert().insertSupporter(employee);
+    }
+
+    public void addAccountant(Employee employee) {
+        sqlInstruction.getInsert().insertAccountant(employee);
+    }
 }

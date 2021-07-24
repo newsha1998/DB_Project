@@ -2,6 +2,7 @@ package logic.sql_instruction;
 
 import logic.object.Book;
 import logic.object.Complaint;
+import logic.object.Employee;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -232,6 +233,52 @@ public class Insert extends Instruction {
             preparedStatement.setInt(1, complaint.getId());
             preparedStatement.setInt(2, complaint.getPlaintiffId());
             preparedStatement.setInt(3, complaint.getrId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertSupporter(Employee employee) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Employee " +
+                    "(Username, FirstName, Surname, Password) values (?, ?, ?, ?);");
+            preparedStatement.setString(1, employee.getUsername());
+            preparedStatement.setString(2, employee.getFirstName());
+            preparedStatement.setString(3, employee.getSurname());
+            preparedStatement.setString(4, employee.getPassword());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("SELECT Id FROM Employee WHERE Username = ?;");
+            preparedStatement.setString(1, employee.getUsername());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                employee.setId(resultSet.getInt("Id"));
+            }
+            preparedStatement = connection.prepareStatement("INSERT INTO SupportAgent (EmployeeId) value (?);");
+            preparedStatement.setInt(1, employee.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertAccountant(Employee employee) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Employee " +
+                    "(Username, FirstName, Surname, Password) values (?, ?, ?, ?);");
+            preparedStatement.setString(1, employee.getUsername());
+            preparedStatement.setString(2, employee.getFirstName());
+            preparedStatement.setString(3, employee.getSurname());
+            preparedStatement.setString(4, employee.getPassword());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("SELECT Id FROM Employee WHERE Username = ?;");
+            preparedStatement.setString(1, employee.getUsername());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                employee.setId(resultSet.getInt("Id"));
+            }
+            preparedStatement = connection.prepareStatement("INSERT INTO Accountant (EmployeeId) value (?);");
+            preparedStatement.setInt(1, employee.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

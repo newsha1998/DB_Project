@@ -14,6 +14,7 @@ import view.actions.comment.CommentForUser;
 import view.actions.complaint.BookstoreComplaint;
 import view.actions.complaint.UserComplaint;
 import view.actions.insert.AddBook;
+import view.actions.insert.AddEmployee;
 import view.actions.message.ReadMessage;
 import view.actions.message.ReceiveMessage;
 import view.actions.message.SendMessage;
@@ -109,6 +110,9 @@ public abstract class Page extends JFrame {
         if (portal instanceof UserPortal) {
             createUserMenuBar();
         }
+        if (portal instanceof ManagerPortal) {
+            createManagerMenuBar();
+        }
 
         JMenuItem editProfile = new JMenuItem("Edit Profile");
         editProfile.setFont(font);
@@ -126,6 +130,30 @@ public abstract class Page extends JFrame {
         JMenuItem changePass = new JMenuItem("Change Password");
         edit.add(changePass);
         changePass.setFont(font);
+    }
+
+    private void createManagerMenuBar() {
+        JMenu addEmployee = new JMenu("Add Employee");
+        addEmployee.setFont(font);
+        action.add(addEmployee);
+        JMenuItem addSupporter = new JMenuItem("Add Support Agent");
+        addSupporter.setFont(font);
+        addEmployee.add(addSupporter);
+        JMenuItem addAccountant = new JMenuItem("Add Accountant");
+        addAccountant.setFont(font);
+        addEmployee.add(addAccountant);
+        addAccountant.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddEmployee addEmployee1 = new AddEmployee(portal, false);
+            }
+        });
+        addSupporter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddEmployee addEmployee1 = new AddEmployee(portal, true);
+            }
+        });
     }
 
     private void createUserMenuBar() {
