@@ -68,7 +68,7 @@ public class UserProfile extends Profile {
 
         Label addressLabel = new Label("Address");
         addressLabel.setFont(font);
-        addressLabel.setBounds(10, 240, 130, 50);
+        addressLabel.setBounds(10, 230, 130, 50);
         add(addressLabel);
 
         TextField address = new TextField();

@@ -2,7 +2,9 @@ package view.profile;
 
 import logic.Portal.Portal;
 import logic.object.Bookstore;
+import logic.object.BookstoreHasBook;
 import logic.object.User;
+import logic.object.UserHasBook;
 import view.actions.comment.CommentForBookstore;
 import view.actions.comment.CommentForUser;
 
@@ -10,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class BookstoreProfile extends Profile {
     TextField score;
@@ -70,7 +73,7 @@ public class BookstoreProfile extends Profile {
 
         Label addressLabel = new Label("Address");
         addressLabel.setFont(font);
-        addressLabel.setBounds(10, 240, 130, 50);
+        addressLabel.setBounds(10, 230, 130, 50);
         add(addressLabel);
 
         TextField address = new TextField();
@@ -79,11 +82,53 @@ public class BookstoreProfile extends Profile {
         address.setText(bookstore.getAdr());
         add(address);
 
+        Label websiteLabel = new Label("Website");
+        websiteLabel.setFont(font);
+        websiteLabel.setBounds(10, 280, 130, 50);
+        add(websiteLabel);
+
+        TextField website = new TextField();
+        website.setEditable(false);
+        website.setBounds(150, 290, 250, 30);
+        website.setText(bookstore.getWebsite());
+        add(website);
+
+        Label phoneLabel = new Label("Telephones");
+        phoneLabel.setFont(font);
+        phoneLabel.setBounds(10, 330, 130, 50);
+        add(phoneLabel);
+        phoneLabel.setVisible(true);
+
+        TextField phone = new TextField();
+        phone.setEditable(false);
+        phone.setBounds(150, 340, 250, 30);
+        phone.setText(bookstore.getPhone());
+        add(phone);
+
+        JButton buy = new JButton("Buy");
+        buy.setFont(font);
+        add(buy);
+        buy.setBounds(120, 450, 200, 50);
+
         JButton comment = new JButton("Comment");
         comment.setFont(font);
         add(comment);
-        comment.setBounds(600, 500, 200, 50);
+        comment.setBounds(120, 520, 200, 50);
         comment.addActionListener(new MiniActionListener2(portal, id, this));
+
+        Label booksLabel = new Label("Books");
+        booksLabel.setBounds(450, 50, 60, 30);
+        booksLabel.setFont(font);
+        add(booksLabel);
+        Vector<BookstoreHasBook> books = bookstore.getBookstoreHasBooks();
+        JTable table = new JTable(BookstoreHasBook.getRows(portal, books), BookstoreHasBook.getColumns());
+        table.setEnabled(false);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+        scrollPane.setFont(font);
+        add(scrollPane);
+        scrollPane.setBounds(450, 100, 400, 400);
+
         setVisible(true);
     }
 

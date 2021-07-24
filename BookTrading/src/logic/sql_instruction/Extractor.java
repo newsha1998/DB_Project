@@ -436,6 +436,21 @@ public class Extractor extends Instruction {
                     bookstore.setScore(-1);
                 }
             }
+            preparedStatement = connection.prepareStatement("SELECT * FROM BookstoreTelephone WHERE " +
+                    "BookstoreId = ?;");
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                bookstore.addPhone(resultSet.getString("Telephone"));
+            }
+            preparedStatement = connection.prepareStatement("SELECT * FROM BookstoreHasBook Where " +
+                    "BookstoreId = ?");
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                bookstore.addBook(new BookstoreHasBook(id, resultSet.getInt("BookId"),
+                        resultSet.getInt("Number"), resultSet.getDouble("Price")));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

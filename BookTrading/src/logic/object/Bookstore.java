@@ -6,6 +6,34 @@ public class Bookstore {
     int id;
     String username, name, email, city, region, street, alley, building, website;
     double score;
+    Vector <String> phone = new Vector<String>();
+    Vector <BookstoreHasBook> bookstoreHasBooks = new Vector<BookstoreHasBook>();
+
+    public void addBook(BookstoreHasBook b) {
+        bookstoreHasBooks.add(b);
+    }
+
+    public String getPhone() {
+        String ret = "";
+        for (String i:phone) {
+            if (!ret.equals(""))
+                ret = ret + ", " + i;
+            else
+                ret = ret + i;
+        }
+        if (ret.equals("")) {
+            ret = "NA";
+        }
+        return ret;
+    }
+
+    public Vector<BookstoreHasBook> getBookstoreHasBooks() {
+        return bookstoreHasBooks;
+    }
+
+    public void addPhone(String s) {
+        phone.add(s);
+    }
 
     public Bookstore() {
     }
