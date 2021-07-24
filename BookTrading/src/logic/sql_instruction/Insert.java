@@ -284,4 +284,16 @@ public class Insert extends Instruction {
             e.printStackTrace();
         }
     }
+
+    public void addPhoneForBookstore(int id, String phone) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into BookstoreTelephone " +
+                    "(BookstoreId, Telephone) values (?, ?)");
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, phone);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

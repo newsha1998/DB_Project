@@ -21,4 +21,12 @@ public class BookstorePortal extends Portal {
     public boolean changePassword(String oldPass, String newPass) {
         return sqlInstruction.getUpdate().updateBookstorePassword(getId(), oldPass, newPass);
     }
+
+    public void addPhone(String phone) {
+        sqlInstruction.getInsert().addPhoneForBookstore(getId(), phone);
+    }
+
+    public void removePhone(String phone) {
+        sqlInstruction.getUpdate().removePhoneForBookstore(getId(), phone);
+    }
 }

@@ -394,4 +394,15 @@ public class Update extends Instruction {
         }
     }
 
+    public void removePhoneForBookstore(int id, String phone) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM BookstoreTelephone " +
+                    "WHERE BookstoreId = ? AND Telephone = ?");
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, phone);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -2,9 +2,12 @@ package view.home;
 
 import logic.Portal.BookstorePortal;
 import logic.object.Bookstore;
+import view.actions.ManageBookstorePhoneNumber;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class BookstoreHomePage extends HomePage {
     public BookstoreHomePage(BookstorePortal portal) throws HeadlessException {
@@ -108,16 +111,16 @@ public class BookstoreHomePage extends HomePage {
         hn.setText(bookstore.getBuilding());
         add(hn);
 
-        Label phoneLabel = new Label("Telephone");
-        phoneLabel.setFont(font);
-        phoneLabel.setBounds(10, 460, 130, 50);
-        add(phoneLabel);
-
-        JTextField phone = new JTextField();
-        phone.setBounds(150, 470, 250, 30);
-        phone.setText(bookstore.getPhone());
-        add(phone);
-
+        JButton managePhone = new JButton("Manage Phone Numbers");
+        add(managePhone);
+        managePhone.setFont(font);
+        managePhone.setBounds(30, 500, 300, 50);
+        managePhone.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ManageBookstorePhoneNumber bookstorePhoneNumber = new ManageBookstorePhoneNumber(portal);
+            }
+        });
 
     }
 }
