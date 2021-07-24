@@ -2,11 +2,18 @@ package view.basic;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
-import logic.object.Bookstore;
-import view.actions.*;
+import view.actions.adv.AddAdvertisement;
+import view.actions.adv.Advertisements;
+import view.actions.adv.RemoveAdvertisement;
+import view.actions.borrow.BorrowConfirmation;
+import view.actions.borrow.BorrowRequest;
 import view.actions.comment.CommentForBook;
 import view.actions.comment.CommentForBookstore;
 import view.actions.comment.CommentForUser;
+import view.actions.insert.AddBook;
+import view.actions.message.ReadMessage;
+import view.actions.message.ReceiveMessage;
+import view.actions.message.SendMessage;
 import view.home.UserHomePage;
 import view.list.BookList;
 import view.list.BookstoreList;
@@ -304,7 +311,7 @@ public abstract class Page extends JFrame {
         AddAdvertisement.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AddAdvertisement adver = new AddAdvertisement((UserPortal)portal);
+                view.actions.adv.AddAdvertisement adver = new AddAdvertisement((UserPortal)portal);
 
             }
         });

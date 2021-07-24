@@ -1,4 +1,4 @@
-package view.actions;
+package view.actions.update;
 
 import logic.Portal.UserPortal;
 import view.basic.MiniPage;

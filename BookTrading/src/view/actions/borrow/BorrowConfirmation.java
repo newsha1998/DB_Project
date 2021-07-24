@@ -1,4 +1,4 @@
-package view.actions;
+package view.actions.borrow;
 
 import logic.Portal.Portal;
 import logic.object.Borrow;

@@ -1,4 +1,4 @@
-package view.actions;
+package view.actions.login;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;

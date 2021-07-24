@@ -1,4 +1,4 @@
-package view.actions;
+package view.actions.message;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;

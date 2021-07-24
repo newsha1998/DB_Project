@@ -4,7 +4,7 @@ import logic.Portal.Portal;
 import logic.Portal.UserPortal;
 import logic.object.User;
 import logic.object.UserHasBook;
-import view.actions.SendMessage;
+import view.actions.message.SendMessage;
 import view.actions.comment.CommentForUser;
 
 import javax.swing.*;

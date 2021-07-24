@@ -1,7 +1,6 @@
-package view.actions;
+package view.actions.message;
 
 import logic.Portal.UserPortal;
-import logic.object.User;
 import view.basic.MiniPage;
 
 import javax.swing.*;

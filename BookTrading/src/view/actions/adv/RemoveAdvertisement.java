@@ -1,5 +1,5 @@
 
-package view.actions;
+package view.actions.adv;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;

@@ -3,7 +3,7 @@ package view.home;
 import logic.Portal.UserPortal;
 import logic.object.User;
 import logic.object.UserHasBook;
-import view.actions.UpdateBookPanel;
+import view.actions.update.UpdateBookPanel;
 import view.basic.ModifyedActionListener;
 
 import javax.swing.*;
