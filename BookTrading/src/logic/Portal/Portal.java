@@ -130,4 +130,8 @@ public abstract class Portal {
     public void insertCommentForBookstore(Comment comment) {
         sqlInstruction.getCommentOperation().insertCommentForBookstore(comment);
     }
+
+    public Bookstore getBookstoreById(int id) {
+        return sqlInstruction.getExtractor().extractBookstoreById(id);
+    }
 }

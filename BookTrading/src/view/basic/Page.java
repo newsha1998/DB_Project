@@ -2,6 +2,7 @@ package view.basic;
 
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
+import logic.object.Bookstore;
 import view.actions.*;
 import view.actions.comment.CommentForBook;
 import view.actions.comment.CommentForBookstore;
@@ -10,6 +11,7 @@ import view.home.UserHomePage;
 import view.list.BookList;
 import view.list.BookstoreList;
 import view.list.UserList;
+import view.profile.BookstoreProfile;
 import view.profile.UserProfile;
 
 import javax.swing.*;
@@ -80,7 +82,16 @@ public abstract class Page extends JFrame {
         viewBookstore.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                setContentPane(new BookstoreList(portal));
+                BookstoreList bookstores = new BookstoreList(portal);
+                setContentPane(bookstores);
+                bookstores.getProfile().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        BookstoreProfile bookstoreProfile = new BookstoreProfile(portal, bookstores.getSelected());
+                        setContentPane(bookstoreProfile);
+                        setVisible(true);
+                    }
+                });
             }
         });
 
@@ -229,7 +240,6 @@ public abstract class Page extends JFrame {
                     public void actionPerformed(ActionEvent e) {
                         UserProfile userProfile = new UserProfile(portal, userList.getSelected());
                         setContentPane(userProfile);
-
                     }
                 });
                 userList.getMessage().addActionListener(new ActionListener() {

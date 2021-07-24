@@ -7,6 +7,7 @@ import view.actions.comment.CommentForBook;
 import view.actions.comment.CommentForBookstore;
 import view.basic.MyTableModel;
 import view.basic.Panel;
+import view.profile.BookstoreProfile;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -17,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.util.Vector;
 
 public class BookstoreList extends Panel {
-    JButton comment, search;
+    JButton comment, profile;
     ListSelectionModel sm;
     Vector<Vector<String >> data;
     JScrollPane scrollPane;
@@ -39,6 +40,11 @@ public class BookstoreList extends Panel {
         scrollPane.setBounds(50, 100, 800, 400);
         sm = table.getSelectionModel();
 
+        profile = new JButton("View Profile");
+        add(profile);
+        profile.setFont(font);
+        profile.setBounds(100, 550, 200, 50);
+
         comment = new JButton("Comment");
         add(comment);
         comment.setFont(font);
@@ -51,6 +57,7 @@ public class BookstoreList extends Panel {
         });
 
         comment.setEnabled(false);
+        profile.setEnabled(false);
         sm.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -60,8 +67,10 @@ public class BookstoreList extends Panel {
                 ListSelectionModel lsm = (ListSelectionModel) e.getSource();
                 if (lsm.isSelectionEmpty()) {
                     comment.setEnabled(false);
+                    profile.setEnabled(false);
                 } else {
                     comment.setEnabled(true);
+                    profile.setEnabled(true);
                 }
             }
         });
@@ -69,6 +78,10 @@ public class BookstoreList extends Panel {
 
     public JButton getComment() {
         return comment;
+    }
+
+    public JButton getProfile() {
+        return profile;
     }
 
     public int getSelected() {
