@@ -17,6 +17,11 @@ public class UserPortal extends Portal {
         return access = true;
     }
 
+    @Override
+    public boolean changePassword(String oldPass, String newPass) {
+        return sqlInstruction.getUpdate().updateUserPassword(getId(), oldPass, newPass);
+    }
+
     public int registerUser(String username, String password, String name, String surname) {
         return sqlInstruction.getRegister().registerUser(username, password, name, surname);
     }

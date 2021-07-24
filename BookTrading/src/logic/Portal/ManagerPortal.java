@@ -18,6 +18,11 @@ public class ManagerPortal extends Portal {
         return access = true;
     }
 
+    @Override
+    public boolean changePassword(String oldPass, String newPass) {
+        return sqlInstruction.getUpdate().updateManagerPassword(getId(), oldPass, newPass);
+    }
+
     public Manager getManager() {
         return sqlInstruction.getExtractor().getManager(getId());
     }

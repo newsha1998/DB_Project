@@ -143,4 +143,6 @@ public abstract class Portal {
     public void insertBookstoreComplaint(Complaint complaint) {
         sqlInstruction.getInsert().insertBookstoreComplaint(complaint);
     }
+
+    public abstract boolean changePassword(String oldPass, String newPass);
 }

@@ -3,6 +3,7 @@ package view.home;
 import logic.Manager;
 import logic.Portal.ManagerPortal;
 import logic.Portal.Portal;
+import view.actions.update.ChangePassword;
 
 import javax.swing.*;
 import java.awt.*;
@@ -156,5 +157,12 @@ public class ManagerHomePage extends HomePage {
         changePass.setFont(font);
         add(changePass);
         changePass.setBounds(525, 480, 250, 50);
+        changePass.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ChangePassword changePassword = new ChangePassword(portal);
+            }
+        });
+        setVisible(true);
     }
 }

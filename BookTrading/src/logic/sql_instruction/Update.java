@@ -280,4 +280,50 @@ public class Update extends Instruction {
             e.printStackTrace();
         }
     }
+
+    public boolean updateManagerPassword(int id, String oldPass, String newPass) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * From Manager WHERE " +
+                    "Id = ? AND  Password = ?;");
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, oldPass);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                return false;
+            }
+            preparedStatement = connection.prepareStatement("UPDATE Manager " +
+                    "SET Password = ? WHERE Id = ? AND Password = ?");
+            preparedStatement.setString(1, newPass);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setString(3, oldPass);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateUserPassword(int id, String oldPass, String newPass) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * From User WHERE " +
+                    "Id = ? AND  Password = ?;");
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, oldPass);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                return false;
+            }
+            preparedStatement = connection.prepareStatement("UPDATE User " +
+                    "SET Password = ? WHERE Id = ? AND Password = ?");
+            preparedStatement.setString(1, newPass);
+            preparedStatement.setInt(2, id);
+            preparedStatement.setString(3, oldPass);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

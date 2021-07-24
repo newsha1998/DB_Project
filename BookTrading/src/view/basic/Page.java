@@ -123,6 +123,9 @@ public abstract class Page extends JFrame {
                 setVisible(true);
             }
         });
+        JMenuItem changePass = new JMenuItem("Change Password");
+        edit.add(changePass);
+        changePass.setFont(font);
     }
 
     private void createUserMenuBar() {
