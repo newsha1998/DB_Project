@@ -180,4 +180,7 @@ public abstract class Portal {
         return sqlInstruction.getExtractor().getUserWallet(id);
     }
 
+    public void updateBookstore(Bookstore b) {
+        sqlInstruction.getUpdate().updateBookstore(b);
+    }
 }

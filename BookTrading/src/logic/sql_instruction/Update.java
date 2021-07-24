@@ -1,5 +1,6 @@
 package logic.sql_instruction;
 
+import logic.object.Bookstore;
 import logic.object.Manager;
 import logic.object.Wallet;
 
@@ -400,6 +401,48 @@ public class Update extends Instruction {
                     "WHERE BookstoreId = ? AND Telephone = ?");
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2, phone);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateBookstore(Bookstore b) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("UPDATE Bookstore" +
+                    " SET Name = ? WHERE Id = ?;");
+            preparedStatement.setString(1, b.getName());
+            preparedStatement.setInt(2, b.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Bookstore" +
+                    " SET Email = ? WHERE Id = ?;");
+            preparedStatement.setString(1, b.getEmail());
+            preparedStatement.setInt(2, b.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Bookstore" +
+                    " SET City = ? WHERE Id = ?;");
+            preparedStatement.setString(1, b.getCity());
+            preparedStatement.setInt(2, b.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Bookstore" +
+                    " SET Region = ? WHERE Id = ?;");
+            preparedStatement.setString(1, b.getRegion());
+            preparedStatement.setInt(2, b.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Bookstore" +
+                    " SET Street = ? WHERE Id = ?;");
+            preparedStatement.setString(1, b.getStreet());
+            preparedStatement.setInt(2, b.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Bookstore" +
+                    " SET Alley = ? WHERE Id = ?;");
+            preparedStatement.setString(1, b.getAlley());
+            preparedStatement.setInt(2, b.getId());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("UPDATE Bookstore" +
+                    " SET BuildingNumber = ? WHERE Id = ?;");
+            preparedStatement.setString(1, b.getBuilding());
+            preparedStatement.setInt(2, b.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

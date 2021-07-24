@@ -1,8 +1,10 @@
 package view.basic;
 
+import logic.Portal.BookstorePortal;
 import logic.Portal.ManagerPortal;
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
+import logic.object.Bookstore;
 import logic.object.Wallet;
 import view.actions.adv.AddAdvertisement;
 import view.actions.adv.Advertisements;
@@ -22,6 +24,7 @@ import view.actions.message.ReadMessage;
 import view.actions.message.ReceiveMessage;
 import view.actions.message.SendMessage;
 import view.actions.wallet.UserWallet;
+import view.home.BookstoreHomePage;
 import view.home.ManagerHomePage;
 import view.home.UserHomePage;
 import view.list.BookList;
@@ -128,6 +131,8 @@ public abstract class Page extends JFrame {
                     setContentPane(new UserHomePage((UserPortal) portal));
                 if (portal instanceof ManagerPortal)
                     setContentPane(new ManagerHomePage((ManagerPortal) portal));
+                if (portal instanceof BookstorePortal)
+                    setContentPane(new BookstoreHomePage((BookstorePortal) portal));
                 setVisible(true);
             }
         });

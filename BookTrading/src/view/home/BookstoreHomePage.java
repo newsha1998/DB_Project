@@ -43,6 +43,7 @@ public class BookstoreHomePage extends HomePage {
         JTextField score = new JTextField();
         score.setBounds(150, 120, 250, 30);
         score.setText(bookstore.getStringScore());
+        score.setEditable(false);
         add(score);
         if (bookstore.getScore() >= 7)
             score.setBackground(Color.GREEN);
@@ -114,11 +115,39 @@ public class BookstoreHomePage extends HomePage {
         JButton managePhone = new JButton("Manage Phone Numbers");
         add(managePhone);
         managePhone.setFont(font);
-        managePhone.setBounds(30, 500, 300, 50);
+        managePhone.setBounds(250, 500, 300, 50);
         managePhone.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ManageBookstorePhoneNumber bookstorePhoneNumber = new ManageBookstorePhoneNumber(portal);
+            }
+        });
+
+        JButton managebooks = new JButton("Manage Book Shelf");
+        add(managebooks);
+        managebooks.setFont(font);
+        managebooks.setBounds(570, 500, 300, 50);
+
+        JButton update = new JButton("Update Profile");
+        add(update);
+        update.setFont(font);
+        update.setBounds(30, 500, 200, 50);
+        update.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = JOptionPane.showConfirmDialog(null, "Are you sure?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    Bookstore b = new Bookstore();
+                    b.setId(portal.getId());
+                    b.setName(name.getText());
+                    b.setEmail(email.getText());
+                    b.setCity(city.getText());
+                    b.setRegion(region.getText());
+                    b.setStreet(street.getText());
+                    b.setAlley(alley.getText());
+                    b.setBuilding(hn.getText());
+                    portal.updateBookstore(b);
+                }
             }
         });
 
