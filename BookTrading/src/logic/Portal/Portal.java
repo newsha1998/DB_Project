@@ -152,4 +152,32 @@ public abstract class Portal {
     public void addAccountant(Employee employee) {
         sqlInstruction.getInsert().insertAccountant(employee);
     }
+
+    public void IncreaseCredit(Wallet wallet, double amount){
+        sqlInstruction.getUpdate().IncreaseUserCredit(wallet, amount);
+    }
+    public void DecreaseCredit(Wallet wallet, double amount){
+        sqlInstruction.getUpdate().DecreaseUserCredit(wallet, amount);
+    }
+
+    public void BlockCredit(Wallet wallet, double amount){
+        sqlInstruction.getUpdate().BlockUserCredit(wallet, amount);
+    }
+
+    public void AddBuyFromUser(Buy buy){
+        sqlInstruction.getBuyOperation().AddBuyFromUser(buy);
+    }
+
+    public Vector<Buy> getBuyRequests(int id) {
+        return sqlInstruction.getBuyOperation().getBuyRequests(id);
+    }
+
+    public void ConfirmBuy(Buy buy){
+        sqlInstruction.getBuyOperation().ConfirmBuy(buy);
+    }
+
+    public Wallet getWallet(int id) {
+        return sqlInstruction.getExtractor().getUserWallet(id);
+    }
+
 }

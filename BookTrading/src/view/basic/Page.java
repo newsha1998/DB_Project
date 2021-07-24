@@ -3,11 +3,14 @@ package view.basic;
 import logic.Portal.ManagerPortal;
 import logic.Portal.Portal;
 import logic.Portal.UserPortal;
+import logic.object.Wallet;
 import view.actions.adv.AddAdvertisement;
 import view.actions.adv.Advertisements;
 import view.actions.adv.RemoveAdvertisement;
 import view.actions.borrow.BorrowConfirmation;
 import view.actions.borrow.BorrowRequest;
+import view.actions.buy.BuyConfirmation;
+import view.actions.buy.BuyFromUser;
 import view.actions.comment.CommentForBook;
 import view.actions.comment.CommentForBookstore;
 import view.actions.comment.CommentForUser;
@@ -18,6 +21,7 @@ import view.actions.insert.AddEmployee;
 import view.actions.message.ReadMessage;
 import view.actions.message.ReceiveMessage;
 import view.actions.message.SendMessage;
+import view.actions.wallet.UserWallet;
 import view.home.ManagerHomePage;
 import view.home.UserHomePage;
 import view.list.BookList;
@@ -419,5 +423,88 @@ public abstract class Page extends JFrame {
                 BookstoreComplaint userComplaint = new BookstoreComplaint(portal);
             }
         });
+        JMenu buy = new JMenu("Buy");
+        buy.setFont(font);
+        action.add(buy);
+        JMenuItem buyFromUser = new JMenuItem("Buy From User");
+        JMenuItem buyFromBookstore = new JMenuItem("Buy From Bookstore");
+        JMenuItem buyRequests = new JMenuItem("Confirm Buy Request");
+        buyFromUser.setFont(font);
+        buyFromBookstore.setFont(font);
+        buyRequests.setFont(font);
+        buy.add(buyFromUser);
+        buy.add(buyFromBookstore);
+        buy.add(buyRequests);
+        buyFromUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BuyFromUser bu = new BuyFromUser(portal);
+                bu.getBuy().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int result = JOptionPane.showConfirmDialog(null, "Are you sure?",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if(result == JOptionPane.YES_OPTION){
+                            bu.setBuyParametrs();
+                            portal.AddBuyFromUser(bu.getB());
+                            JOptionPane.showMessageDialog(getParent(),
+                                    "Buy Request Sent",
+                                    "",
+                                    JOptionPane.PLAIN_MESSAGE);
+                            bu.getDeliveryAddress().setText(null); bu.getBook().setText(null); bu.getDescription().setText(null);
+                            bu.getDeliveryAddress().setText(null); bu.getUsername().setText(null); bu.getPrice().setText(null);
+
+                        }
+                    }
+                });
+            }
+
+        });
+
+        buyRequests.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BuyConfirmation bc = new BuyConfirmation(portal);
+                setContentPane(bc);
+                bc.getConfirm().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        int result = JOptionPane.showConfirmDialog(null, "Are you sure?",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if(result == JOptionPane.YES_OPTION) {
+                            if((portal.getWallet(bc.getSelected().getBuyerId())).getAvailableCredit()>= bc.getSelected().getPrice()){
+                                portal.ConfirmBuy(bc.getSelected());
+                                JOptionPane.showMessageDialog(getParent(),
+                                        "done successfully",
+                                        "",
+                                        JOptionPane.PLAIN_MESSAGE);
+                                portal.DecreaseCredit(portal.getWallet(bc.getSelected().getBuyerId()), bc.getSelected().getPrice());
+                                portal.IncreaseCredit(portal.getWallet(bc.getSelected().getSellerId()), bc.getSelected().getPrice());
+                                bc.remake();
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(getParent(),
+                                        "Not Enough Credit For Buyer",
+                                        "ERROR",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+
+                        }
+                    }
+                });
+            }
+        });
+        JMenuItem wallet = new JMenuItem("Wallet");
+        wallet.setFont(font);
+        view.add(wallet);
+        wallet.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UserWallet userWallet = new UserWallet(portal);
+                Wallet wallet = portal.getWallet(portal.getId());
+                userWallet.SetWallet(wallet);
+            }
+        });
+
     }
 }

@@ -34,7 +34,7 @@ public class BuyOperation extends Instruction {
         Vector<Buy> ret = new Vector<Buy>();
         PreparedStatement preparedStatement = null;
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM userBuy " +
+            preparedStatement = connection.prepareStatement("SELECT * FROM UserBuy " +
                     "WHERE SellerId = ?");
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();

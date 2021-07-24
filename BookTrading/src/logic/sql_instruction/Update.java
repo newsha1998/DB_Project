@@ -1,6 +1,7 @@
 package logic.sql_instruction;
 
 import logic.object.Manager;
+import logic.object.Wallet;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
