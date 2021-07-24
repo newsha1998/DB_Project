@@ -10,6 +10,7 @@ import view.actions.borrow.BorrowRequest;
 import view.actions.comment.CommentForBook;
 import view.actions.comment.CommentForBookstore;
 import view.actions.comment.CommentForUser;
+import view.actions.complaint.BookstoreComplaint;
 import view.actions.complaint.UserComplaint;
 import view.actions.insert.AddBook;
 import view.actions.message.ReadMessage;
@@ -371,6 +372,15 @@ public abstract class Page extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 UserComplaint userComplaint = new UserComplaint(portal);
+            }
+        });
+        JMenuItem complaintBookstore = new JMenuItem("Complaint Bookstore");
+        complaintBookstore.setFont(font);
+        complaint.add(complaintBookstore);
+        complaintBookstore.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                BookstoreComplaint userComplaint = new BookstoreComplaint(portal);
             }
         });
     }

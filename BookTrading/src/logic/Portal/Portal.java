@@ -135,7 +135,11 @@ public abstract class Portal {
         return sqlInstruction.getExtractor().extractBookstoreById(id);
     }
 
-    public void insertComplaint(Complaint complaint) {
+    public void insertUserComplaint(Complaint complaint) {
         sqlInstruction.getInsert().insertUserComplaint(complaint);
+    }
+
+    public void insertBookstoreComplaint(Complaint complaint) {
+        sqlInstruction.getInsert().insertBookstoreComplaint(complaint);
     }
 }

@@ -209,4 +209,32 @@ public class Insert extends Instruction {
             e.printStackTrace();
         }
     }
+
+    public void insertBookstoreComplaint(Complaint complaint) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Complaint " +
+                    "(Subject, Text, Documentation) VALUES  (?, ?, ?);");
+            preparedStatement.setString(1, complaint.getSub());
+            preparedStatement.setString(2, complaint.getText());
+            preparedStatement.setString(3, complaint.getDoc());
+            preparedStatement.executeUpdate();
+            preparedStatement = connection.prepareStatement("SELECT * FROM Complaint WHERE " +
+                    "Subject = ? AND Text = ? AND Documentation = ?");
+            preparedStatement.setString(1, complaint.getSub());
+            preparedStatement.setString(2, complaint.getText());
+            preparedStatement.setString(3, complaint.getDoc());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                complaint.setId(resultSet.getInt("Id"));
+            }
+            preparedStatement = connection.prepareStatement("INSERT INTO ComplaintBookstore (ComplaintId, PlaintiffId, BookstoreId) " +
+                    "VALUES (?, ?, ?)");
+            preparedStatement.setInt(1, complaint.getId());
+            preparedStatement.setInt(2, complaint.getPlaintiffId());
+            preparedStatement.setInt(3, complaint.getrId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
